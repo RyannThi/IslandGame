@@ -3,7 +3,47 @@ guid: b8263b2b05de39a47bbac79527173394
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bricks b_w.003
+    second: {fileID: 2100000, guid: 75077e929f93475449cf590b5c19f4e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof
+    second: {fileID: 2100000, guid: ea7b4ef62daf0524cbf71674a5aa81a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood.005
+    second: {fileID: 2100000, guid: 75077e929f93475449cf590b5c19f4e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood_Frame_Down
+    second: {fileID: 2100000, guid: cb935407c1e6b1c40a9814cba66ebdb8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood_Frame_Mid
+    second: {fileID: 2100000, guid: 59db69ed488487e4fa2b88ad65d96394, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood_Frame_Up
+    second: {fileID: 2100000, guid: 5e40366337b55d34b9a2486b2088ab5a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood_Planks
+    second: {fileID: 2100000, guid: ef1657eee276d3c47ab8968097694983, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood_Roof
+    second: {fileID: 2100000, guid: 75077e929f93475449cf590b5c19f4e3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
