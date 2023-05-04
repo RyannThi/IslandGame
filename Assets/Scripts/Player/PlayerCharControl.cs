@@ -9,7 +9,6 @@ public class PlayerCharControl : MonoBehaviour
     private Rigidbody rb;
     public Material material;
     private bool isGrounded;
-
     private float characterSpeed;
     private float jumpForce = 5f;
 
@@ -26,7 +25,6 @@ public class PlayerCharControl : MonoBehaviour
         ck.Disable();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -47,7 +45,6 @@ public class PlayerCharControl : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerCharIdle"))
