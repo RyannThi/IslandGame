@@ -1084,6 +1084,7 @@ MonoBehaviour:
   player: {fileID: 556162329}
   distance: 3
   smoothTime: 0.25
+  sensibility: 0.3
 --- !u!4 &949613431 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1498232156422513934, guid: ff098b5cfea63e144b23ea4f34f0b043, type: 3}
@@ -2556,6 +2557,10 @@ PrefabInstance:
     - target: {fileID: 5234443193977923846, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5429273469131108465, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5429273469131108465, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
       propertyPath: m_Constraints
