@@ -5,12 +5,23 @@ using UnityEngine;
 public class PlayerCharControl : MonoBehaviour
 {
     private Animator animator;
-    private ControlKeys ck;
+    private ControlKeys ck; // usado pra verificação de input
     private Rigidbody rb;
-    public Material material;
-    private bool isGrounded;
-    private float characterSpeed;
-    private float jumpForce = 5f;
+    public Material material; // para debug, pra pintar a capsula
+    private bool isGrounded; // se o player estiver no chão, true
+    private float characterSpeed; // velocidade padrão do player
+    private float jumpForce = 1f; // força do pulo do player,
+
+    public State currentState;
+
+    public enum State
+    {
+        Idle,
+        Walk,
+        Run,
+        Jump,
+        Attack
+    }
 
     private void Awake()
     {
@@ -36,17 +47,20 @@ public class PlayerCharControl : MonoBehaviour
         if (ck.Player.Attack.WasPressedThisFrame())
         {
             animator.SetTrigger("ATTACK");
+            currentState = State.Attack;
         }
 
         if (ck.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
             animator.SetTrigger("JUMP");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            currentState = State.Jump;
         }
     }
 
     void FixedUpdate()
     {
+        #region Debug
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerCharIdle"))
         {
             material.color = Color.green;
@@ -67,17 +81,13 @@ public class PlayerCharControl : MonoBehaviour
         {
             material.color = Color.cyan;
         }
+        #endregion
 
-        // Define o ponto de origem do raio logo abaixo do objeto
+        // Verificação se o player está colidindo com o chão
+
         Vector3 rayOrigin = transform.position + Vector3.down * 0.5f;
-
-        // Define a direção do raio para baixo
         Vector3 rayDirection = Vector3.down;
-
-        // Define o comprimento máximo do raio
         float rayDistance = 1f;
-
-        // Dispara um raio para baixo e verifica se colide com algum objeto
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, rayDistance))
         {
@@ -94,9 +104,24 @@ public class PlayerCharControl : MonoBehaviour
             isGrounded = false;
         }
 
+        // Captura valores para serem utilizados nos calculos de movimentação
+
         float z = ck.Player.ForwardBack.ReadValue<float>();
         float x = ck.Player.LeftRight.ReadValue<float>();
-        
+
+        var camForward = Camera.main.transform.forward;
+        var camRight = Camera.main.transform.right;
+
+        camForward.y = 0;
+        camRight.y = 0;
+
+        Vector3 forwardRelative = z * camForward;
+        Vector3 rightRelative = x * camRight;
+
+        Vector3 moveDir = forwardRelative + rightRelative;
+
+        // Verifica se o player quer correr e seta a velocidade de movimento
+
         if (ck.Player.Run.IsPressed())
         {
             characterSpeed = 8;
@@ -105,27 +130,49 @@ public class PlayerCharControl : MonoBehaviour
             characterSpeed = 6;
         }
 
+        // Caso o player não esteja atacando, executar a movimentação se o player se mover
+
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerCharAttack"))
         {
             if (ck.Player.ForwardBack.IsPressed() || ck.Player.LeftRight.IsPressed())
             {
                 animator.SetBool("WALK", true);
-                Vector3 movement = new Vector3(x, 0, z).normalized * characterSpeed;
-                rb.velocity = movement;
+                Vector3 movement = new Vector3(moveDir.x, 0, moveDir.z).normalized * characterSpeed;
+                var rbVel = rb.velocity;
+                rbVel.x = movement.x;
+                rbVel.z = movement.z;
+                rb.velocity = rbVel;
+                currentState = State.Walk;
+
+                // Verifica se o player quer correr
+                if (ck.Player.Run.IsPressed())
+                {
+                    animator.SetBool("RUN", true);
+                    currentState = State.Run;
+                }
+                else
+                {
+                    animator.SetBool("RUN", false);
+                }
+
+                if (!isGrounded)
+                {
+                    currentState = State.Jump;
+                }
             }
             else
             {
                 animator.SetBool("WALK", false);
+                currentState = State.Idle;
             }
 
-            if (ck.Player.Run.IsPressed())
+            if (!isGrounded)
             {
-                animator.SetBool("RUN", true);
+                currentState = State.Jump;
             }
-            else
-            {
-                animator.SetBool("RUN", false);
-            }
+        }
+        else {
+            currentState = State.Attack;
         }
     }
 }
