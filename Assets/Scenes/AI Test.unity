@@ -214,8 +214,8 @@ GameObject:
   - component: {fileID: 231686874}
   - component: {fileID: 231686873}
   - component: {fileID: 231686877}
-  - component: {fileID: 231686878}
   - component: {fileID: 231686879}
+  - component: {fileID: 231686880}
   m_Layer: 0
   m_Name: AI 1
   m_TagString: Untagged
@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231686872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.8, y: 1.5, z: 89.7}
+  m_LocalPosition: {x: 10.7, y: 1.5, z: 81.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -312,7 +312,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -324,18 +324,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &231686878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231686872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650f8f136f74d5547b6e779366aaf42b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &231686879
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -349,6 +337,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 50.33
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &231686880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231686872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76dc484dfb10c84984e8b424c17f84f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 2.5
 --- !u!1001 &867472119
 PrefabInstance:
   m_ObjectHideFlags: 0
