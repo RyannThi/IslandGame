@@ -1399,11 +1399,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3207197150373969895, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
       propertyPath: m_Height
-      value: 2
+      value: 6.824954
       objectReference: {fileID: 0}
     - target: {fileID: 3207197150373969895, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
       propertyPath: m_Radius
-      value: 0.5
+      value: 3.412477
       objectReference: {fileID: 0}
     - target: {fileID: 3207197150373969895, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
       propertyPath: m_Center.x
@@ -1423,7 +1423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3207197150373969895, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5234443193977923846, guid: d5af5266b6f1d6441a53e337c110123b, type: 3}
       propertyPath: m_Name
@@ -1517,6 +1517,20 @@ MonoBehaviour:
     name: bruh
     sentences:
     - teste
+--- !u!136 &1054528443
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054528435}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1058089919
 PrefabInstance:
   m_ObjectHideFlags: 0
