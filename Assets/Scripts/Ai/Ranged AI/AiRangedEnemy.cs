@@ -23,6 +23,7 @@ public class AiRangedEnemy : MonoBehaviour
 
     private RangedEnemyStates rangedEnemyState { get; set; }
     #endregion
+
     #region Movement variables
     private Transform playerLocation;
     private bool inRange = false;

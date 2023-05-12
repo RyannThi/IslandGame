@@ -11,6 +11,13 @@ public class AnimalAi : MonoBehaviour
     private Transform playerLocation;
 
     private Vector3 startLocation;
+
+    [SerializeField]
+    private float huntedDistance;
+
+    [SerializeField]
+    [Range(1,5)]
+    private float huntedSpeedMultiplier;
     #endregion
 
     private NavMeshAgent agent;
@@ -32,14 +39,20 @@ public class AnimalAi : MonoBehaviour
     private AnimalStates animalState;
     #endregion
 
-    private bool hasExecuted;
+    [HideInInspector]
+    public bool triggerActivated; 
+
+    private bool hasExecutedR, hasExecutedH;
 
     // Start is called before the first frame update
     void Awake()
     {
+        
+
         startLocation = transform.position;
 
         agent = GetComponent<NavMeshAgent>();
+
         //Pega o Transform do Player
         foreach (Transform obj in FindObjectsOfType<Transform>())
         {
@@ -63,50 +76,81 @@ public class AnimalAi : MonoBehaviour
                 break;
             case AnimalStates.Hunted:
 
+                Vector3 directionToPlayer = (transform.position - playerLocation.position).normalized;
+
+
+
+                if (!hasExecutedH)
+                {
+                    agent.destination = transform.position + (directionToPlayer * huntedDistance);
+                    hasExecutedH = true;
+                    agent.speed *= huntedSpeedMultiplier;
+                    agent.acceleration *= huntedSpeedMultiplier;
+                }
+                //print(transform.position - playerLocation.position);
+                if (Vector3.Distance(transform.position, agent.destination) < 1.5f)
+                {
+                    hasExecutedH = false;
+                    agent.speed /= huntedSpeedMultiplier;
+                    agent.acceleration /= huntedSpeedMultiplier;
+                    animalState = AnimalStates.Roaming;
+                }
+
                 break;
             default:
             case AnimalStates.Roaming:
 
                 //print(hasExecuted);
-                if (!hasExecuted)
+                if (!hasExecutedR)
                 {
                     print("Teste");
                     agent.destination = NextRandomWaypoint();
-                    hasExecuted = true;
+                    hasExecutedR = true;
                 }
 
-                if(Vector3.Distance(transform.position,agent.destination) < 1.5)                 
+                if(Vector3.Distance(transform.position,agent.destination) < 1.5f)                 
                 {
-                    hasExecuted= false;
+                    hasExecutedR= false;
                 }
 
                 break;
         }
 
     }
+
+    
+    public void TriggerActivation()
+    {
+        if (triggerActivated)
+        {
+            animalState = AnimalStates.Hunted;
+        }
+        
+    }
+
 
     private Vector3 NextRandomWaypoint()
     {
         Vector3 waypoint;
         do
         {
-            var xMaxDistance = startLocation.x + maxDistance;
-            var zMaxDistace = startLocation.z + maxDistance;
+            var xMaxDistance =  maxDistance;
+            var zMaxDistace = maxDistance;
 
-            waypoint = new Vector3(Random.Range(-xMaxDistance, xMaxDistance), transform.position.y , Random.Range(-xMaxDistance, xMaxDistance));
+            waypoint = new Vector3(Random.Range(-xMaxDistance, xMaxDistance), transform.position.y , Random.Range(-xMaxDistance, xMaxDistance)) + startLocation;
         }
         while (Vector3.Distance(transform.position, waypoint) < 2f);
-        
+        print(waypoint);
+
         return waypoint;
         
         
     }
 
-
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos/*Selected*/()
     {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, maxDistance);
+        Gizmos.DrawWireCube(startLocation, Vector3.one * maxDistance * 2);
 
         if(Application.isPlaying)
         {
