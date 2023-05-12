@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e8c59d5becabfff41be0bd0fd1b18e94
+guid: 6fecfd7e02b0dd44b9d9363a10b73799
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,23 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.008
+      name: L_Roof_Tiles
+    second: {fileID: 2100000, guid: e45fac43c891944419d6089816128cd0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S_Roof_NF
+    second: {fileID: 2100000, guid: 8d54431e4bcebea49b354f6f956278bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S_Roof_Planks
     second: {fileID: 2100000, guid: 94d796fed412f064b824af97d346cdc6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Roof
-    second: {fileID: 2100000, guid: 2d43eecd1b6323848a483bfcf65f4352, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wood
-    second: {fileID: 2100000, guid: b94123e351c04634ba58ace922390d1d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wood_Base
-    second: {fileID: 2100000, guid: b94123e351c04634ba58ace922390d1d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
