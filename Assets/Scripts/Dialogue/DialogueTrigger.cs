@@ -9,6 +9,19 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue dialogue;
     public KeyCode tecla = KeyCode.E;
 
+    void Update()
+    {
+        if (playerClose && Input.GetKeyDown(tecla))
+        {
+            TriggerDialogue();
+        }
+    }
+    
+    public void TriggerDialogue()
+    {
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -24,17 +37,4 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
-
-    void Update()
-    {
-        if (playerClose && Input.GetKeyDown(tecla))
-        {
-            TriggerDialogue();
-        }
-    }
-    
-    public void TriggerDialogue()
-    {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
-    }
 }
