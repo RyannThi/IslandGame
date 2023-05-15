@@ -66,6 +66,11 @@ public class HostileAnimalAI : MonoBehaviour
         hostileAnimalState = HostileAnimalStates.Roaming;
     }
 
+    void Start()
+    {
+        InvokeRepeating("CheckPlayerPosition",1f,1f);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -98,7 +103,7 @@ public class HostileAnimalAI : MonoBehaviour
                 break;
 
             case HostileAnimalStates.Attacking:
-                print("Atacou");
+                //print("Atacou");
                 //Ataque espera depois volta pro Hunting
 
                 hostileAnimalState = HostileAnimalStates.Hunting;
@@ -109,7 +114,7 @@ public class HostileAnimalAI : MonoBehaviour
                 //print(hasExecuted);
                 if (!hasExecutedR)
                 {
-                    print("Teste");
+                    //print("Teste");
                     agent.destination = NextRandomWaypoint();
                     hasExecutedR = true;
                 }
@@ -127,6 +132,17 @@ public class HostileAnimalAI : MonoBehaviour
     }
 
 
+    private void CheckPlayerPosition()
+    {
+        //print("InRange");
+        if(Vector3.Distance(playerLocation.position, transform.position)< attackRange)
+        {
+            hostileAnimalState = HostileAnimalStates.Hunting;
+            print(hostileAnimalState);
+            CancelInvoke("CheckPlayerPosition");
+        }
+        
+    }
 
 
     private Vector3 NextRandomWaypoint()
@@ -140,7 +156,7 @@ public class HostileAnimalAI : MonoBehaviour
             waypoint = new Vector3(Random.Range(-xMaxDistance, xMaxDistance), transform.position.y, Random.Range(-xMaxDistance, xMaxDistance)) + startLocation;
         }
         while (Vector3.Distance(transform.position, waypoint) < 2f);
-        print(waypoint);
+        //print(waypoint);
 
         return waypoint;
 
