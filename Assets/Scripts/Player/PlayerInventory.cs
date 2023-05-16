@@ -11,7 +11,27 @@ public class PlayerInventory : MonoBehaviour
 
     public List<GameObject> invSlots; // os slots do inventário em lista
     public List<GameObject> invSlotsChild = new List<GameObject>(12); // os overlays de item do inventário em lista
-    public Dictionary<string, (Sprite, string)> invSlotsItems; // os itens do inventário em lista
+
+    [System.Serializable]
+    public class InvItemInfo // classe que salva informação de cada item
+    {
+        public string name;
+        public Sprite image;
+
+        [SerializeField, TextArea]
+        public string desc;
+
+        public InvItemInfo(string name, Sprite image, string desc)
+        {
+            this.name = name;
+            this.image = image;
+            this.desc = desc;
+        }
+    }
+
+    public InvItemInfo[] invItemInfo; // defina os itens pelo inspetor. Use o mesmo nome do inspetor ao adicionar um item ao player
+
+    public List<InvItemInfo> invSlotsItems = new List<InvItemInfo>(12); // os itens do inventário em lista
 
     [SerializeField]
     public List<Vector2> invSlotsPosition; // posições dos slots pelo inspetor
@@ -85,6 +105,7 @@ public class PlayerInventory : MonoBehaviour
 
         positioningCoroutine = StartCoroutine(EmptyCoroutine());
         ChangeSlotHighlight(selectedItem);
+        ResetInventory();
     }
 
     // Update is called once per frame
@@ -118,6 +139,59 @@ public class PlayerInventory : MonoBehaviour
             selectedItem += (int)ck.Player.LeftRight.ReadValue<float>();
             selectedItem = (int)Wrap(selectedItem, 0, 12);
             ChangeSlotHighlight(selectedItem);
+        }
+    }
+
+    private void ResetInventory()
+    {
+        invGroup.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(invGroup.GetComponent<CanvasGroup>().alpha, 0, 1);
+
+        for (int j = 0; j < 12; j++)
+        {
+            invSlots[j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            invSlots[j].GetComponent<RectTransform>().localScale = new Vector2(0, 0);
+        }
+
+        invBackTop.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        invBackTop.GetComponent<RectTransform>().localScale = new Vector2(0, 0);
+
+        invBackBottom.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        invBackBottom.GetComponent<RectTransform>().localScale = new Vector2(0, 0);
+
+        invLabelHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        invLabelHeader.GetComponent<RectTransform>().localScale = new Vector2(0, 0);
+
+        invLabelName.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        invLabelName.GetComponent<RectTransform>().localScale = new Vector2(0, 0);
+
+        invLabelDesc.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        invLabelDesc.GetComponent<RectTransform>().localScale = new Vector2(0, 0);
+    }
+    
+    private void AddItem(string _itemName)
+    {
+        for (int i = 0; i <= invItemInfo.Length; i++)
+        {
+            if (_itemName == invItemInfo[i].name)
+            {
+                invSlotsItems.Add(new InvItemInfo(invItemInfo[i].name, invItemInfo[i].image, invItemInfo[i].desc));
+                
+                //invSlotsItems[i].name  = invItemInfo[i].name;
+                //invSlotsItems[i].image = invItemInfo[i].image;
+                //invSlotsItems[i].desc = invItemInfo[i].desc;
+            }
+        }
+    }
+
+    private void RemoveItem(string _itemName)
+    {
+        for (int i = 0; i <= invSlotsItems.Count; i++)
+        {
+            if (_itemName == invSlotsItems[i].name)
+            {
+                invSlotsItems.Remove(invSlotsItems[i]);
+                break;
+            }
         }
     }
 
@@ -190,11 +264,11 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void ChangeSlotHighlight(int slotNumber)
+    private void ChangeSlotHighlight(int _slotNumber)
     {
         for (int i = 0; i < 12; i++)
         {
-            if (i == slotNumber)
+            if (i == _slotNumber)
             {
                 invSlots[i].GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f, 1);
             }
@@ -205,19 +279,19 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private float Wrap(float val, float min, float max)
+    private float Wrap(float _val, float _min, float _max)
     {
-        val = val - (float)Mathf.Round((val - min) / (max - min)) * (max - min);
-        if (val < 0)
-            val = val + max - min;
-        return val;
+        _val = _val - (float)Mathf.Round((_val - _min) / (_max - _min)) * (_max - _min);
+        if (_val < 0)
+            _val = _val + _max - _min;
+        return _val;
     }
 
-    private GameObject GetChildGameObject(GameObject fromGameObject, string withName)
+    private GameObject GetChildGameObject(GameObject _fromGameObject, string _withName)
     {
         //Author: Isaac Dart, June-13.
-        Transform[] ts = fromGameObject.transform.GetComponentsInChildren<Transform>(true);
-        foreach (Transform t in ts) if (t.gameObject.name == withName) return t.gameObject;
+        Transform[] ts = _fromGameObject.transform.GetComponentsInChildren<Transform>(true);
+        foreach (Transform t in ts) if (t.gameObject.name == _withName) return t.gameObject;
         return null;
     }
 }
