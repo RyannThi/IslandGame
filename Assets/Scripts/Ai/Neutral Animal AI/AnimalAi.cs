@@ -22,6 +22,8 @@ public class AnimalAi : MonoBehaviour
 
     private NavMeshAgent agent;
 
+    private Animator anim;
+
     #region Distance Variables
     [SerializeField]
     private float maxDistance;
@@ -52,6 +54,7 @@ public class AnimalAi : MonoBehaviour
         startLocation = transform.position;
 
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
 
         //Pega o Transform do Player
         foreach (Transform obj in FindObjectsOfType<Transform>())
@@ -68,6 +71,9 @@ public class AnimalAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(anim != null)
+        anim.SetFloat("Speed", agent.velocity.magnitude);
+
         switch (animalState)
         {
             
@@ -100,6 +106,7 @@ public class AnimalAi : MonoBehaviour
             default:
             case AnimalStates.Roaming:
 
+                
                 //print(hasExecuted);
                 if (!hasExecutedR)
                 {
@@ -145,6 +152,14 @@ public class AnimalAi : MonoBehaviour
         return waypoint;
         
         
+    }
+    void OnAnimatorMove()
+    {
+        // apply root motion to AI
+        Vector3 position = anim.rootPosition;
+        position.y = agent.nextPosition.y;
+        transform.position = position;
+        agent.nextPosition = transform.position;
     }
 
     private void OnDrawGizmos/*Selected*/()
