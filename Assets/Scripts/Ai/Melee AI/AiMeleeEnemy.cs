@@ -32,12 +32,14 @@ public class AiMeleeEnemy : MonoBehaviour
     #endregion
 
     private NavMeshAgent agent;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Awake()
     {
         startLocation = transform.position;
 
+        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         //Pega o Transform do Player
         foreach (Transform obj in FindObjectsOfType<Transform>())

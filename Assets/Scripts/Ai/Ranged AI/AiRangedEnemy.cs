@@ -40,12 +40,14 @@ public class AiRangedEnemy : MonoBehaviour
     #endregion
 
     private NavMeshAgent agent;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Awake()
     {
         startLocation = transform.position;
 
+        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         //Pega o Transform do Player
         foreach (Transform obj in FindObjectsOfType<Transform>())
@@ -61,23 +63,32 @@ public class AiRangedEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool("Stopped", agent.isStopped);
+
         switch (rangedEnemyState)
         {
             default:
             case RangedEnemyStates.Idle:
+                agent.isStopped = true;
 
                 break;
+
             case RangedEnemyStates.Chasing:
                 agent.destination = playerLocation.position;
+                anim.SetFloat("Speed", agent.velocity.magnitude);
 
+                agent.isStopped = false;
                 if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
                     rangedEnemyState = RangedEnemyStates.Shooting;
 
                 break;
+
             case RangedEnemyStates.Shooting:
                 //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
-                agent.destination = transform.position;
-                print("Atacou");
+                agent.isStopped = true;
+                
+                anim.SetTrigger("Attack");
+                //print("Atacou");
                 //Checar isso somente após a animação for concluida
                 if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
                     rangedEnemyState = RangedEnemyStates.Chasing;
@@ -85,9 +96,10 @@ public class AiRangedEnemy : MonoBehaviour
                     rangedEnemyState= RangedEnemyStates.Spacing;
 
                 break;
+
             case RangedEnemyStates.Spacing:
                 Vector3 directionToPlayer = (transform.position - playerLocation.position).normalized;
-
+                agent.isStopped = false;
                 
 
                 if (!hasExecuted)
@@ -103,8 +115,10 @@ public class AiRangedEnemy : MonoBehaviour
                     rangedEnemyState = RangedEnemyStates.Chasing;
                 }
                 break;
+
             case RangedEnemyStates.Returning:
                 agent.destination = startLocation;
+                agent.isStopped = false;
 
                 if (transform.position == startLocation)
                     rangedEnemyState = RangedEnemyStates.Idle;
