@@ -7,6 +7,9 @@ public class DialogueManager : MonoBehaviour
 {
     public Text nameText;
     public Text dialogueText;
+    public GameObject Panel;
+    public Button dialogueButton;
+
     private Queue<string> sentences;
 
     void Start()
@@ -16,6 +19,13 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        // Ativar o painel de diálogo
+        Panel.SetActive(true);
+        foreach (Transform child in Panel.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        dialogueButton.gameObject.SetActive(true);
         nameText.text = dialogue.name;
 
         sentences.Clear();
@@ -42,6 +52,8 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        Panel.SetActive(false);
+        dialogueButton.gameObject.SetActive(false);
         Debug.Log("End of conversation");
     }
 }

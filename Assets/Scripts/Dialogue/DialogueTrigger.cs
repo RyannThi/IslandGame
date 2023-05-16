@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     private bool playerClose = false;
+    [SerializeField] 
 
     public Dialogue dialogue;
     public KeyCode tecla = KeyCode.E;
