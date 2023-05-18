@@ -25,9 +25,7 @@ public class DialogueManager : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
-        dialogueButton.gameObject.SetActive(true);
         //nameText.text = dialogue.name;
-
         // Limpar sentenças
         sentences.Clear();
 
