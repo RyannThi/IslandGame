@@ -149,15 +149,13 @@ public class PlayerInventory : MonoBehaviour
 
         if (ck.Player.ForwardBack.WasPressedThisFrame() && isOpen)
         {
-            selectedItem -= ((int)ck.Player.ForwardBack.ReadValue<float>() * 3);
-            selectedItem = (int)Wrap(selectedItem, 0, 12);
+            selectedItem = (int)Wrap(selectedItem + (int)ck.Player.LeftRight.ReadValue<float>() * 3, 0, 12);
             ChangeSlotHighlight(selectedItem);
         }
 
         if (ck.Player.LeftRight.WasPressedThisFrame() && isOpen)
         {
-            selectedItem += (int)ck.Player.LeftRight.ReadValue<float>();
-            selectedItem = (int)Wrap(selectedItem, 0, 12);
+            selectedItem = (int)Wrap(selectedItem + (int)ck.Player.LeftRight.ReadValue<float>(), 0, 12);
             ChangeSlotHighlight(selectedItem);
         }
     }
@@ -172,35 +170,45 @@ public class PlayerInventory : MonoBehaviour
             invSlots[j].GetComponent<RectTransform>().localScale = Vector2.zero;
         }
 
-        invBackTop.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        invBackTop.GetComponent<RectTransform>().localScale = Vector2.zero;
+        invBackTopRect.anchoredPosition = Vector2.zero;
+        invBackTopRect.localScale = Vector2.zero;
 
-        invBackBottom.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        invBackBottom.GetComponent<RectTransform>().localScale = Vector2.zero;
+        invBackBottomRect.anchoredPosition = Vector2.zero;
+        invBackBottomRect.localScale = Vector2.zero;
 
         invLabelHeaderRect.anchoredPosition = Vector2.zero;
         invLabelHeaderRect.localScale = Vector2.zero;
 
-        invLabelName.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        invLabelName.GetComponent<RectTransform>().localScale = Vector2.zero;
+        invLabelNameRect.anchoredPosition = Vector2.zero;
+        invLabelNameRect.localScale = Vector2.zero;
 
-        invLabelDesc.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        invLabelDesc.GetComponent<RectTransform>().localScale = Vector2.zero;
+        invLabelDescRect.anchoredPosition = Vector2.zero;
+        invLabelDescRect.localScale = Vector2.zero;
     }
     
     private void AddItem(string _itemName)
     {
-        for (int i = 0; i <= invItemInfo.Length; i++)
+        // Percorre todos os itens de inventário disponíveis
+        foreach (var invItem in invItemInfo)
         {
-            if (_itemName == invItemInfo[i].name)
+            // Verifica se o nome do item fornecido coincide com o nome do item atual
+            if (_itemName == invItem.name)
             {
-                invSlotsItems.Add(new InvItemInfo(invItemInfo[i].name, invItemInfo[i].image, invItemInfo[i].desc));
-                //invSlotsItems[i].name  = invItemInfo[i].name;
-                //invSlotsItems[i].image = invItemInfo[i].image;
-                //invSlotsItems[i].desc = invItemInfo[i].desc;
+                // Cria uma nova instância de InvItemInfo com base nas informações do item atual
+                InvItemInfo inv = new InvItemInfo(invItem.name, invItem.image, invItem.desc);
+
+                // Adiciona o novo item à lista de itens de inventário
+                invSlotsItems.Add(inv);
             }
         }
-        
+
+        // Define a imagem do slot de inventário correspondente ao último item adicionado
+        invSlotsChild[invSlotsItems.Count - 1].GetComponent<Image>().sprite = invSlotsItems[invSlotsItems.Count - 1].image;
+
+        // Ativa o objeto do slot de inventário correspondente ao último item adicionado
+        invSlotsChild[invSlotsItems.Count - 1].SetActive(true);
+
+        ChangeSlotHighlight(selectedItem);
     }
 
     private void RemoveItem(string _itemName)
@@ -223,7 +231,7 @@ public class PlayerInventory : MonoBehaviour
     private IEnumerator MoveIn()
     {
         float lerpTime = 0.1f;
-        for (int i = 0; invBackTop.GetComponent<RectTransform>().anchoredPosition.y < 900; i++)
+        for (int i = 0; invBackTopRect.anchoredPosition.y < 900; i++)
         {
             invGroup.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(invGroup.GetComponent<CanvasGroup>().alpha, 1, lerpTime);
 
@@ -233,20 +241,20 @@ public class PlayerInventory : MonoBehaviour
                 invSlots[j].GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invSlots[j].GetComponent<RectTransform>().localScale, new Vector2(1, 1), ref invSlotsScaleRefs[j], 0.15f + (j * 0.05f));
             }
 
-            invBackTop.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invBackTop.GetComponent<RectTransform>().anchoredPosition, new Vector2(-225, 900), ref invBackTopRef, 0.15f);
-            invBackTop.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invBackTop.GetComponent<RectTransform>().localScale, new Vector2(1, 1), ref invBackTopScaleRef, 0.2f);
+            invBackTopRect.anchoredPosition = Vector2.SmoothDamp(invBackTopRect.anchoredPosition, new Vector2(-225, 900), ref invBackTopRef, 0.15f);
+            invBackTopRect.localScale = Vector2.SmoothDamp(invBackTopRect.localScale, new Vector2(1, 1), ref invBackTopScaleRef, 0.2f);
 
-            invBackBottom.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invBackBottom.GetComponent<RectTransform>().anchoredPosition, new Vector2(-225, 400), ref invBackBottomRef, 0.15f);
-            invBackBottom.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invBackBottom.GetComponent<RectTransform>().localScale, new Vector2(1, 1), ref invBackBottomScaleRef, 0.2f);
+            invBackBottomRect.anchoredPosition = Vector2.SmoothDamp(invBackBottomRect.anchoredPosition, new Vector2(-225, 400), ref invBackBottomRef, 0.15f);
+            invBackBottomRect.localScale = Vector2.SmoothDamp(invBackBottomRect.localScale, new Vector2(1, 1), ref invBackBottomScaleRef, 0.2f);
 
             invLabelHeaderRect.anchoredPosition = Vector2.SmoothDamp(invLabelHeaderRect.anchoredPosition, new Vector2(-225, 900), ref invLabelHeaderRef, 0.2f);
             invLabelHeaderRect.localScale = Vector2.SmoothDamp(invLabelHeaderRect.localScale, new Vector2(1, 1), ref invLabelHeaderScaleRef, 0.15f);
 
-            invLabelName.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invLabelName.GetComponent<RectTransform>().anchoredPosition, new Vector2(-225, 790), ref invLabelNameRef, 0.15f);
-            invLabelName.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invLabelName.GetComponent<RectTransform>().localScale, new Vector2(1, 1), ref invLabelNameScaleRef, 0.15f);
+            invLabelNameRect.anchoredPosition = Vector2.SmoothDamp(invLabelNameRect.anchoredPosition, new Vector2(-225, 790), ref invLabelNameRef, 0.15f);
+            invLabelNameRect.localScale = Vector2.SmoothDamp(invLabelNameRect.localScale, new Vector2(1, 1), ref invLabelNameScaleRef, 0.15f);
 
-            invLabelDesc.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invLabelDesc.GetComponent<RectTransform>().anchoredPosition, new Vector2(-225, 660), ref invLabelDescRef, 0.15f);
-            invLabelDesc.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invLabelDesc.GetComponent<RectTransform>().localScale, new Vector2(1, 1), ref invLabelDescScaleRef, 0.15f);
+            invLabelDescRect.anchoredPosition = Vector2.SmoothDamp(invLabelDescRect.anchoredPosition, new Vector2(-225, 660), ref invLabelDescRef, 0.15f);
+            invLabelDescRect.localScale = Vector2.SmoothDamp(invLabelDescRect.localScale, new Vector2(1, 1), ref invLabelDescScaleRef, 0.15f);
 
             yield return null;
         }
@@ -255,7 +263,7 @@ public class PlayerInventory : MonoBehaviour
     private IEnumerator MoveOut()
     {
         float lerpTime = 0.1f;
-        for (int i = 0; invBackTop.GetComponent<RectTransform>().anchoredPosition.x < 0; i++)
+        for (int i = 0; invBackTopRect.anchoredPosition.x < 0; i++)
         {
             invGroup.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(invGroup.GetComponent<CanvasGroup>().alpha, 0, lerpTime);
 
@@ -265,20 +273,20 @@ public class PlayerInventory : MonoBehaviour
                 invSlots[j].GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invSlots[j].GetComponent<RectTransform>().localScale, Vector2.zero, ref invSlotsScaleRefs[j], 0.15f);
             }
 
-            invBackTop.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invBackTop.GetComponent<RectTransform>().anchoredPosition, Vector2.zero, ref invBackTopRef, 0.15f);
-            invBackTop.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invBackTop.GetComponent<RectTransform>().localScale, Vector2.zero, ref invBackTopScaleRef, 0.15f);
+            invBackTopRect.anchoredPosition = Vector2.SmoothDamp(invBackTopRect.anchoredPosition, Vector2.zero, ref invBackTopRef, 0.15f);
+            invBackTopRect.localScale = Vector2.SmoothDamp(invBackTopRect.localScale, Vector2.zero, ref invBackTopScaleRef, 0.15f);
 
-            invBackBottom.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invBackBottom.GetComponent<RectTransform>().anchoredPosition, Vector2.zero, ref invBackBottomRef, 0.15f);
-            invBackBottom.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invBackBottom.GetComponent<RectTransform>().localScale, Vector2.zero, ref invBackBottomScaleRef, 0.15f);
+            invBackBottomRect.anchoredPosition = Vector2.SmoothDamp(invBackBottomRect.anchoredPosition, Vector2.zero, ref invBackBottomRef, 0.15f);
+            invBackBottomRect.localScale = Vector2.SmoothDamp(invBackBottomRect.localScale, Vector2.zero, ref invBackBottomScaleRef, 0.15f);
 
             invLabelHeaderRect.anchoredPosition = Vector2.SmoothDamp(invLabelHeaderRect.anchoredPosition, Vector2.zero, ref invLabelHeaderRef, 0.15f);
             invLabelHeaderRect.localScale = Vector2.SmoothDamp(invLabelHeaderRect.localScale, Vector2.zero, ref invLabelHeaderScaleRef, 0.15f);
 
-            invLabelName.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invLabelName.GetComponent<RectTransform>().anchoredPosition, Vector2.zero, ref invLabelNameRef, 0.15f);
-            invLabelName.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invLabelName.GetComponent<RectTransform>().localScale, Vector2.zero, ref invLabelNameScaleRef, 0.15f);
+            invLabelNameRect.anchoredPosition = Vector2.SmoothDamp(invLabelNameRect.anchoredPosition, Vector2.zero, ref invLabelNameRef, 0.15f);
+            invLabelNameRect.localScale = Vector2.SmoothDamp(invLabelNameRect.localScale, Vector2.zero, ref invLabelNameScaleRef, 0.15f);
 
-            invLabelDesc.GetComponent<RectTransform>().anchoredPosition = Vector2.SmoothDamp(invLabelDesc.GetComponent<RectTransform>().anchoredPosition, Vector2.zero, ref invLabelDescRef, 0.15f);
-            invLabelDesc.GetComponent<RectTransform>().localScale = Vector2.SmoothDamp(invLabelDesc.GetComponent<RectTransform>().localScale, Vector2.zero, ref invLabelDescScaleRef, 0.15f);
+            invLabelDescRect.anchoredPosition = Vector2.SmoothDamp(invLabelDescRect.anchoredPosition, Vector2.zero, ref invLabelDescRef, 0.15f);
+            invLabelDescRect.localScale = Vector2.SmoothDamp(invLabelDescRect.localScale, Vector2.zero, ref invLabelDescScaleRef, 0.15f);
 
             yield return null;
         }
@@ -286,30 +294,70 @@ public class PlayerInventory : MonoBehaviour
 
     private void ChangeSlotHighlight(int _slotNumber)
     {
+        // Itera através dos slots de inventário
         for (int i = 0; i < 12; i++)
         {
+            // Verifica se o slot atual é o slot selecionado
             if (i == _slotNumber)
             {
+                // Define a cor de destaque para o slot selecionado
                 invSlots[i].GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f, 1);
             }
             else
             {
+                // Define a cor normal para os slots não selecionados
                 invSlots[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
         }
-        print(_slotNumber);
-        if (invSlotsItems[_slotNumber] != null)
+
+        // Itera novamente através dos slots de inventário
+        for (int i = 0; i < 12; i++)
         {
-            invSlotsChild[_slotNumber].GetComponent<Image>().sprite = invSlotsItems[_slotNumber].image;
-            invLabelName.GetComponent<TextMeshProUGUI>().text = invSlotsItems[_slotNumber].name;
-            invLabelDesc.GetComponent<TextMeshProUGUI>().text = invSlotsItems[_slotNumber].desc;
-        } else
-        {
-            invSlotsChild[_slotNumber].GetComponent<Image>().sprite = blankImage;
-            invLabelName.GetComponent<TextMeshProUGUI>().text = "Nothing";
-            invLabelDesc.GetComponent<TextMeshProUGUI>().text = "Nothing here.";
+            // Verifica se há itens no slot selecionado e se o slot não está vazio
+            if (invSlotsItems.Count > _slotNumber && (invSlotsItems[_slotNumber] != null))
+            {
+                // Define a imagem do slot de inventário correspondente ao item no slot selecionado
+                invSlotsChild[_slotNumber].GetComponent<Image>().sprite = invSlotsItems[_slotNumber].image;
+
+                // Ativa o objeto do slot de inventário correspondente ao item no slot selecionado
+                invSlotsChild[_slotNumber].SetActive(true);
+
+                // Define o tamanho desejado para o slot de inventário (100x100)
+                invSlotsChild[_slotNumber].GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+
+                // Verifica se o slot atual é o slot selecionado
+                if (_slotNumber == i)
+                {
+                    // Atualiza o rótulo do nome e descrição do item no slot selecionado
+                    invLabelName.GetComponent<TextMeshProUGUI>().text = invSlotsItems[_slotNumber].name;
+                    invLabelDesc.GetComponent<TextMeshProUGUI>().text = invSlotsItems[_slotNumber].desc;
+                }
+            }
+            else
+            {
+                // Verifica se o slot atual é o slot selecionado
+                if (_slotNumber == i)
+                {
+                    // Define a imagem do slot como vazio
+                    invSlotsChild[i].GetComponent<Image>().sprite = blankImage;
+
+                    // Desativa o objeto do slot de inventário
+                    invSlotsChild[i].SetActive(false);
+
+                    // Define os rótulos de nome e descrição como "Nothing" e "Nothing here."
+                    invLabelName.GetComponent<TextMeshProUGUI>().text = "Nothing";
+                    invLabelDesc.GetComponent<TextMeshProUGUI>().text = "Nothing here.";
+
+                } else if (i > invSlotsItems.Count) // Verifica se o slot está além do número de itens no inventário
+                {
+                    // Define a imagem do slot como vazio
+                    invSlotsChild[i].GetComponent<Image>().sprite = blankImage;
+
+                    // Desativa o objeto do slot de inventário
+                    invSlotsChild[i].SetActive(false);
+                }
+            }
         }
-        
     }
 
     private float Wrap(float _val, float _min, float _max)
