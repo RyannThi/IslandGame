@@ -19,15 +19,14 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        // Ativar o painel de di�logo
+        // Ativar o painel de diálogo
         Panel.SetActive(true);
         foreach (Transform child in Panel.transform)
         {
             child.gameObject.SetActive(true);
         }
-        dialogueButton.gameObject.SetActive(true);
-        nameText.text = dialogue.name;
-
+        //nameText.text = dialogue.name;
+        // Limpar sentenças
         sentences.Clear();
 
         foreach (string sentence in dialogue.sentences)
@@ -47,7 +46,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
-        dialogueText.text = sentence;
+        Debug.Log(sentence);
+        //dialogueText.text = sentence;
     }
 
     void EndDialogue()

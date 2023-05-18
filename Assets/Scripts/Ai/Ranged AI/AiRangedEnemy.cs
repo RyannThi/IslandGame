@@ -65,11 +65,19 @@ public class AiRangedEnemy : MonoBehaviour
     {
         anim.SetBool("Stopped", agent.isStopped);
 
+        
+
         switch (rangedEnemyState)
         {
             default:
-            case RangedEnemyStates.Idle:
+            case RangedEnemyStates.Idle:                
                 agent.isStopped = true;
+                anim.SetFloat("Speed", 0);
+
+                if (inRange)
+                {
+                    rangedEnemyState= RangedEnemyStates.Chasing;
+                }
 
                 break;
 
@@ -78,6 +86,7 @@ public class AiRangedEnemy : MonoBehaviour
                 anim.SetFloat("Speed", agent.velocity.magnitude);
 
                 agent.isStopped = false;
+
                 if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
                     rangedEnemyState = RangedEnemyStates.Shooting;
 
@@ -86,33 +95,44 @@ public class AiRangedEnemy : MonoBehaviour
             case RangedEnemyStates.Shooting:
                 //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
                 agent.isStopped = true;
+                anim.SetFloat("Speed", 0);
+
+                if(!hasExecuted)
+                {
+                    anim.SetTrigger("Attack");
+                    hasExecuted= true;
+                }
                 
-                anim.SetTrigger("Attack");
                 //print("Atacou");
                 //Checar isso somente após a animação for concluida
-                if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
-                    rangedEnemyState = RangedEnemyStates.Chasing;
-                else if (Vector3.Distance(transform.position,playerLocation.position) <= attackRange)
-                    rangedEnemyState= RangedEnemyStates.Spacing;
+                //CheckAttackRange();
+                
 
                 break;
 
             case RangedEnemyStates.Spacing:
                 Vector3 directionToPlayer = (transform.position - playerLocation.position).normalized;
                 agent.isStopped = false;
+                agent.updateRotation = false;
+                anim.SetFloat("Speed", -agent.velocity.magnitude);
+
                 
 
                 if (!hasExecuted)
                 {
-                    
+                    //print(agent.destination + " Player");
                     agent.destination = transform.position + (directionToPlayer * spacingDistance);
-                    hasExecuted= true;
+                    //print(agent.destination + " Não Player");
+                    hasExecuted = true;
+                   
                 }          
                 //print(transform.position - playerLocation.position);
                 if(Vector3.Distance(transform.position, agent.destination) < 1.5f)
                 {
                     hasExecuted = false;
+                    agent.updateRotation = true;
                     rangedEnemyState = RangedEnemyStates.Chasing;
+                    
                 }
                 break;
 
@@ -120,7 +140,9 @@ public class AiRangedEnemy : MonoBehaviour
                 agent.destination = startLocation;
                 agent.isStopped = false;
 
-                if (transform.position == startLocation)
+                anim.SetFloat("Speed", -agent.velocity.magnitude);
+
+                if (Vector3.Distance(transform.position, startLocation) < 2f)
                     rangedEnemyState = RangedEnemyStates.Idle;
 
                 break;
@@ -128,9 +150,24 @@ public class AiRangedEnemy : MonoBehaviour
 
         /*agent.destination = whereToMove.position;*/
         //Move o inimigo para a localização do Player
-        if (inRange)
-            agent.destination = playerLocation.position;
+        
         //print(agent.destination);
+    }
+
+    void CheckAttackRange()
+    {
+
+        //Atirar o projétil
+
+        anim.SetTrigger("FinishedAttack");
+
+        if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
+            rangedEnemyState = RangedEnemyStates.Idle;
+        else if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
+            rangedEnemyState = RangedEnemyStates.Spacing;
+
+        hasExecuted = false;
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -138,6 +175,7 @@ public class AiRangedEnemy : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             rangedEnemyState = RangedEnemyStates.Chasing;
+            inRange = true;
         }
     }
 
@@ -146,6 +184,7 @@ public class AiRangedEnemy : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             rangedEnemyState = RangedEnemyStates.Returning;
+            inRange = false;
         }
     }
 
@@ -160,6 +199,7 @@ public class AiRangedEnemy : MonoBehaviour
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(transform.position, agent.destination);
+            Gizmos.DrawSphere(agent.destination, 1f);
         }
     }
 }

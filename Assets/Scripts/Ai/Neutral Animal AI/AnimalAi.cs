@@ -110,7 +110,7 @@ public class AnimalAi : MonoBehaviour
                 //print(hasExecuted);
                 if (!hasExecutedR)
                 {
-                    print("Teste");
+                    //print("Teste");
                     agent.destination = NextRandomWaypoint();
                     hasExecutedR = true;
                 }
@@ -147,7 +147,7 @@ public class AnimalAi : MonoBehaviour
             waypoint = new Vector3(Random.Range(-xMaxDistance, xMaxDistance), transform.position.y , Random.Range(-xMaxDistance, xMaxDistance)) + startLocation;
         }
         while (Vector3.Distance(transform.position, waypoint) < 2f);
-        print(waypoint);
+        //print(waypoint);
 
         return waypoint;
         
