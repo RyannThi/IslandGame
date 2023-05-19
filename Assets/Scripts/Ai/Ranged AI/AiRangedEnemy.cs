@@ -70,89 +70,122 @@ public class AiRangedEnemy : MonoBehaviour
         switch (rangedEnemyState)
         {
             default:
-            case RangedEnemyStates.Idle:                
-                agent.isStopped = true;
-                anim.SetFloat("Speed", 0);
+            case RangedEnemyStates.Idle:
 
-                if (inRange)
-                {
-                    rangedEnemyState= RangedEnemyStates.Chasing;
-                }
+                Idle();
 
                 break;
 
             case RangedEnemyStates.Chasing:
-                agent.destination = playerLocation.position;
-                anim.SetFloat("Speed", agent.velocity.magnitude);
 
-                agent.isStopped = false;
-
-                if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
-                    rangedEnemyState = RangedEnemyStates.Shooting;
+                Chasing();
 
                 break;
 
             case RangedEnemyStates.Shooting:
-                //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
-                agent.isStopped = true;
-                anim.SetFloat("Speed", 0);
 
-                if(!hasExecuted)
-                {
-                    anim.SetTrigger("Attack");
-                    hasExecuted= true;
-                }
-                
-                //print("Atacou");
-                //Checar isso somente após a animação for concluida
-                //CheckAttackRange();
-                
+                Shooting();
 
                 break;
 
             case RangedEnemyStates.Spacing:
-                Vector3 directionToPlayer = (transform.position - playerLocation.position).normalized;
-                agent.isStopped = false;
-                agent.updateRotation = false;
-                anim.SetFloat("Speed", -agent.velocity.magnitude);
 
-                
+                Spacing();
 
-                if (!hasExecuted)
-                {
-                    //print(agent.destination + " Player");
-                    agent.destination = transform.position + (directionToPlayer * spacingDistance);
-                    //print(agent.destination + " Não Player");
-                    hasExecuted = true;
-                   
-                }          
-                //print(transform.position - playerLocation.position);
-                if(Vector3.Distance(transform.position, agent.destination) < 1.5f)
-                {
-                    hasExecuted = false;
-                    agent.updateRotation = true;
-                    rangedEnemyState = RangedEnemyStates.Chasing;
-                    
-                }
                 break;
 
             case RangedEnemyStates.Returning:
-                agent.destination = startLocation;
-                agent.isStopped = false;
 
-                anim.SetFloat("Speed", -agent.velocity.magnitude);
-
-                if (Vector3.Distance(transform.position, startLocation) < 2f)
-                    rangedEnemyState = RangedEnemyStates.Idle;
+                Returning();
 
                 break;
         }
 
         /*agent.destination = whereToMove.position;*/
         //Move o inimigo para a localização do Player
-        
+
         //print(agent.destination);
     }
+    #region State Functions
+    private void Idle()
+    {
+        agent.isStopped = true;
+        anim.SetFloat("Speed", 0);
+
+        if (inRange)
+        {
+            rangedEnemyState = RangedEnemyStates.Chasing;
+        }
+    }
+
+    private void Chasing()
+    {
+        agent.destination = playerLocation.position;
+        anim.SetFloat("Speed", agent.velocity.magnitude);
+
+        agent.isStopped = false;
+
+        if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
+            rangedEnemyState = RangedEnemyStates.Shooting;
+
+    }
+
+    private void Shooting()
+    {
+        //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
+        agent.isStopped = true;
+        anim.SetFloat("Speed", 0);
+
+        if (!hasExecuted)
+        {
+            anim.SetTrigger("Attack");
+            hasExecuted = true;
+        }
+
+        //print("Atacou");
+        //Checar isso somente após a animação for concluida
+        //CheckAttackRange();
+    }
+
+    private void Spacing()
+    {
+        Vector3 directionToPlayer = (transform.position - playerLocation.position).normalized;
+        agent.isStopped = false;
+        agent.updateRotation = false;
+        anim.SetFloat("Speed", -agent.velocity.magnitude);
+
+
+
+        if (!hasExecuted)
+        {
+            //print(agent.destination + " Player");
+            agent.destination = transform.position + (directionToPlayer * spacingDistance);
+            //print(agent.destination + " Não Player");
+            hasExecuted = true;
+
+        }
+        //print(transform.position - playerLocation.position);
+        if (Vector3.Distance(transform.position, agent.destination) < 1.5f)
+        {
+            hasExecuted = false;
+            agent.updateRotation = true;
+            rangedEnemyState = RangedEnemyStates.Chasing;
+
+        }
+    }
+
+    private void Returning()
+    {
+        agent.destination = startLocation;
+        agent.isStopped = false;
+
+        anim.SetFloat("Speed", -agent.velocity.magnitude);
+
+        if (Vector3.Distance(transform.position, startLocation) < 2f)
+            rangedEnemyState = RangedEnemyStates.Idle;
+    }
+    #endregion
+
 
     void CheckAttackRange()
     {

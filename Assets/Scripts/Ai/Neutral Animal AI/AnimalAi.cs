@@ -79,53 +79,71 @@ public class AnimalAi : MonoBehaviour
             
             case AnimalStates.Idle:
 
+                Idle();
+
                 break;
             case AnimalStates.Hunted:
 
-                Vector3 directionToPlayer = (transform.position - playerLocation.position).normalized;
-
-
-
-                if (!hasExecutedH)
-                {
-                    agent.destination = transform.position + (directionToPlayer * huntedDistance);
-                    hasExecutedH = true;
-                    agent.speed *= huntedSpeedMultiplier;
-                    agent.acceleration *= huntedSpeedMultiplier;
-                }
-                //print(transform.position - playerLocation.position);
-                if (Vector3.Distance(transform.position, agent.destination) < 1.5f)
-                {
-                    hasExecutedH = false;
-                    agent.speed /= huntedSpeedMultiplier;
-                    agent.acceleration /= huntedSpeedMultiplier;
-                    animalState = AnimalStates.Roaming;
-                }
+                Hunted();
 
                 break;
             default:
             case AnimalStates.Roaming:
 
-                
-                //print(hasExecuted);
-                if (!hasExecutedR)
-                {
-                    //print("Teste");
-                    agent.destination = NextRandomWaypoint();
-                    hasExecutedR = true;
-                }
+                Roaming();
 
-                if(Vector3.Distance(transform.position,agent.destination) < 1.5f)                 
-                {
-                    hasExecutedR= false;
-                }
 
                 break;
         }
 
     }
 
-    
+    #region State Functions
+    private void Idle()
+    {
+
+    }
+
+    private void Hunted()
+    {
+        Vector3 directionToPlayer = (transform.position - playerLocation.position).normalized;
+
+
+
+        if (!hasExecutedH)
+        {
+            agent.destination = transform.position + (directionToPlayer * huntedDistance);
+            hasExecutedH = true;
+            agent.speed *= huntedSpeedMultiplier;
+            agent.acceleration *= huntedSpeedMultiplier;
+        }
+        //print(transform.position - playerLocation.position);
+        if (Vector3.Distance(transform.position, agent.destination) < 1.5f)
+        {
+            hasExecutedH = false;
+            agent.speed /= huntedSpeedMultiplier;
+            agent.acceleration /= huntedSpeedMultiplier;
+            animalState = AnimalStates.Roaming;
+        }
+    }
+
+    private void Roaming()
+    {
+        //print(hasExecuted);
+        if (!hasExecutedR)
+        {
+            //print("Teste");
+            agent.destination = NextRandomWaypoint();
+            hasExecutedR = true;
+        }
+
+        if (Vector3.Distance(transform.position, agent.destination) < 1.5f)
+        {
+            hasExecutedR = false;
+        }
+    }
+    #endregion
+
     public void TriggerActivation()
     {
         if (triggerActivated)
