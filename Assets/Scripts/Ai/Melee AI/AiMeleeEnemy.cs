@@ -69,18 +69,13 @@ public class AiMeleeEnemy : MonoBehaviour
 
                 break;
             case MeleeEnemyStates.Attacking:
-                //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
-                print("Atacou");
-                //Checar isso somente após a animação for concluida
-                if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
-                    meleeEnemyState = MeleeEnemyStates.Chasing;
+
+                Attacking();
 
                 break;
             case MeleeEnemyStates.Returning:
-                agent.destination = startLocation;
 
-                if (transform.position == startLocation)
-                    meleeEnemyState = MeleeEnemyStates.Idle;
+                Returning();
 
                 break;
         }
@@ -91,6 +86,34 @@ public class AiMeleeEnemy : MonoBehaviour
             agent.destination = playerLocation.position;
         //print(agent.destination);
     }
+    #region State Functions
+    private void Idle()
+    {
+
+    }
+
+    private void Chasing()
+    {
+
+    }
+
+    private void Attacking()
+    {
+        //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
+        print("Atacou");
+        //Checar isso somente após a animação for concluida
+        if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
+            meleeEnemyState = MeleeEnemyStates.Chasing;
+    }
+
+    private void Returning()
+    {
+        agent.destination = startLocation;
+
+        if (transform.position == startLocation)
+            meleeEnemyState = MeleeEnemyStates.Idle;
+    }
+    #endregion
 
     private void OnTriggerEnter(Collider other)
     {
