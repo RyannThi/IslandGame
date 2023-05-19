@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+ 
 
 public class DialogueManager : MonoBehaviour
 {
-    public Text nameText;
-    public Text dialogueText;
+    public GameObject name;
+    public GameObject dialogue;
     public GameObject Panel;
     public Button dialogueButton;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
 
     private Queue<string> sentences;
 
@@ -25,7 +29,9 @@ public class DialogueManager : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
-        //nameText.text = dialogue.name;
+        Debug.Log(dialogue.name);
+        nameText.text = dialogue.name;
+        
         // Limpar sentenças
         sentences.Clear();
 
@@ -47,7 +53,7 @@ public class DialogueManager : MonoBehaviour
 
         string sentence = sentences.Dequeue();
         Debug.Log(sentence);
-        //dialogueText.text = sentence;
+        dialogueText.text = sentence;
     }
 
     void EndDialogue()
