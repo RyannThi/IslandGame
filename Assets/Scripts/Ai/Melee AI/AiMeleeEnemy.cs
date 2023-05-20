@@ -60,12 +60,12 @@ public class AiMeleeEnemy : MonoBehaviour
             default:
             case MeleeEnemyStates.Idle:
 
+                Idle();
+
                 break;
-            case MeleeEnemyStates.Chasing:                             
-                agent.destination = playerLocation.position;
-                
-                if(Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
-                    meleeEnemyState= MeleeEnemyStates.Attacking;
+            case MeleeEnemyStates.Chasing:
+
+                Chasing();
 
                 break;
             case MeleeEnemyStates.Attacking:
@@ -94,7 +94,10 @@ public class AiMeleeEnemy : MonoBehaviour
 
     private void Chasing()
     {
+        agent.destination = playerLocation.position;
 
+        if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
+            meleeEnemyState = MeleeEnemyStates.Attacking;
     }
 
     private void Attacking()
