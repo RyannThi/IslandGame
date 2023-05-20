@@ -6,9 +6,14 @@ public class DialogueTrigger : MonoBehaviour
 {
     private bool playerClose = false;
 
+    public DialogueManager manager;
     public Dialogue dialogue;
     public KeyCode tecla = KeyCode.E;
 
+    private void Start()
+    {
+        manager = FindObjectOfType<DialogueManager>();
+    }
     void Update()
     {
         if (playerClose && Input.GetKeyDown(tecla))
@@ -19,7 +24,8 @@ public class DialogueTrigger : MonoBehaviour
     
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+       
+       manager.StartDialogue(dialogue);
     }
     
     private void OnTriggerEnter(Collider other)

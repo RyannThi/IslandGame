@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+ 
 
 public class DialogueManager : MonoBehaviour
 {
-    public Text nameText;
-    public Text dialogueText;
+    public GameObject name;
+    public GameObject dialogue;
+    public GameObject Panel;
+    public Button dialogueButton;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
+
     private Queue<string> sentences;
 
     void Start()
@@ -16,8 +23,16 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        // Ativar o painel de diálogo
+        Panel.SetActive(true);
+        foreach (Transform child in Panel.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        Debug.Log(dialogue.name);
         nameText.text = dialogue.name;
-
+        
+        // Limpar sentenças
         sentences.Clear();
 
         foreach (string sentence in dialogue.sentences)
@@ -37,11 +52,14 @@ public class DialogueManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
+        Debug.Log(sentence);
         dialogueText.text = sentence;
     }
 
     void EndDialogue()
     {
+        Panel.SetActive(false);
+        dialogueButton.gameObject.SetActive(false);
         Debug.Log("End of conversation");
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HostileAnimalAI : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public class HostileAnimalAI : MonoBehaviour
 
     [SerializeField]
     [Range(1, 5)]
-    private float huntedSpeedMultiplier;
+    private float huntingSpeedMultiplier;
     #endregion
 
-    private UnityEngine.AI.NavMeshAgent agent;
+    private NavMeshAgent agent;
+
+    private Animator anim;
+
+    #region Flags
+    private bool isAttacking = false;
+    #endregion
 
     #region Distance Variables
     [SerializeField]
@@ -52,7 +59,8 @@ public class HostileAnimalAI : MonoBehaviour
 
         startLocation = transform.position;
 
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
 
         //Pega o Transform do Player
         foreach (Transform obj in FindObjectsOfType<Transform>())
@@ -66,6 +74,11 @@ public class HostileAnimalAI : MonoBehaviour
         hostileAnimalState = HostileAnimalStates.Roaming;
     }
 
+    void Start()
+    {
+        InvokeRepeating("CheckPlayerPosition",1f,1f);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -74,59 +87,117 @@ public class HostileAnimalAI : MonoBehaviour
 
             case HostileAnimalStates.Idle:
 
+                Idle();
+
                 break;
             case HostileAnimalStates.Hunting:
-                agent.destination = playerLocation.position;
-                
-                if (!hasExecutedH)
-                {
-                    
-                    hasExecutedH = true;
-                    agent.speed *= huntedSpeedMultiplier;
-                    agent.acceleration *= huntedSpeedMultiplier;
-                }
-                //print(transform.position - playerLocation.position);
-                if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
-                {
-                    hasExecutedH = false;
-                    agent.speed /= huntedSpeedMultiplier;
-                    agent.acceleration /= huntedSpeedMultiplier;
-                    hostileAnimalState = HostileAnimalStates.Attacking;
-                    
-                }
+
+                Hunting();
 
                 break;
 
             case HostileAnimalStates.Attacking:
-                print("Atacou");
-                //Ataque espera depois volta pro Hunting
 
-                hostileAnimalState = HostileAnimalStates.Hunting;
+                Attacking();
+
                 break;
             default:
             case HostileAnimalStates.Roaming:
 
-                //print(hasExecuted);
-                if (!hasExecutedR)
-                {
-                    print("Teste");
-                    agent.destination = NextRandomWaypoint();
-                    hasExecutedR = true;
-                }
-
-                if (Vector3.Distance(transform.position, agent.destination) < 1.5f)
-                {
-                    hasExecutedR = false;
-                }
-
-                
+                Roaming();
 
                 break;
         }
 
     }
 
+    #region State Functions
+    private void Idle()
+    {
 
+    }
+
+    private void Hunting()
+    {
+        agent.destination = playerLocation.position;
+
+        if (!hasExecutedH)
+        {
+            anim.SetBool("Walk Forward", false);
+            anim.SetBool("Run Forward", true);
+            hasExecutedH = true;
+            agent.speed *= huntingSpeedMultiplier;
+            agent.acceleration *= huntingSpeedMultiplier;
+        }
+        //print(transform.position - playerLocation.position);
+        if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
+        {
+            hasExecutedH = false;
+            agent.speed /= huntingSpeedMultiplier;
+            agent.acceleration /= huntingSpeedMultiplier;
+            hostileAnimalState = HostileAnimalStates.Attacking;
+
+        }
+    }
+
+    private void Attacking()
+    { 
+        
+        if (!isAttacking)
+        {
+            agent.isStopped = true;
+            isAttacking = true;
+            StartCoroutine(Attack());
+        }
+
+    }
+
+    private void Roaming()
+    {
+        //print(hasExecuted);
+        if (!hasExecutedR)
+        {
+            anim.SetBool("Walk Forward", true);
+            agent.destination = NextRandomWaypoint();
+            hasExecutedR = true;
+        }
+        
+
+        if (Vector3.Distance(transform.position, agent.destination) < 1.5f)
+        {
+            hasExecutedR = false;
+        }
+    }
+    #endregion
+
+   
+
+    IEnumerator Attack()
+    {
+        anim.SetBool("Walk Forward", false);
+        anim.SetBool("Run Forward", false);
+        anim.SetTrigger("Stab Attack");
+        yield return new WaitForSeconds(0.7f);
+
+        //Check if Player is in range, if yes do damage, else hunt
+
+        agent.isStopped = false;
+        hostileAnimalState = HostileAnimalStates.Hunting;
+        isAttacking = false;
+    }
+
+
+    private void CheckPlayerPosition()
+    {
+        //print("InRange");
+        if(Vector3.Distance(playerLocation.position, transform.position) < attackRange)
+        {
+            hostileAnimalState = HostileAnimalStates.Hunting;
+            print(hostileAnimalState);
+            CancelInvoke("CheckPlayerPosition");
+        }
+        
+    }
 
 
     private Vector3 NextRandomWaypoint()
@@ -140,14 +211,14 @@ public class HostileAnimalAI : MonoBehaviour
             waypoint = new Vector3(Random.Range(-xMaxDistance, xMaxDistance), transform.position.y, Random.Range(-xMaxDistance, xMaxDistance)) + startLocation;
         }
         while (Vector3.Distance(transform.position, waypoint) < 2f);
-        print(waypoint);
+        //print(waypoint);
 
         return waypoint;
 
 
     }
 
-    private void OnDrawGizmos/*Selected*/()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(startLocation, Vector3.one * maxDistance * 2);
