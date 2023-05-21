@@ -17,6 +17,7 @@ public class AiEvokerScript : MonoBehaviour
     [SerializeField]
     private EvokerStates evokerState;
 
+    private Animator anim;
     private NavMeshAgent agent;
     private Transform playerLocation;
     private Vector3 startLocation;
@@ -33,11 +34,14 @@ public class AiEvokerScript : MonoBehaviour
 
     private bool inAwareRange;
 
+
+
     private void Awake()
     {
         startLocation = transform.position;
 
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
 
         foreach (Transform obj in FindObjectsOfType<Transform>())
         {
@@ -110,7 +114,7 @@ public class AiEvokerScript : MonoBehaviour
     IEnumerator CombatMoving()
     {
         bool inState = true;
-        EvokerStates stateToChange = EvokerStates.CombatMoving;
+        //EvokerStates stateToChange = EvokerStates.CombatMoving;
 
         //Executa antes do "Update"
         while (inState)
@@ -126,12 +130,14 @@ public class AiEvokerScript : MonoBehaviour
         bool inState = true;
         EvokerStates stateToChange = EvokerStates.Chasing;
         agent.isStopped = false;
+        
 
         
         //Executa antes do "Update"
         while (inState)
         {
             agent.destination = playerLocation.position;
+            anim.SetFloat("Speed", agent.velocity.magnitude);
 
             if(!inAwareRange) 
             { 
@@ -148,6 +154,7 @@ public class AiEvokerScript : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        anim.SetFloat("Speed", 0);
         agent.isStopped = true;
         ChangeStates(stateToChange);
         //Executa após sair do While (na hora de sair do estado
@@ -158,6 +165,7 @@ public class AiEvokerScript : MonoBehaviour
         bool inState = true;
         EvokerStates stateToChange = EvokerStates.Evoking;
         float timer = 0f;
+        anim.SetBool("IsCasting", true);
 
         //Executa antes do "Update"
         while (inState)
@@ -195,6 +203,7 @@ public class AiEvokerScript : MonoBehaviour
         }
         //Executa após sair do While (na hora de sair do estado
 
+        anim.SetBool("IsCasting", false);
         ChangeStates(stateToChange);
     }
 
