@@ -9,7 +9,10 @@ public class PlayerCharControl : MonoBehaviour
     private Rigidbody rb;
     public Material material; // para debug, pra pintar a capsula
     private bool isGrounded; // se o player estiver no chão, true
-    private float characterSpeed; // velocidade padrão do player
+
+
+    public float characterSpeed; //{ get; private set; } // velocidade padrão do player
+
     private float jumpForce = 1f; // força do pulo do player,
 
     public State currentState;
@@ -27,6 +30,8 @@ public class PlayerCharControl : MonoBehaviour
     {
         ck = new ControlKeys();
     }
+
+
     private void OnEnable()
     {
         ck.Enable();
@@ -143,16 +148,17 @@ public class PlayerCharControl : MonoBehaviour
                 rbVel.z = movement.z;
                 rb.velocity = rbVel;
                 currentState = State.Walk;
-
                 // Verifica se o player quer correr
                 if (ck.Player.Run.IsPressed())
                 {
                     animator.SetBool("RUN", true);
                     currentState = State.Run;
+                    //characterSpeed *= 1.5f;
                 }
                 else
                 {
                     animator.SetBool("RUN", false);
+                    //characterSpeed /= 1.5f;
                 }
 
                 if (!isGrounded)
@@ -174,5 +180,13 @@ public class PlayerCharControl : MonoBehaviour
         else {
             currentState = State.Attack;
         }
+    }
+
+    public void ChangeCharacterSpeed(float speedToChange)
+    {
+        float startSpeed = characterSpeed;
+        characterSpeed = speedToChange;
+
+
     }
 }
