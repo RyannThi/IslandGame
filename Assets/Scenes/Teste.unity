@@ -1842,10 +1842,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
   dialogue:
-    name: bruh
+    name: name
     sentences:
-    - teste
-    - teste1
+    - sentence0
+    - sentence1
   tecla: 101
 --- !u!136 &1054528443
 CapsuleCollider:
@@ -2597,7 +2597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63eb0b7430296579fb15a5354f688cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 1065492904}
   dialogue:
     name: 
     sentences: []
@@ -3461,7 +3461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2025339310
 RectTransform:
   m_ObjectHideFlags: 0
