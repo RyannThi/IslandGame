@@ -7,6 +7,10 @@ public class BossScript : MonoBehaviour
 {
     public GameObject stalactite;
 
+    private List<GameObject> missileList;
+    [SerializeField]
+    private GameObject missilePrefab;
+
     #region Components
     private NavMeshAgent agent;
     private Transform playerTransform;
@@ -46,11 +50,35 @@ public class BossScript : MonoBehaviour
                 playerTransform = obj;
             }
         }
+        missileList= new List<GameObject>();
     }
 
     void Start()
     {
-        StartCoroutine(Attack01());
+        #region Object Pooling
+        for(int i = 0; i < 3; i++)
+        {
+            GameObject obj = Instantiate(missilePrefab);
+            obj.SetActive(false);
+            missileList.Add(obj);
+        }
+
+        #endregion
+
+        StartCoroutine(Attack03());
+    }
+    private GameObject GetMissile()
+    {
+        for(int i = 0;i < missileList.Count;i++)
+        {
+            if (!missileList[i].activeInHierarchy)
+            {
+                return missileList[i];
+            }
+
+            
+        }
+        return null;
     }
 
     // Update is called once per frame
@@ -167,6 +195,7 @@ public class BossScript : MonoBehaviour
         ChangeState(stateToChange);
     }
 
+    #region Attacks
     IEnumerator Attack01()
     {
         //Start
@@ -199,6 +228,9 @@ public class BossScript : MonoBehaviour
 
         while (inState)
         {
+            //Indicador de range/ dano
+            //Espera
+            //Ataca
 
             yield return new WaitForEndOfFrame();
         }
@@ -216,8 +248,20 @@ public class BossScript : MonoBehaviour
 
         while (inState)
         {
+            for(int i = 0; i < 3; i++)
+            {
+                Debug.Log("Entrou no For");
+                GameObject missile = GetMissile();
+                missile.transform.position = transform.position + Vector3.up * 3;
+                missile.SetActive(true);
+                yield return new WaitForSeconds(3);
+            }
+                       
 
             yield return new WaitForEndOfFrame();
+
+            stateToChange= BossStates.Idle;
+            break;
         }
         //Exit
 
@@ -258,7 +302,9 @@ public class BossScript : MonoBehaviour
 
         ChangeState(stateToChange);
     }
+    #endregion
 
+    #region Invokes
     IEnumerator Invoking01()
     {
         //Start
@@ -326,7 +372,7 @@ public class BossScript : MonoBehaviour
 
         ChangeState(stateToChange);
     }
-
+    #endregion
     IEnumerator WeakState()
     {
         //Start

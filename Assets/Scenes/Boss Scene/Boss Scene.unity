@@ -889,7 +889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7246556059176117957, guid: 53b386ac9f5c9b245b491abe897cb43a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 199.147
+      value: 278
       objectReference: {fileID: 0}
     - target: {fileID: 7246556059176117957, guid: 53b386ac9f5c9b245b491abe897cb43a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -897,7 +897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7246556059176117957, guid: 53b386ac9f5c9b245b491abe897cb43a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 277.258
+      value: 260.4
       objectReference: {fileID: 0}
     - target: {fileID: 7246556059176117957, guid: 53b386ac9f5c9b245b491abe897cb43a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -925,6 +925,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7246556059176117957, guid: 53b386ac9f5c9b245b491abe897cb43a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246556059176117963, guid: 53b386ac9f5c9b245b491abe897cb43a, type: 3}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 3441681832095688055, guid: 929317b791da59c44ae373869fed1a2d, type: 3}
+    - target: {fileID: 7246556059176117963, guid: 53b386ac9f5c9b245b491abe897cb43a, type: 3}
+      propertyPath: missileList.Array.size
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
