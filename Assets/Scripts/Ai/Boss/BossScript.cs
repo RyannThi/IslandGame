@@ -11,6 +11,11 @@ public class BossScript : MonoBehaviour
     [SerializeField]
     private GameObject missilePrefab;
 
+    #region Ranges
+    [SerializeField]
+    private float meleeAttackRange;
+    #endregion
+
     #region Components
     private NavMeshAgent agent;
     private Transform playerTransform;
@@ -65,7 +70,7 @@ public class BossScript : MonoBehaviour
 
         #endregion
 
-        StartCoroutine(Attack03());
+        StartCoroutine(Attack02());
     }
     private GameObject GetMissile()
     {
@@ -91,6 +96,7 @@ public class BossScript : MonoBehaviour
     {
         StopAllCoroutines();
 
+        #region FSM Switch
         switch (nextState)
         {
 
@@ -172,6 +178,7 @@ public class BossScript : MonoBehaviour
                 StartCoroutine(Die());
 
                 break;
+        #endregion
 
         }
 
@@ -183,6 +190,8 @@ public class BossScript : MonoBehaviour
         //Start
         bool inState = true;
         BossStates stateToChange = BossStates.Idle;
+
+        //Idle Animation
 
         while (inState)
         {
@@ -222,20 +231,30 @@ public class BossScript : MonoBehaviour
     
     IEnumerator Attack02()
     {
-        //Start
-        bool inState = true;
+        //Start        
         BossStates stateToChange = BossStates.Attack02;
 
-        while (inState)
+        //Indicada o range
+
+        yield return new WaitForSeconds(5);
+
+        //Faz animação
+
+        //Checa se o player ta no range
+        Collider[] colliderInRange = Physics.OverlapSphere(transform.position, meleeAttackRange);
+
+        foreach(Collider collider in colliderInRange)
         {
-            //Indicador de range/ dano
-            //Espera
-            //Ataca
-
-            yield return new WaitForEndOfFrame();
+            if (collider.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("Acertou");
+                //Do Damage
+            }
         }
-        //Exit
+        
+        //Desabilita o indicador de range
 
+        stateToChange = BossStates.Idle;      
 
         ChangeState(stateToChange);
     }
@@ -424,4 +443,12 @@ public class BossScript : MonoBehaviour
         ChangeState(stateToChange);
     }
     #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, meleeAttackRange); 
+
+    }
+
 }
