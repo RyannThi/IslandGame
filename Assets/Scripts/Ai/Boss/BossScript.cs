@@ -388,11 +388,17 @@ public class BossScript : MonoBehaviour
         {
             GameObject arrowObj = GetArrow();
             pos += 1;
-            arrowObj.transform.position = transform.position + new Vector3(pos, 2 + (Mathf.Pow(pos, 2) / 5), 0) ;
+            arrowObj.transform.position = transform.position + new Vector3(pos, 2 + (Mathf.Pow(pos, 2) / 5), 0);
+
+            IceArrowScript script = arrowObj.gameObject.GetComponent<IceArrowScript>();
+            script.SetPlayerDirection(playerTransform.position);
+
             arrowObj.SetActive(true);
         }
 
         yield return new WaitForSeconds(1);
+
+        stateToChange = BossStates.Idle;
         //Exit
 
 

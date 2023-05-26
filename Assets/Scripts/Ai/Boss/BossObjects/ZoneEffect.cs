@@ -15,9 +15,16 @@ public abstract class ZoneEffect : MonoBehaviour
                 player = obj;
             }
         }
+
+        Invoke("GetRid", 15f);
     }
     protected abstract void EffectFromZone();
 
+
+    private void GetRid() 
+    {
+        Destroy(gameObject);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
