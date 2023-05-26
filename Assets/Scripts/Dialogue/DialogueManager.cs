@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject name;
-    public GameObject dialogue;
     public GameObject Panel;
     public Button dialogueButton;
     public TextMeshProUGUI nameText;
