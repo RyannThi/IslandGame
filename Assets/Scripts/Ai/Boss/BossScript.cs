@@ -2,14 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class BossScript : MonoBehaviour
 {
     public GameObject stalactite;
 
     private List<GameObject> missileList;
+
+    private List<GameObject> fastProjectileList;
+
+    private List<GameObject> arrowList;
+
     [SerializeField]
     private GameObject missilePrefab;
+    [SerializeField]
+    private GameObject fastProjectile;
+    [SerializeField]
+    private GameObject arrow;
 
     #region Ranges
     [SerializeField]
@@ -44,6 +54,16 @@ public class BossScript : MonoBehaviour
     private BossStates bossState;
 
     #endregion
+
+    private BossScript()
+    {
+        missileList = new List<GameObject>();
+
+        fastProjectileList = new List<GameObject>();
+
+        arrowList = new List<GameObject>();
+    }
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -55,7 +75,7 @@ public class BossScript : MonoBehaviour
                 playerTransform = obj;
             }
         }
-        missileList= new List<GameObject>();
+
     }
 
     void Start()
@@ -68,9 +88,23 @@ public class BossScript : MonoBehaviour
             missileList.Add(obj);
         }
 
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject obj = Instantiate(fastProjectile);
+            obj.SetActive(false);
+            fastProjectileList.Add(obj);
+        }
+
+        for(int i = 0; i < 5; i++)
+        {
+            GameObject obj = Instantiate(arrow);
+            obj.SetActive(false);
+            arrowList.Add(obj);
+        }
+
         #endregion
 
-        StartCoroutine(Attack02());
+        StartCoroutine(Attack05());
     }
     private GameObject GetMissile()
     {
@@ -86,11 +120,31 @@ public class BossScript : MonoBehaviour
         return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    private GameObject GetProjectile()
     {
-        
+        for (int i = 0; i < fastProjectileList.Count; i++)
+        {
+            if (!fastProjectileList[i].activeInHierarchy)
+            {
+                return fastProjectileList[i];
+            }
+
+
+        }
+        return null;
     }
+
+    private GameObject GetArrow()
+    {
+        for(int i = 0; i < arrowList.Count; i++)
+        {
+            if (!arrowList[i].activeInHierarchy)
+                return arrowList[i];
+        }
+
+        return null;
+    }
+
 
     private void ChangeState(BossStates nextState)
     {
@@ -291,31 +345,54 @@ public class BossScript : MonoBehaviour
     IEnumerator Attack04()
     {
         //Start
-        bool inState = true;
+        
         BossStates stateToChange = BossStates.Attack04;
 
-        while (inState)
+        //Pega a direção do player
+        Vector3 projectileDirection = transform.position - playerTransform.position;
+        //Espera e instancia o projétil
+        //Faz o pooling do projetil e ativa ele
+        for (int i = 0; i < 3; i++)
         {
 
-            yield return new WaitForEndOfFrame();
-        }
-        //Exit
+            GameObject projectile = GetProjectile();
+            projectile.transform.position = transform.position + projectileDirection.normalized * 2;
 
+
+            //Da o Vector3 do Player
+            FastProjectileScript script = projectile.gameObject.GetComponent<FastProjectileScript>();
+            script.SetPlayerDirection(playerTransform.position);
+
+            yield return new WaitForSeconds(2f);
+
+            projectile.SetActive(true);
+
+            
+
+        }
+
+        Debug.Log("Acabou");
+        //Exit
+        stateToChange = BossStates.Idle;
 
         ChangeState(stateToChange);
     }
 
     IEnumerator Attack05()
     {
-        //Start
-        bool inState = true;
+
         BossStates stateToChange = BossStates.Attack05;
+        float pos = -3f;
 
-        while (inState)
+        for (int i = 0; i < arrowList.Count; i++)
         {
-
-            yield return new WaitForEndOfFrame();
+            GameObject arrowObj = GetArrow();
+            pos += 1;
+            arrowObj.transform.position = transform.position + new Vector3(pos, 2 + (Mathf.Pow(pos, 2) / 5), 0) ;
+            arrowObj.SetActive(true);
         }
+
+        yield return new WaitForSeconds(1);
         //Exit
 
 
