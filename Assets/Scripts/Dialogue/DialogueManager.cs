@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public GameObject Panel;
+    public GameObject Inventory;
     public Button dialogueButton;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
@@ -21,13 +22,15 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        // Ativar o painel de diálogo
+        // Ativar o painel de diálogo e
+        // desativar inventário
         Panel.SetActive(true);
+        Inventory.SetActive(false);
         foreach (Transform child in Panel.transform)
         {
             child.gameObject.SetActive(true);
         }
-        Debug.Log(dialogue.name);
+        
         nameText.text = dialogue.name;
         
         // Limpar sentenças
@@ -56,7 +59,9 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        // Desliga o painel e reativa o inventário
         Panel.SetActive(false);
+        Inventory.SetActive(true);
         dialogueButton.gameObject.SetActive(false);
         Debug.Log("End of conversation");
     }
