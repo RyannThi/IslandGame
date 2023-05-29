@@ -14,6 +14,8 @@ public class BossScript : MonoBehaviour
 
     private List<GameObject> arrowList;
 
+    private float health;
+
     [SerializeField]
     private GameObject missilePrefab;
     [SerializeField]
@@ -67,6 +69,8 @@ public class BossScript : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        health = 1000;
 
         foreach (Transform obj in FindObjectsOfType<Transform>())
         {
@@ -246,9 +250,40 @@ public class BossScript : MonoBehaviour
         BossStates stateToChange = BossStates.Idle;
 
         //Idle Animation
+        yield return new WaitForSeconds(2);
+
+        //Change Shader based on health
+
+        if(health > 750)
+        {
+            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
+            
+        }
+        else if(health > 500)
+        {
+            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
+
+        }
+        else if(health > 250)
+        {
+            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
+
+        }
+        else if (health > 0)
+        {
+            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
+
+        }
+        else
+        {
+            stateToChange = BossStates.Die;
+        }
+
 
         while (inState)
         {
+            
+
 
             yield return new WaitForEndOfFrame();
         }
@@ -494,15 +529,11 @@ public class BossScript : MonoBehaviour
 
     IEnumerator Die()
     {
-        //Start
-        bool inState = true;
+        //Start        
         BossStates stateToChange = BossStates.Die;
-
-        while (inState)
-        {
-
-            yield return new WaitForEndOfFrame();
-        }
+        //Die anim
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
         //Exit
 
 
@@ -512,18 +543,13 @@ public class BossScript : MonoBehaviour
     IEnumerator ChangeElement()
     {
         //Start
-        bool inState = true;
         BossStates stateToChange = BossStates.ChangeElement;
 
-        while (inState)
-        {
-
-            yield return new WaitForEndOfFrame();
-        }
-        //Exit
 
 
+        stateToChange = BossStates.Idle;
         ChangeState(stateToChange);
+        yield return null;
     }
     #endregion
 
