@@ -52,6 +52,16 @@ public class BossScript : MonoBehaviour
         ChangeElement,
     }
 
+    public enum ElementStates
+    {
+        Ice,
+        Fire,
+        Stone,
+        Electro,
+    }
+    [SerializeField]
+    private ElementStates bossElement;
+
     [SerializeField]
     private BossStates bossState;
 
@@ -246,7 +256,6 @@ public class BossScript : MonoBehaviour
     IEnumerator Idle()
     {
         //Start
-        bool inState = true;
         BossStates stateToChange = BossStates.Idle;
 
         //Idle Animation
@@ -279,14 +288,6 @@ public class BossScript : MonoBehaviour
             stateToChange = BossStates.Die;
         }
 
-
-        while (inState)
-        {
-            
-
-
-            yield return new WaitForEndOfFrame();
-        }
         //Exit
 
 
