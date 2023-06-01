@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class PlayerCharControl : MonoBehaviour
 {
+    public Transform orientation;
+    public Transform camera;
+
     private Animator animator;
     private ControlKeys ck; // usado pra verificação de input
     private Rigidbody rb;
     public Material material; // para debug, pra pintar a capsula
     private bool isGrounded; // se o player estiver no chão, true
+    private float rotationSpeed = 5f;
+
 
 
     public float characterSpeed; //{ get; private set; } // velocidade padrão do player
+
+    private float characterSpeedModifier = 1f;
+    private float characterSpeedModifierTimer = 0f;
 
     private float jumpForce = 1f; // força do pulo do player,
 
@@ -49,6 +57,15 @@ public class PlayerCharControl : MonoBehaviour
 
     private void Update()
     {
+        if (characterSpeedModifierTimer > 0)
+        {
+            characterSpeedModifierTimer -= Time.deltaTime; 
+            if (characterSpeedModifierTimer <= 0)
+            {
+                characterSpeedModifier = 1f;
+            }
+        }
+
         if (ck.Player.Attack.WasPressedThisFrame())
         {
             animator.SetTrigger("ATTACK");
@@ -88,8 +105,8 @@ public class PlayerCharControl : MonoBehaviour
         }
         #endregion
 
+        #region Ground check
         // Verificação se o player está colidindo com o chão
-
         Vector3 rayOrigin = transform.position + Vector3.down * 0.5f;
         Vector3 rayDirection = Vector3.down;
         float rayDistance = 1f;
@@ -108,32 +125,18 @@ public class PlayerCharControl : MonoBehaviour
             animator.SetBool("isGrounded", false);
             isGrounded = false;
         }
+        #endregion
 
+        
         // Captura valores para serem utilizados nos calculos de movimentação
+
+        Vector3 viewDir = transform.position - new Vector3(camera.position.x, transform.position.y, camera.position.z);
+        orientation.forward = viewDir.normalized;
 
         float z = ck.Player.ForwardBack.ReadValue<float>();
         float x = ck.Player.LeftRight.ReadValue<float>();
 
-        var camForward = Camera.main.transform.forward;
-        var camRight = Camera.main.transform.right;
-
-        camForward.y = 0;
-        camRight.y = 0;
-
-        Vector3 forwardRelative = z * camForward;
-        Vector3 rightRelative = x * camRight;
-
-        Vector3 moveDir = forwardRelative + rightRelative;
-
         // Verifica se o player quer correr e seta a velocidade de movimento
-
-        if (ck.Player.Run.IsPressed())
-        {
-            characterSpeed = 8;
-        } else
-        {
-            characterSpeed = 6;
-        }
 
         // Caso o player não esteja atacando, executar a movimentação se o player se mover
 
@@ -142,23 +145,44 @@ public class PlayerCharControl : MonoBehaviour
             if (ck.Player.ForwardBack.IsPressed() || ck.Player.LeftRight.IsPressed())
             {
                 animator.SetBool("WALK", true);
-                Vector3 movement = new Vector3(moveDir.x, 0, moveDir.z).normalized * characterSpeed;
-                var rbVel = rb.velocity;
-                rbVel.x = movement.x;
-                rbVel.z = movement.z;
-                rb.velocity = rbVel;
-                currentState = State.Walk;
+
+                // Direção de movimento
+                Vector3 inputDir = orientation.forward * z + orientation.right * x;
+                if (inputDir != Vector3.zero)
+                {
+                    transform.forward = Vector3.Slerp(transform.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                }
+
+                rb.AddForce(inputDir.normalized * (characterSpeed * characterSpeedModifier), ForceMode.Force);
+
+                Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+                // Limite de velocidade
+                if (flatVel.magnitude > (characterSpeed * characterSpeedModifier))
+                {
+                    Vector3 limitedVel = flatVel.normalized * (characterSpeed * characterSpeedModifier);
+                    rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+                }
+
+                if (currentState == State.Run)
+                {
+                    characterSpeed = 8;
+                }
+                else if (currentState == State.Walk)
+                {
+                    characterSpeed = 6;
+                }
+
                 // Verifica se o player quer correr
                 if (ck.Player.Run.IsPressed())
                 {
                     animator.SetBool("RUN", true);
                     currentState = State.Run;
-                    //characterSpeed *= 1.5f;
                 }
                 else
                 {
                     animator.SetBool("RUN", false);
-                    //characterSpeed /= 1.5f;
+                    currentState = State.Walk;
                 }
 
                 if (!isGrounded)
@@ -182,11 +206,12 @@ public class PlayerCharControl : MonoBehaviour
         }
     }
 
-    public void ChangeCharacterSpeed(float speedToChange)
+    public void ChangeCharacterSpeed(float speedModifier, float time = 0f)
     {
-        float startSpeed = characterSpeed;
-        characterSpeed = speedToChange;
-
-
+        characterSpeedModifier = speedModifier;
+        if (time != 0)
+        {
+            characterSpeedModifierTimer = time;
+        }
     }
 }
