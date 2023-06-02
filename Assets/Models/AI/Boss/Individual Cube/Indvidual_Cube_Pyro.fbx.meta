@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: ad3e7c281ef358d479d02e5349c62013
+guid: 96f160b9b2d6aa444a7f1bb31541a338
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base_Pyro
+    second: {fileID: 2100000, guid: 919b1b26a6404c949b6987c514e657c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Empty_Pyro
+    second: {fileID: 2100000, guid: 4e4d90051783b8c4da5b4d384dd1846a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
