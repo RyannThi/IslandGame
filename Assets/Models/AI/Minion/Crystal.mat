@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ice
+  m_Name: Crystal
   m_Shader: {fileID: -6465566751694194690, guid: d2b983b09d7b5064aa58e519dd886869, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -89,7 +89,7 @@ Material:
     - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -101,14 +101,14 @@ Material:
     - _GlossyReflections: 0
     - _Metalic: 0.061
     - _Metallic: 0
-    - _Normals: 0.77
+    - _Normals: 1.68
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Refraction: -0.81
-    - _Smoothness: 0.272
+    - _Refraction: -0.44
+    - _Smoothness: 0.553
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
