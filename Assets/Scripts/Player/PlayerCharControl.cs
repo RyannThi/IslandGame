@@ -53,6 +53,8 @@ public class PlayerCharControl : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+       
     }
 
     private void Update()

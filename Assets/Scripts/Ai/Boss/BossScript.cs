@@ -6,7 +6,7 @@ using System;
 
 public class BossScript : MonoBehaviour
 {
-    public GameObject stalactite;
+    
 
     private List<GameObject> missileList;
 
@@ -14,7 +14,29 @@ public class BossScript : MonoBehaviour
 
     private List<GameObject> arrowList;
 
+    [SerializeField]
+    private GameObject iceCube, fireCube, geoCube, summonCube;
+
+    private Renderer mesh;
+
+    [Space]
+    [SerializeField]
+    private Material[] iceMaterials = new Material[3];
+
+    [SerializeField]
+    private Material[] fireMaterials = new Material[3];
+
+    [SerializeField]
+    private Material[] geoMaterials = new Material[3];
+
+    [SerializeField]
+    private Material[] summonMaterials = new Material[3];
+
+    [Space]
+
     private float health;
+
+    public GameObject stalactite;
 
     [SerializeField]
     private GameObject missilePrefab;
@@ -57,7 +79,7 @@ public class BossScript : MonoBehaviour
         Ice,
         Fire,
         Stone,
-        Electro,
+        Summon,
     }
     [SerializeField]
     private ElementStates bossElement;
@@ -74,11 +96,15 @@ public class BossScript : MonoBehaviour
         fastProjectileList = new List<GameObject>();
 
         arrowList = new List<GameObject>();
+
     }
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        mesh = GetComponentInChildren<Renderer>();
+
+        
 
         health = 1000;
 
@@ -90,10 +116,13 @@ public class BossScript : MonoBehaviour
             }
         }
 
+
     }
 
     void Start()
     {
+        
+
         #region Object Pooling
         for(int i = 0; i < 3; i++)
         {
@@ -118,8 +147,13 @@ public class BossScript : MonoBehaviour
 
         #endregion
 
-        StartCoroutine(Attack05());
+        StartCoroutine(Idle());
+
+
+
+
     }
+    
     private GameObject GetMissile()
     {
         for(int i = 0;i < missileList.Count;i++)
@@ -176,62 +210,82 @@ public class BossScript : MonoBehaviour
                 break;
 
             case BossStates.Attack01:
-
-                StartCoroutine(Attack01());
+                if (bossElement == ElementStates.Stone)
+                    StartCoroutine(Attack01());
+                else
+                    ChangeElement(geoMaterials, Attack01());
 
                 break;
 
             case BossStates.Attack02:
 
-                StartCoroutine(Attack02());
+                if(bossElement == ElementStates.Fire)
+                    StartCoroutine(Attack02());
+                else
+                    ChangeElement(fireMaterials, Attack02());
 
                 break;
 
             case BossStates.Attack03:
 
-                StartCoroutine(Attack03());
+                if(bossElement == ElementStates.Fire)
+                    StartCoroutine(Attack03());
+                else
+                    ChangeElement(fireMaterials, Attack03());
 
                 break;
 
             case BossStates.Attack04:
 
-                StartCoroutine(Attack04());
+                if(bossElement == ElementStates.Stone)
+                    StartCoroutine(Attack04());
+                else
+                    ChangeElement(geoMaterials, Attack04());
 
                 break;
 
             case BossStates.Attack05:
 
-                StartCoroutine(Attack05());
+                if(bossElement == ElementStates.Ice)
+                    StartCoroutine(Attack05());
+                else
+                    ChangeElement(iceMaterials, Attack05());
 
                 break;
 
             case BossStates.Invoking01:
 
-                StartCoroutine(Invoking01());
+                if (bossElement == ElementStates.Summon)
+                    StartCoroutine(Invoking01());
+                else
+                    ChangeElement(summonMaterials, Invoking01());
 
                 break;
 
             case BossStates.Invoking02:
 
-                StartCoroutine(Invoking02());
+                if (bossElement == ElementStates.Summon)
+                    StartCoroutine(Invoking02());
+                else
+                    ChangeElement(summonMaterials, Invoking02());
 
                 break;
 
             case BossStates.Invoking03:
 
-                StartCoroutine(Invoking03());
+                if (bossElement == ElementStates.Summon)
+                    StartCoroutine(Invoking03());
+                else
+                    ChangeElement(summonMaterials, Invoking03());
 
                 break;
 
             case BossStates.Invoking04:
 
-                StartCoroutine(Invoking04());
-
-                break;
-
-            case BossStates.ChangeElement:
-
-                StartCoroutine(ChangeElement());
+                if (bossElement == ElementStates.Summon)
+                    StartCoroutine(Invoking04());
+                else
+                    ChangeElement(summonMaterials, Invoking04());
 
                 break;
 
@@ -265,23 +319,24 @@ public class BossScript : MonoBehaviour
 
         if(health > 750)
         {
-            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
+            //Selecionar o ataque aleatoriamente
+            //Alternar entre atacar e sumonar
             
         }
         else if(health > 500)
         {
-            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
-
+            //Selecionar o ataque aleatoriamente
+            //Alternar entre atacar e sumonar
         }
         else if(health > 250)
         {
-            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
-
+            //Selecionar o ataque aleatoriamente
+            //Alternar entre atacar e sumonar
         }
         else if (health > 0)
         {
-            //Checar se ja esta no shader certo, se n trocar, se sim só atacar
-
+            //Selecionar o ataque aleatoriamente
+            //Alternar entre atacar e sumonar
         }
         else
         {
@@ -301,6 +356,7 @@ public class BossScript : MonoBehaviour
         bool inState = true;
         BossStates stateToChange = BossStates.Attack01;
 
+        // GEO
         while (inState)
         {
             for(int i = 0; i < 3; i++)
@@ -323,6 +379,8 @@ public class BossScript : MonoBehaviour
     {
         //Start        
         BossStates stateToChange = BossStates.Attack02;
+        
+        // FIRE
 
         //Indicada o range
 
@@ -355,6 +413,8 @@ public class BossScript : MonoBehaviour
         bool inState = true;
         BossStates stateToChange = BossStates.Attack03;
 
+        //FIRE
+
         while (inState)
         {
             for(int i = 0; i < 3; i++)
@@ -383,6 +443,8 @@ public class BossScript : MonoBehaviour
         //Start
         
         BossStates stateToChange = BossStates.Attack04;
+        
+        //GEO
 
         //Pega a direção do player
         Vector3 projectileDirection = transform.position - playerTransform.position;
@@ -420,6 +482,8 @@ public class BossScript : MonoBehaviour
         BossStates stateToChange = BossStates.Attack05;
         float pos = -3f;
 
+        //ICE
+
         for (int i = 0; i < arrowList.Count; i++)
         {
             GameObject arrowObj = GetArrow();
@@ -443,6 +507,8 @@ public class BossScript : MonoBehaviour
     #endregion
 
     #region Invokes
+
+    //Tudo Summon
     IEnumerator Invoking01()
     {
         //Start
@@ -541,16 +607,50 @@ public class BossScript : MonoBehaviour
         ChangeState(stateToChange);
     }
 
-    IEnumerator ChangeElement()
+    private void ChangeElement(Material[] newMat, IEnumerator waitingToExecute)
     {
+        BossStates stateToChange;
         //Start
-        BossStates stateToChange = BossStates.ChangeElement;
+        
+
+        bossElement = ElementStates.Stone;
+
+        Material[] mat = new Material[3];
+
+        //Change State
+        if (newMat == iceMaterials)
+        {
+            bossElement = ElementStates.Ice;
+        }
+        else if (newMat == fireMaterials)
+        {
+            bossElement = ElementStates.Fire;
+        }
+        else if(newMat == geoMaterials)
+        {
+            bossElement = ElementStates.Stone;
+        }
+        else if (newMat == summonMaterials)
+        {
+            bossElement = ElementStates.Summon;
+        }
+
+        //Change Material
+            for (int i = 0; i < newMat.Length; i++)
+        {
+            /*Debug.Log(iceMaterials[i].name);
+            Debug.Log("Atual " + mesh.materials[i].name);*/
+
+            mat[i] = newMat[i];
 
 
+        }
+
+        mesh.materials = mat;
 
         stateToChange = BossStates.Idle;
         ChangeState(stateToChange);
-        yield return null;
+        StartCoroutine(waitingToExecute);
     }
     #endregion
 
