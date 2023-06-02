@@ -17,6 +17,13 @@ public class BossScript : MonoBehaviour
     [SerializeField]
     private GameObject iceCube, fireCube, geoCube, summonCube;
 
+    [Header("Cube Positions")]
+    [SerializeField]
+    private GameObject upCube1;
+    [SerializeField]
+    private GameObject upCube2, upCube3, upCube4, downCube1, downCube2, downCube3, downCube4;
+    [Space(15)]
+
     private Renderer mesh;
 
     [Space]
