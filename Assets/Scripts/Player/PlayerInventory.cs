@@ -149,7 +149,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (ck.Player.ForwardBack.WasPressedThisFrame() && isOpen)
         {
-            selectedItem = (int)Wrap(selectedItem + (int)ck.Player.LeftRight.ReadValue<float>() * 3, 0, 12);
+            selectedItem = (int)Wrap(selectedItem + (int)ck.Player.ForwardBack.ReadValue<float>() * 3, 0, 12);
             ChangeSlotHighlight(selectedItem);
         }
 

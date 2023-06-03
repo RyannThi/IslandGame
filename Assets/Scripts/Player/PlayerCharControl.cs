@@ -14,7 +14,7 @@ public class PlayerCharControl : MonoBehaviour
     private bool isGrounded; // se o player estiver no chão, true
     private float rotationSpeed = 5f;
 
-
+    public int characterHealth = 100;
 
     public float characterSpeed; //{ get; private set; } // velocidade padrão do player
 
@@ -215,5 +215,15 @@ public class PlayerCharControl : MonoBehaviour
         {
             characterSpeedModifierTimer = time;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        characterHealth -= damage;
+    }
+
+    public void HealHealth(int healAmount)
+    {
+        characterHealth += healAmount;
     }
 }
