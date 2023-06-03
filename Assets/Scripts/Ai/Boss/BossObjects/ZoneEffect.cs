@@ -30,7 +30,7 @@ public abstract class ZoneEffect : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             EffectFromZone();
-            print(player);
+            //print(player);
         }
     }
 }

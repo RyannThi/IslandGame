@@ -10,8 +10,7 @@ public class MissileScript : MonoBehaviour
     private float missileSpeed;
     void Start()
     {
-        Invoke("DisableObject", 13f);
-        StartCoroutine(LerpToPLayer());
+        
 
         foreach (Transform obj in FindObjectsOfType<Transform>())
         {
@@ -22,9 +21,15 @@ public class MissileScript : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        Invoke("DisableObject", 10f);
+        StartCoroutine(LerpToPLayer());
+    }
+
     private IEnumerator LerpToPLayer()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
 
         while(true)
         {
@@ -45,7 +50,7 @@ public class MissileScript : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

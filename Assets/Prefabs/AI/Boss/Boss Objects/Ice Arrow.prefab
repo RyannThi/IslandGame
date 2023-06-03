@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3836770572060880674}
   - component: {fileID: 3836770572060880675}
   - component: {fileID: 3836770572060880676}
-  - component: {fileID: 3836770572060880677}
   - component: {fileID: 3836770572060880678}
+  - component: {fileID: 2106198310}
   m_Layer: 0
   m_Name: Ice Arrow
   m_TagString: Untagged
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836770572060880679}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -7929139438592967118, guid: d5ba7a4072d219947b82f56e11fa11d7, type: 3}
 --- !u!23 &3836770572060880676
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 3b11905a5735a234481278e6e776922f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3836770572060880677
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3836770572060880679}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3836770572060880678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +98,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowZone: {fileID: 2272537333150589704, guid: 281370d6738eb7d4c99a9f662e13055f, type: 3}
+--- !u!136 &2106198310
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836770572060880679}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.13522077
+  m_Height: 4.142845
+  m_Direction: 2
+  m_Center: {x: -0.02154541, y: 0.20341408, z: -1.7229347}

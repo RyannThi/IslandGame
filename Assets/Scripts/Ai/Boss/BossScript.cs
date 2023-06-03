@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System;
 
 public class BossScript : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class BossScript : MonoBehaviour
     private GameObject upCube2, upCube3, upCube4, downCube1, downCube2, downCube3, downCube4;
     [Space(15)]
 
-    private Renderer mesh;
+    
 
     [Space]
     [SerializeField]
@@ -60,6 +59,8 @@ public class BossScript : MonoBehaviour
     #region Components
     private NavMeshAgent agent;
     private Transform playerTransform;
+    private Animator anim;
+    private Renderer mesh;
 
     #endregion
 
@@ -110,6 +111,7 @@ public class BossScript : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         mesh = GetComponentInChildren<Renderer>();
+        anim = GetComponent<Animator>();
 
         
 
@@ -154,13 +156,18 @@ public class BossScript : MonoBehaviour
 
         #endregion
 
-        StartCoroutine(Idle());
+        Invoke("StartBoss", 5);
 
 
 
 
     }
     
+    private void StartBoss()
+    {
+        StartCoroutine(Idle());
+    }
+
     private GameObject GetMissile()
     {
         for(int i = 0;i < missileList.Count;i++)
@@ -322,33 +329,38 @@ public class BossScript : MonoBehaviour
         //Idle Animation
         yield return new WaitForSeconds(2);
 
-        //Change Shader based on health
+        int attack = 3;//Random.Range(1, 6);
 
-        if(health > 750)
+        switch (attack)
         {
-            //Selecionar o ataque aleatoriamente
-            //Alternar entre atacar e sumonar
-            
+            case 1:
+                stateToChange = BossStates.Attack01; 
+                break;
+
+            case 2:
+                stateToChange = BossStates.Attack02;
+                break;
+
+            case 3:
+                stateToChange = BossStates.Attack03;
+                break;
+
+            case 4:
+                stateToChange = BossStates.Attack04;
+                break;
+
+            case 5:
+                stateToChange = BossStates.Attack05;
+                break;  
+                
         }
-        else if(health > 500)
-        {
-            //Selecionar o ataque aleatoriamente
-            //Alternar entre atacar e sumonar
-        }
-        else if(health > 250)
-        {
-            //Selecionar o ataque aleatoriamente
-            //Alternar entre atacar e sumonar
-        }
-        else if (health > 0)
-        {
-            //Selecionar o ataque aleatoriamente
-            //Alternar entre atacar e sumonar
-        }
-        else
+
+        if(health <=0)
         {
             stateToChange = BossStates.Die;
         }
+            
+        
 
         //Exit
 
@@ -360,22 +372,20 @@ public class BossScript : MonoBehaviour
     IEnumerator Attack01()
     {
         //Start
-        bool inState = true;
         BossStates stateToChange = BossStates.Attack01;
+        anim.SetBool("Rock Start", true);
+        // GEO       
+        yield return new WaitForSeconds(2);
 
-        // GEO
-        while (inState)
-        {
             for(int i = 0; i < 3; i++)
             {
                 Instantiate(stalactite, playerTransform.position + new Vector3(0,10,0),Quaternion.identity);
                 yield return new WaitForSeconds(2.5f);
             }
-            
-            yield return new WaitForEndOfFrame();
-            stateToChange = BossStates.Idle;
-            break;
-        }
+
+        anim.SetBool("Rock Start", false);
+            stateToChange = BossStates.Idle;            
+        
         //Exit
         print("EXIT");
 
@@ -386,12 +396,13 @@ public class BossScript : MonoBehaviour
     {
         //Start        
         BossStates stateToChange = BossStates.Attack02;
-        
+
         // FIRE
 
         //Indicada o range
-
-        yield return new WaitForSeconds(5);
+        anim.SetTrigger("Spin Start"); 
+        yield return new WaitForSeconds(3);
+        anim.SetBool("Spinning", true);
 
         //Faz animação
 
@@ -408,6 +419,8 @@ public class BossScript : MonoBehaviour
         }
         
         //Desabilita o indicador de range
+        yield return new WaitForSeconds(2.5f);
+        anim.SetBool("Spinning", false);
 
         stateToChange = BossStates.Idle;      
 
@@ -417,28 +430,30 @@ public class BossScript : MonoBehaviour
     IEnumerator Attack03()
     {
         //Start
-        bool inState = true;
+        anim.SetBool("Rune Start", true);
         BossStates stateToChange = BossStates.Attack03;
-
+        yield return new WaitForSeconds(1);
         //FIRE
 
-        while (inState)
-        {
-            for(int i = 0; i < 3; i++)
+        
+            for(int i = 0; i < missileList.Count; i++)
             {
-                Debug.Log("Entrou no For");
+                //Debug.Log("Entrou no For");
                 GameObject missile = GetMissile();
-                missile.transform.position = transform.position + Vector3.up * 3;
+            if(missile != null)
+            {
+                missile.transform.position = transform.position + Vector3.up * 10;
                 missile.SetActive(true);
+            }                
                 yield return new WaitForSeconds(3);
             }
                        
 
-            yield return new WaitForEndOfFrame();
-
+            
+            anim.SetBool("Rune Start", false);
             stateToChange= BossStates.Idle;
-            break;
-        }
+            
+        
         //Exit
 
 
@@ -448,9 +463,9 @@ public class BossScript : MonoBehaviour
     IEnumerator Attack04()
     {
         //Start
-        
+        anim.SetBool("Rune Start", true);
         BossStates stateToChange = BossStates.Attack04;
-        
+        yield return new WaitForSeconds(1);
         //GEO
 
         //Pega a direção do player
@@ -476,17 +491,18 @@ public class BossScript : MonoBehaviour
 
         }
 
-        Debug.Log("Acabou");
+        //Debug.Log("Acabou");
         //Exit
         stateToChange = BossStates.Idle;
-
+        anim.SetBool("Rune Start", false);
         ChangeState(stateToChange);
     }
 
     IEnumerator Attack05()
     {
-
+        anim.SetBool("Rune Start", true);
         BossStates stateToChange = BossStates.Attack05;
+        yield return new WaitForSeconds(1);
         float pos = -3f;
 
         //ICE
@@ -508,7 +524,7 @@ public class BossScript : MonoBehaviour
         stateToChange = BossStates.Idle;
         //Exit
 
-
+        anim.SetBool("Rune Start", false);
         ChangeState(stateToChange);
     }
     #endregion

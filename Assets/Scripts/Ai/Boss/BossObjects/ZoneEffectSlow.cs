@@ -7,7 +7,7 @@ public class ZoneEffectSlow : ZoneEffect
 
     protected override void EffectFromZone()
     {
-        player.ChangeCharacterSpeed(0.5f);
+        player.ChangeCharacterSpeed(0.5f, 3f);
     }
     
 
