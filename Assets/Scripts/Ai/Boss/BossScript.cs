@@ -16,6 +16,9 @@ public class BossScript : MonoBehaviour
     [SerializeField]
     private GameObject iceCube, fireCube, geoCube, summonCube;
 
+    [SerializeField]
+    public GameObject fireMinion, iceMinion, geoMinion;
+
     [Header("Cube Positions")]
     [SerializeField]
     private GameObject upCube1;
@@ -325,35 +328,56 @@ public class BossScript : MonoBehaviour
     {
         //Start
         BossStates stateToChange = BossStates.Idle;
-
+        int attack = 0;
         //Idle Animation
         yield return new WaitForSeconds(2);
 
-        int attack = 3;//Random.Range(1, 6);
+        if (health >= 600)
+            attack = Random.Range(1, 6);
+        else if (health < 600)
+            attack = Random.Range(6, 10);
+        else if (health < 300)
+            attack= Random.Range(1, 10);
 
-        switch (attack)
-        {
-            case 1:
-                stateToChange = BossStates.Attack01; 
-                break;
+            switch (attack)
+            {
+                case 1:
+                    stateToChange = BossStates.Attack01;
+                    break;
 
-            case 2:
-                stateToChange = BossStates.Attack02;
-                break;
+                case 2:
+                    stateToChange = BossStates.Attack02;
+                    break;
 
-            case 3:
-                stateToChange = BossStates.Attack03;
-                break;
+                case 3:
+                    stateToChange = BossStates.Attack03;
+                    break;
 
-            case 4:
-                stateToChange = BossStates.Attack04;
-                break;
+                case 4:
+                    stateToChange = BossStates.Attack04;
+                    break;
 
-            case 5:
-                stateToChange = BossStates.Attack05;
-                break;  
-                
-        }
+                case 5:
+                    stateToChange = BossStates.Attack05;
+                    break;
+
+                case 6:
+                    stateToChange = BossStates.Invoking01;
+                    break;
+
+                case 7:
+                    stateToChange = BossStates.Invoking02;
+                    break;
+
+                case 8:
+                    stateToChange = BossStates.Invoking03;
+                    break;
+
+                case 9:
+                    stateToChange = BossStates.Invoking04;
+                    break;
+
+            }
 
         if(health <=0)
         {
@@ -535,14 +559,17 @@ public class BossScript : MonoBehaviour
     IEnumerator Invoking01()
     {
         //Start
-        bool inState = true;
-        BossStates stateToChange = BossStates.Invoking01;
-
-        while (inState)
+        anim.SetTrigger("Summon");
+        yield return new WaitForSeconds(4);
+        BossStates stateToChange = BossStates.Idle;
+        for(int i = 0; i < 3 ; i++)
         {
+            Instantiate(fireMinion,transform.position +  Vector3.forward*10 , Quaternion.identity);
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(2);
         }
+        
+       
         //Exit
 
 
@@ -552,13 +579,15 @@ public class BossScript : MonoBehaviour
     IEnumerator Invoking02()
     {
         //Start
-        bool inState = true;
+        anim.SetTrigger("Summon");
+        yield return new WaitForSeconds(4);
         BossStates stateToChange = BossStates.Invoking02;
 
-        while (inState)
+        for (int i = 0; i < 3; i++)
         {
+            Instantiate(iceMinion, transform.position + Vector3.forward * 10, Quaternion.identity);
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(2);
         }
         //Exit
 
@@ -569,13 +598,15 @@ public class BossScript : MonoBehaviour
     IEnumerator Invoking03()
     {
         //Start
-        bool inState = true;
+        anim.SetTrigger("Summon");
+        yield return new WaitForSeconds(4);
         BossStates stateToChange = BossStates.Invoking03;
 
-        while (inState)
+        for (int i = 0; i < 3; i++)
         {
+            Instantiate(geoMinion, transform.position + Vector3.forward * 10, Quaternion.identity);
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(2);
         }
         //Exit
 
@@ -586,13 +617,15 @@ public class BossScript : MonoBehaviour
     IEnumerator Invoking04()
     {
         //Start
-        bool inState = true;
+        anim.SetTrigger("Summon");
+        yield return new WaitForSeconds(4);
         BossStates stateToChange = BossStates.Invoking04;
 
-        while (inState)
+        for (int i = 0; i < 3; i++)
         {
+            Instantiate(fireMinion, transform.position + Vector3.forward * 10, Quaternion.identity);
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(2);
         }
         //Exit
 
