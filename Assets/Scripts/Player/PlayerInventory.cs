@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+
 public class PlayerInventory : MonoBehaviour
 {
     private ControlKeys ck; // usado pra verificação de input
@@ -188,6 +190,9 @@ public class PlayerInventory : MonoBehaviour
     
     private void AddItem(string _itemName)
     {
+        // CONSERTAR BUG DE QUANDO A QUANTIDADE DE ITEMS EXCEDE A QUANTIDADE DE SLOTS ELE CRASHA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
         // Percorre todos os itens de inventário disponíveis
         foreach (var invItem in invItemInfo)
         {

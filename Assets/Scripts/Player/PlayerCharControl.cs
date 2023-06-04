@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCharControl : MonoBehaviour
 {
+    public static PlayerCharControl instance;
+
     public Transform orientation;
     public Transform camera;
 
@@ -34,27 +36,16 @@ public class PlayerCharControl : MonoBehaviour
         Attack
     }
 
-    private void Awake()
-    {
-        ck = new ControlKeys();
-    }
-
-
-    private void OnEnable()
-    {
-        ck.Enable();
-    }
-    private void OnDisable()
-    {
-        ck.Disable();
-    }
+    private void Awake() { ck = new ControlKeys(); }
+    private void OnEnable() { ck.Enable(); }
+    private void OnDisable() { ck.Disable(); }
 
     void Start()
     {
+        instance = this;
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-
-       
     }
 
     private void Update()
@@ -105,6 +96,11 @@ public class PlayerCharControl : MonoBehaviour
         {
             material.color = Color.cyan;
         }
+        if (ck.Player.Confirm.WasPressedThisFrame())
+        {
+            characterHealth -= 20;
+            TakeDamage(20);
+        }
         #endregion
 
         #region Ground check
@@ -129,7 +125,6 @@ public class PlayerCharControl : MonoBehaviour
         }
         #endregion
 
-        
         // Captura valores para serem utilizados nos calculos de movimentação
 
         Vector3 viewDir = transform.position - new Vector3(camera.position.x, transform.position.y, camera.position.z);
@@ -218,13 +213,20 @@ public class PlayerCharControl : MonoBehaviour
         }
     }
 
+    public int GetHealth()
+    {
+        return characterHealth;
+    }
+
     public void TakeDamage(int damage)
     {
         characterHealth -= damage;
+        PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(damage) * -1);
     }
 
     public void HealHealth(int healAmount)
     {
         characterHealth += healAmount;
+        PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(healAmount));
     }
 }

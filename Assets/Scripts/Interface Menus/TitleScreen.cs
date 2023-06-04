@@ -45,18 +45,9 @@ public class TitleScreen : MonoBehaviour
     [SerializeField]
     private bool optionsGroupInteract = false;
 
-    private void Awake()
-    {
-        ck = new ControlKeys();
-    }
-    private void OnEnable()
-    {
-        ck.Enable();
-    }
-    private void OnDisable()
-    {
-        ck.Disable();
-    }
+    private void Awake() { ck = new ControlKeys(); }
+    private void OnEnable() { ck.Enable(); }
+    private void OnDisable() { ck.Disable(); }
 
     // Start is called before the first frame update
     void Start()
