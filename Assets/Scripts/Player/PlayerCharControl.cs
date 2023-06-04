@@ -152,7 +152,8 @@ public class PlayerCharControl : MonoBehaviour
                 Vector3 inputDir = orientation.forward * z + orientation.right * x;
                 if (inputDir != Vector3.zero)
                 {
-                    transform.forward = Vector3.Slerp(transform.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                    //transform.forward = Vector3.Slerp(transform.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                    transform.forward = inputDir.normalized;
                 }
 
                 rb.AddForce(inputDir.normalized * (characterSpeed * characterSpeedModifier), ForceMode.Force);
