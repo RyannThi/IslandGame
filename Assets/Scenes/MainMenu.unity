@@ -320,6 +320,7 @@ MonoBehaviour:
   optionsGroup: {fileID: 2112959470}
   mainGroupCanvasGroup: {fileID: 1138789139}
   optionsGroupCanvasGroup: {fileID: 2112959471}
+  blackout: {fileID: 1942989432}
   selections:
   - {fileID: 1140076364}
   - {fileID: 1306964106}
@@ -342,7 +343,7 @@ MonoBehaviour:
   - {x: -350, y: -375}
   - {x: 350, y: -375}
   scaleModifier: {x: 0.85, y: 0.85}
-  fadeInSpeed: 0.25
+  fadeInSpeed: 2
   scaleSpeed: 5
   coloringSpeed: 7
   highlightSpeed: 0.5
@@ -710,7 +711,7 @@ RectTransform:
   m_GameObject: {fileID: 1138789137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1140076364}
@@ -1557,13 +1558,14 @@ GameObject:
   - component: {fileID: 1942989429}
   - component: {fileID: 1942989431}
   - component: {fileID: 1942989430}
+  - component: {fileID: 1942989432}
   m_Layer: 5
   m_Name: Blackout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1942989429
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1622,6 +1624,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942989428}
   m_CullTransparentMesh: 1
+--- !u!225 &1942989432
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942989428}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2079642346
 GameObject:
   m_ObjectHideFlags: 0
