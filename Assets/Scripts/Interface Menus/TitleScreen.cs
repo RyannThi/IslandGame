@@ -17,6 +17,23 @@ public class TitleScreen : MonoBehaviour
     public CanvasGroup blackout;
 
     [Space(10)]
+
+    public TextMeshProUGUI fullscreenText;
+    public TextMeshProUGUI resolutionText;
+    public TextMeshProUGUI musicText;
+    public TextMeshProUGUI soundText;
+    public TextMeshProUGUI mouseText;
+
+    [Space(10)]
+
+    public Slider fullscreenSlider;
+    public Slider resolutionSlider;
+    public Slider musicSlider;
+    public Slider soundSlider;
+    public Slider mouseSlider;
+
+    [Space(10)]
+
     public RectTransform[] selections;
     public TextMeshProUGUI[] textBox;
     public Image[] selectionsImages;
