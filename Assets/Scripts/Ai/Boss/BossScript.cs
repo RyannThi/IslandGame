@@ -215,6 +215,8 @@ public class BossScript : MonoBehaviour
     {
         StopAllCoroutines();
 
+        Debug.Log(nextState);
+
         #region FSM Switch
         switch (nextState)
         {
@@ -321,6 +323,7 @@ public class BossScript : MonoBehaviour
 
         }
 
+        
     }
 
     #region State CoRoutines
@@ -332,14 +335,16 @@ public class BossScript : MonoBehaviour
         //Idle Animation
         yield return new WaitForSeconds(2);
 
-        if (health >= 600)
+        attack = 6;
+        /*if (health >= 600)
             attack = Random.Range(1, 6);
         else if (health < 600)
             attack = Random.Range(6, 10);
         else if (health < 300)
-            attack= Random.Range(1, 10);
+            attack = Random.Range(1, 10);*/
 
-            switch (attack)
+
+        switch (attack)
             {
                 case 1:
                     stateToChange = BossStates.Attack01;
@@ -500,6 +505,7 @@ public class BossScript : MonoBehaviour
         {
 
             GameObject projectile = GetProjectile();
+            if(projectile != null)
             projectile.transform.position = transform.position + projectileDirection.normalized * 2;
 
 
@@ -535,11 +541,14 @@ public class BossScript : MonoBehaviour
         {
             GameObject arrowObj = GetArrow();
             pos += 1;
+
+            if(arrowObj != null)
             arrowObj.transform.position = transform.position + new Vector3(pos, 2 + (Mathf.Pow(pos, 2) / 5), 0);
 
             IceArrowScript script = arrowObj.gameObject.GetComponent<IceArrowScript>();
             script.SetPlayerDirection(playerTransform.position);
 
+            if(arrowObj != null)
             arrowObj.SetActive(true);
         }
 

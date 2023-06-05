@@ -33,7 +33,7 @@ public class IceArrowScript : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, target) < .1f && gameObject.activeInHierarchy)
             {
-                Instantiate(slowZone, target - new Vector3(0, 1.15f, 0), Quaternion.identity);
+                Instantiate(slowZone, target - new Vector3(0, 0.9f, 0), Quaternion.identity);
                 SetInactive();
                 
             }
@@ -54,7 +54,7 @@ public class IceArrowScript : MonoBehaviour
 
     IEnumerator GoToTarget()
     {
-        Debug.Log(gameObject.name);
+        //Debug.Log(gameObject.name);
         yield return new WaitForSeconds(3);
 
         once = true;
