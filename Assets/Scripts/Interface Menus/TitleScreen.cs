@@ -217,7 +217,7 @@ public class TitleScreen : MonoBehaviour
 
                         // apply
 
-                        
+
                         break;
                 }
             }
@@ -238,9 +238,11 @@ public class TitleScreen : MonoBehaviour
                         break;
                 }
 
+            }
         }
     }
-    private IEnumerator StartTimer()
+    /*private*/
+    IEnumerator StartTimer()
     {
         while (blackout.alpha > 0.301f)
         {
@@ -250,7 +252,8 @@ public class TitleScreen : MonoBehaviour
         }
         mainGroupInteract = true;
     }
-    private IEnumerator FadeInGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
+    /*private*/
+    IEnumerator FadeInGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
     {
         setBool(!groupInteract);
         while (group.localScale.x != 1)
@@ -260,7 +263,8 @@ public class TitleScreen : MonoBehaviour
             yield return null;
         }
     }
-    private IEnumerator FadeOutGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
+    /*private*/
+    IEnumerator FadeOutGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
     {
         setBool(!groupInteract);
         while (group.localScale.x != 0)
@@ -271,9 +275,10 @@ public class TitleScreen : MonoBehaviour
         }
     }
 
-    
 
-    private float Wrap(float _val, float _min, float _max)
+
+    /*private*/
+    float Wrap(float _val, float _min, float _max)
     {
         _val = _val - (float)Mathf.Round((_val - _min) / (_max - _min)) * (_max - _min);
         if (_val < 0)
@@ -281,8 +286,8 @@ public class TitleScreen : MonoBehaviour
         return _val;
     }
 
-    
 }
+
 
 // Uso de mouse
 
