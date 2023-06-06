@@ -103,7 +103,7 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage
     private void Attacking()
     {
         //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
-        print("Atacou");
+        //print("Atacou");
         //Checar isso somente após a animação for concluida
         if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
             meleeEnemyState = MeleeEnemyStates.Chasing;
@@ -118,9 +118,10 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage
     }
     #endregion
 
-    private int health;
+    private int health = 50;
     public void TakeDamage(int damage)
     {
+        Debug.Log(damage);
         health -= damage;
         if (health <= 0)
         {
