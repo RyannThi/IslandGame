@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossScript : MonoBehaviour
+public class BossScript : MonoBehaviour, IDamage
 {
     
 
@@ -719,6 +719,11 @@ public class BossScript : MonoBehaviour
     }
     #endregion
 
+    
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

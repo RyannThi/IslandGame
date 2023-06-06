@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AiEvokerScript : MonoBehaviour
+public class AiEvokerScript : MonoBehaviour, IDamage
 {
     public enum EvokerStates
     {
@@ -233,6 +233,15 @@ public class AiEvokerScript : MonoBehaviour
     }
     #endregion
 
+    private int health;
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if(health <=0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

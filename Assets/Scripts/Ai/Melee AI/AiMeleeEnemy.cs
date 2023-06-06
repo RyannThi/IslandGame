@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AiMeleeEnemy : MonoBehaviour
+public class AiMeleeEnemy : MonoBehaviour, IDamage
 {
     /*[SerializeField]
  private Transform whereToMove;*/
@@ -118,6 +118,15 @@ public class AiMeleeEnemy : MonoBehaviour
     }
     #endregion
 
+    private int health;
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

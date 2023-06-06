@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AnimalAi : MonoBehaviour
+public class AnimalAi : MonoBehaviour, IDamage
 {
     /*[SerializeField]
      private Transform whereToMove;*/
@@ -170,6 +170,16 @@ public class AnimalAi : MonoBehaviour
         return waypoint;
         
         
+    }
+
+    private int health;
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
     void OnAnimatorMove()
     {
