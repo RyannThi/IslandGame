@@ -152,6 +152,15 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""6da382be-f889-4114-ad0b-9952a643687c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -649,6 +658,39 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""action"": ""Confirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00e8a193-712d-41d4-a0c6-e7d9aae3d17e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c772c07b-53c6-4818-a1fb-1a96afcaf6fe"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50324e29-2b35-4a98-ab7e-99954b93de5d"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -677,6 +719,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         m_Player_MouseY = m_Player.FindAction("MouseY", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Confirm = m_Player.FindAction("Confirm", throwIfNotFound: true);
+        m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -750,6 +793,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseY;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Confirm;
+    private readonly InputAction m_Player_Cancel;
     public struct PlayerActions
     {
         private @ControlKeys m_Wrapper;
@@ -768,6 +812,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         public InputAction @MouseY => m_Wrapper.m_Player_MouseY;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Confirm => m_Wrapper.m_Player_Confirm;
+        public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -819,6 +864,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Confirm.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
                 @Confirm.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
                 @Confirm.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
+                @Cancel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -865,6 +913,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Confirm.started += instance.OnConfirm;
                 @Confirm.performed += instance.OnConfirm;
                 @Confirm.canceled += instance.OnConfirm;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
             }
         }
     }
@@ -894,5 +945,6 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         void OnMouseY(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

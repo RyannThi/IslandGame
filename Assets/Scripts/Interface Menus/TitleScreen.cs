@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class TitleScreen : MonoBehaviour
@@ -58,9 +59,30 @@ public class TitleScreen : MonoBehaviour
     [SerializeField]
     private int mainGroupSelectionIndex = 0;
     [SerializeField]
+    private int optionsGroupSelectionIndex = 0;
+    [SerializeField]
     private bool mainGroupInteract = false;
     [SerializeField]
     private bool optionsGroupInteract = false;
+    [SerializeField]
+    private string[] fullScreenNames = { "Windowed", "Borderless Fullscreen", "Exclusive Fullscreen" };
+
+    // Não é possivel serializar arrays nem listas multi-dimensionais
+    private int[,] resolutions = {
+        { 640, 360 },
+        { 960, 540 },
+        { 1280, 720 },
+        { 1366, 768 },
+        { 1600, 900 },
+        { 1920, 1080 }
+    };
+
+    [SerializeField]
+    private FullScreenMode[] fullScreenModes = {
+        FullScreenMode.Windowed,
+        FullScreenMode.FullScreenWindow,
+        FullScreenMode.ExclusiveFullScreen
+    };
 
     private void Awake() { ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
@@ -75,6 +97,7 @@ public class TitleScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Menu Principal
         if (mainGroupInteract == true)
         {
             for (int i = 0; i < 4; i++)
@@ -100,7 +123,8 @@ public class TitleScreen : MonoBehaviour
                 if (mainGroupSelectionIndex == 0 || mainGroupSelectionIndex == 1)
                 {
                     mainGroupSelectionIndex = (int)Wrap(mainGroupSelectionIndex + (int)ck.Player.LeftRight.ReadValue<float>(), 0, 2);
-                } else
+                }
+                else
                 {
                     mainGroupSelectionIndex = (int)Wrap(mainGroupSelectionIndex + Mathf.Abs((int)ck.Player.LeftRight.ReadValue<float>()), 2, 4);
                 }
@@ -142,12 +166,80 @@ public class TitleScreen : MonoBehaviour
                         StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
                         break;
                 }
-                
+
             }
 
         }
-    }
+        #endregion
 
+        if (optionsGroupInteract == true)
+        {
+            if (ck.Player.ForwardBack.WasPressedThisFrame())
+            {
+                optionsGroupSelectionIndex = (int)Wrap(optionsGroupSelectionIndex - (int)ck.Player.ForwardBack.ReadValue<float>(), 0, 6);
+            }
+
+            if (ck.Player.LeftRight.WasPressedThisFrame())
+            {
+                switch (optionsGroupSelectionIndex)
+                {
+                    case 0: // Fullscreen
+
+                        fullscreenSlider.value += (int)ck.Player.LeftRight.ReadValue<float>();
+                        fullscreenText.text = fullScreenNames[(int)fullscreenSlider.value];
+                        break;
+
+                    case 1: // Resolution
+
+                        resolutionSlider.value += (int)ck.Player.LeftRight.ReadValue<float>();
+                        resolutionText.text = resolutions[(int)resolutionSlider.value, 0] + " x " + resolutions[(int)resolutionSlider.value, 1];
+                        break;
+
+                    case 2: // Music Volume
+
+                        //musicSlider.value += (int)ck.Player.LeftRight.ReadValue<float>();
+                        //musicText.text = resolutions[(int)resolutionSlider.value, 0] + " x " + resolutions[(int)resolutionSlider.value, 1];
+                        break;
+
+                    case 3: // Sound Volume
+
+                        //soundSlider.value += (int)ck.Player.LeftRight.ReadValue<float>();
+                        //soundText.text = resolutions[(int)resolutionSlider.value, 0] + " x " + resolutions[(int)resolutionSlider.value, 1];
+                        break;
+
+                    case 4: // Mouse Sensitivity
+
+                        //mouseSlider.value += (int)ck.Player.LeftRight.ReadValue<float>();
+                        //mouseText.text = resolutions[(int)resolutionSlider.value, 0] + " x " + resolutions[(int)resolutionSlider.value, 1];
+                        break;
+
+                    case 5: // Save and Apply
+
+                        // apply
+
+                        
+                        break;
+                }
+            }
+
+            if (ck.Player.Confirm.WasPressedThisFrame())
+            {
+                switch (optionsGroupSelectionIndex)
+                {
+                    case 5:
+
+                        Screen.SetResolution(resolutions[(int)resolutionSlider.value, 0], resolutions[(int)resolutionSlider.value, 1], fullScreenModes[(int)fullscreenSlider.value]);
+
+                        PlayerPrefs.SetInt("RESOLUTION_SIZE", (int)resolutionSlider.value);
+                        PlayerPrefs.SetInt("FULLSCREEN_MODE", (int)fullscreenSlider.value);
+
+                        StartCoroutine(FadeOutGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        break;
+                }
+
+        }
+    }
     private IEnumerator StartTimer()
     {
         while (blackout.alpha > 0.301f)
@@ -160,13 +252,13 @@ public class TitleScreen : MonoBehaviour
     }
     private IEnumerator FadeInGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
     {
+        setBool(!groupInteract);
         while (group.localScale.x != 1)
         {
             group.localScale = Vector2.Lerp(group.localScale, new Vector2(1, 1), Time.deltaTime * transitionSpeed);
             canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, Time.deltaTime * transitionSpeed * 2);
             yield return null;
         }
-        setBool(!groupInteract);
     }
     private IEnumerator FadeOutGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
     {
@@ -187,5 +279,25 @@ public class TitleScreen : MonoBehaviour
         if (_val < 0)
             _val = _val + _max - _min;
         return _val;
+    }
+
+    
+}
+
+// Uso de mouse
+
+public class VolumeControl : MonoBehaviour
+{
+    public AudioMixer mixer;
+
+    public void SetLevelBGM(float sliderValue)
+    {
+        mixer.SetFloat("BGMVolumeParam", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("BGM_VOLUME", sliderValue);
+    }
+    public void SetLevelSFX(float sliderValue)
+    {
+        mixer.SetFloat("SFXVolumeParam", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("SFX_VOLUME", sliderValue);
     }
 }
