@@ -154,6 +154,15 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""90d44be1-f0f0-44c7-bf46-6328bed3c48e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""0a17e86f-07c7-4ed9-97d0-b1e73dadb281"",
@@ -689,6 +698,39 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""action"": ""Skill 1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af18de2b-51a2-4037-bd9d-5ce23504afe0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9360f805-63c5-44ec-8da2-58486e27b616"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b38b4e30-6f48-4c90-a6f8-c5ee979c7bdb"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -717,6 +759,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         m_Player_MouseY = m_Player.FindAction("MouseY", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Confirm = m_Player.FindAction("Confirm", throwIfNotFound: true);
+        m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Skill1 = m_Player.FindAction("Skill 1", throwIfNotFound: true);
     }
@@ -792,6 +835,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseY;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Confirm;
+    private readonly InputAction m_Player_Cancel;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Skill1;
     public struct PlayerActions
@@ -812,6 +856,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         public InputAction @MouseY => m_Wrapper.m_Player_MouseY;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Confirm => m_Wrapper.m_Player_Confirm;
+        public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -865,6 +910,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Confirm.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
                 @Confirm.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
                 @Confirm.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
+                @Cancel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
                 @Aim.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
@@ -917,6 +965,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Confirm.started += instance.OnConfirm;
                 @Confirm.performed += instance.OnConfirm;
                 @Confirm.canceled += instance.OnConfirm;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
@@ -952,6 +1003,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         void OnMouseY(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnSkill1(InputAction.CallbackContext context);
     }
