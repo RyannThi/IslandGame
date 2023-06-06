@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class VillageLoad : MonoBehaviour
 {
     public string villageToLoadName;
-    [SerializeField]
     private Collider loadRadius;
+
+    [SerializeField]
+    private GameObject lodVillage;
 
     private void Start()
     {
@@ -18,6 +20,7 @@ public class VillageLoad : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            lodVillage.SetActive(false);
             SceneManager.LoadSceneAsync(villageToLoadName,LoadSceneMode.Additive);
         }
         
@@ -27,6 +30,7 @@ public class VillageLoad : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            lodVillage.SetActive(true);
             SceneManager.UnloadSceneAsync(villageToLoadName);
         }
 

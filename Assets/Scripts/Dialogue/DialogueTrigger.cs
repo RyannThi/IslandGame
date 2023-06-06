@@ -4,28 +4,43 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
+    private bool playerClose = false;
 
+    public DialogueManager manager;
+    public Dialogue dialogue;
+    public KeyCode tecla = KeyCode.E;
+
+    private void Start()
+    {
+        manager = FindObjectOfType<DialogueManager>();
+    }
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (playerClose && Input.GetKeyDown(tecla))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Check if hit is NPC collider 
-                if (hit.collider.gameObject.CompareTag("NPC"))
-                {
-                    Debug.Log("NPC atingido");
-                    TriggerDialogue();
-                }
-            }
+            TriggerDialogue();
         }
     }
     
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+       
+       manager.StartDialogue(dialogue);
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerClose = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerClose = false;
+        }
+    }
+
 }
