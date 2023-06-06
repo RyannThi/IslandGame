@@ -59,11 +59,11 @@ public class PlayerCharControl : MonoBehaviour
             }
         }
 
-        if (ck.Player.Attack.WasPressedThisFrame())
+        /*if (ck.Player.Attack.WasPressedThisFrame())
         {
             animator.SetTrigger("ATTACK");
             currentState = State.Attack;
-        }
+        }*/
 
         if (ck.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
