@@ -9,7 +9,7 @@ public class AimScript : MonoBehaviour
     [Header("Objects")]
     private ControlKeys ck;
     public GameObject debugObject;
-    public Transform aim;
+    //public Transform aim;
     private Vector3 aimPoint;
     [SerializeField]
     private GameObject bullet;
@@ -163,7 +163,7 @@ public class AimScript : MonoBehaviour
             {
                 if (col.gameObject.CompareTag("Enemy"))
                 {
-                    col.gameObject.GetComponent<IDamage>().TakeDamage(attackAreaDamage *= damageModifier);
+                    col.gameObject.GetComponent<IDamage>().TakeDamage(attackAreaDamage * damageModifier);
                 }
             }
         }

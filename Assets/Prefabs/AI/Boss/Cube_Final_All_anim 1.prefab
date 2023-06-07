@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 4010658023880936308}
   m_Layer: 0
   m_Name: Cube_Final_All_anim 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -443,7 +443,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da36eb5fabeb5c140bf3d76a10338905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stalactite: {fileID: 7373711188143057406, guid: 56217f38e36bc4e4baf3e115e1294014, type: 3}
+  iceCube: {fileID: 0}
+  fireCube: {fileID: 0}
+  geoCube: {fileID: 0}
+  summonCube: {fileID: 0}
+  fireMinion: {fileID: 0}
+  iceMinion: {fileID: 0}
+  geoMinion: {fileID: 0}
   upCube1: {fileID: 7722233466883007116}
   upCube2: {fileID: 1583859524045162491}
   upCube3: {fileID: 7096625299972190798}
@@ -452,6 +458,23 @@ MonoBehaviour:
   downCube2: {fileID: 1934850777834033396}
   downCube3: {fileID: 7769925642371838984}
   downCube4: {fileID: 6244615202543411620}
+  iceMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fireMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  geoMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  summonMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stalactite: {fileID: 7373711188143057406, guid: 56217f38e36bc4e4baf3e115e1294014, type: 3}
   missilePrefab: {fileID: 3441681832095688055, guid: 929317b791da59c44ae373869fed1a2d, type: 3}
   fastProjectile: {fileID: 5909486627118985406, guid: aa2725a9a9cf1ed4d96a23a523fc6278, type: 3}
   arrow: {fileID: 3836770572060880679, guid: 3767c0aa31fb91241a0f94e3c8cddc78, type: 3}

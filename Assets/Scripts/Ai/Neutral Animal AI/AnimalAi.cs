@@ -172,9 +172,10 @@ public class AnimalAi : MonoBehaviour, IDamage
         
     }
 
-    private int health;
+    private int health = 10;
     public void TakeDamage(int damage)
     {
+        Debug.Log(damage);
         health -= damage;
         if (health <= 0)
         {
