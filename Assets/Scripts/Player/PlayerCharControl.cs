@@ -58,6 +58,14 @@ public class PlayerCharControl : MonoBehaviour
                 characterSpeedModifier = 1f;
             }
         }
+        if (resistanceModifierTimer> 0)
+        {
+            resistanceModifierTimer -= Time.deltaTime;
+            if (resistanceModifierTimer <= 0)
+            {
+                Resistance(1) ;
+            }
+        }
 
         /*if (ck.Player.Attack.WasPressedThisFrame())
         {
@@ -217,10 +225,20 @@ public class PlayerCharControl : MonoBehaviour
     {
         return characterHealth;
     }
-
+    private float resistanceModifierTimer;
+    public void Resistance(int resistanceModifier, float time = 0f)
+    {       
+            resistance = resistanceModifier;       
+            
+        if(time != 0)
+        {
+            resistanceModifierTimer = time;
+        }
+    }
+    private int resistance;
     public void TakeDamage(int damage)
     {
-        characterHealth -= damage;
+        characterHealth -= damage / resistance;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(damage) * -1);
     }
 

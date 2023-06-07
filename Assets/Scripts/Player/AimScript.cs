@@ -27,12 +27,14 @@ public class AimScript : MonoBehaviour
     private int attackAreaDamage;
     [SerializeField]
     private int meleeAttackDamage;
-    
-
-    [SerializeField]
-    private float bulletSpeed;
     [SerializeField]
     private int bulletDamage;
+    [SerializeField]
+    private float bulletSpeed;
+
+    private int damageModifier = 1;
+
+    private float damageModifierTimer;
 
     private List<GameObject> bulletList;
 
@@ -105,6 +107,18 @@ public class AimScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Timers
+        if (damageModifierTimer > 0)
+        {
+            damageModifierTimer -= Time.deltaTime;
+        }
+        else
+        {
+            SetDamageModifier(1);
+        }
+        #endregion
+
+
         Vector2 screnCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screnCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit hit, 20f, ~7))
@@ -132,7 +146,7 @@ public class AimScript : MonoBehaviour
     {
         GameObject sBullet = GetBullet();
         sBullet.transform.position = bulletPoint.position;
-        sBullet.GetComponent<BulletScript>().SetDamage(bulletDamage);
+        sBullet.GetComponent<BulletScript>().SetDamage(bulletDamage *= damageModifier);
         sBullet.transform.rotation= Quaternion.identity;
         sBullet.SetActive(true);
         sBullet.GetComponent<Rigidbody>().AddForce(bulletPoint.forward * bulletSpeed,ForceMode.Force);
@@ -149,7 +163,7 @@ public class AimScript : MonoBehaviour
             {
                 if (col.gameObject.CompareTag("Enemy"))
                 {
-                    col.gameObject.GetComponent<IDamage>().TakeDamage(attackAreaDamage);
+                    col.gameObject.GetComponent<IDamage>().TakeDamage(attackAreaDamage *= damageModifier);
                 }
             }
         }
@@ -165,13 +179,19 @@ public class AimScript : MonoBehaviour
             {
                 if (col.gameObject.CompareTag("Enemy"))
                 {
-                    col.gameObject.GetComponent<IDamage>().TakeDamage(meleeAttackDamage);
+                    col.gameObject.GetComponent<IDamage>().TakeDamage(meleeAttackDamage *= damageModifier);
                 }
             }
         }
     }
     #endregion
 
+    public void SetDamageModifier(int newDamageModifier, float time = 0f)
+    {
+        damageModifier = newDamageModifier;
+
+
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
