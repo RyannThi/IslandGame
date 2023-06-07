@@ -68,6 +68,8 @@ public class BossScript : MonoBehaviour, IDamage
     #endregion
 
     #region FSM
+
+    private AnimatorStateInfo animState;
     public enum BossStates
     {
         Idle,
@@ -136,21 +138,21 @@ public class BossScript : MonoBehaviour, IDamage
         
 
         #region Object Pooling
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 6; i++)
         {
             GameObject obj = Instantiate(missilePrefab);
             obj.SetActive(false);
             missileList.Add(obj);
         }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 6; i++)
         {
             GameObject obj = Instantiate(fastProjectile);
             obj.SetActive(false);
             fastProjectileList.Add(obj);
         }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 10; i++)
         {
             GameObject obj = Instantiate(arrow);
             obj.SetActive(false);
@@ -161,11 +163,18 @@ public class BossScript : MonoBehaviour, IDamage
 
         Invoke("StartBoss", 5);
 
+        bossElement = ElementStates.Summon;
 
 
 
     }
-    
+
+    private void Update()
+    {
+        transform.LookAt(playerTransform.position);
+
+        animState = anim.GetCurrentAnimatorStateInfo(0);
+    }
     private void StartBoss()
     {
         StartCoroutine(Idle());
@@ -205,7 +214,12 @@ public class BossScript : MonoBehaviour, IDamage
         {
             if (!arrowList[i].activeInHierarchy)
                 return arrowList[i];
+            
         }
+
+        //GameObject obj = Instantiate(arrow);
+        //obj.SetActive(false);
+        //arrowList.Add(obj);
 
         return null;
     }
@@ -215,7 +229,7 @@ public class BossScript : MonoBehaviour, IDamage
     {
         StopAllCoroutines();
 
-        Debug.Log(nextState);
+        //Debug.Log(nextState);
 
         #region FSM Switch
         switch (nextState)
@@ -266,9 +280,16 @@ public class BossScript : MonoBehaviour, IDamage
             case BossStates.Attack05:
 
                 if(bossElement == ElementStates.Ice)
+                {
                     StartCoroutine(Attack05());
+                    
+                }                
                 else
+                {
                     ChangeElement(iceMaterials, Attack05());
+                    
+                }
+                    
 
                 break;
 
@@ -335,15 +356,21 @@ public class BossScript : MonoBehaviour, IDamage
         //Idle Animation
         yield return new WaitForSeconds(2);
 
-        attack = 6;
-        /*if (health >= 600)
+        //attack = 5;
+        if (health >= 2 * health / 3)
             attack = Random.Range(1, 6);
-        else if (health < 600)
+        else if (health < 2 * health / 3)
             attack = Random.Range(6, 10);
-        else if (health < 300)
-            attack = Random.Range(1, 10);*/
+        else if (health < health / 3)
+            attack = Random.Range(1, 10);
 
 
+        while (!animState.IsName("Fight_Idle"))
+        {
+
+
+            yield return new WaitForEndOfFrame();
+        }
         switch (attack)
             {
                 case 1:
@@ -408,17 +435,22 @@ public class BossScript : MonoBehaviour, IDamage
 
             for(int i = 0; i < 3; i++)
             {
-                Instantiate(stalactite, playerTransform.position + new Vector3(0,10,0),Quaternion.identity);
-                yield return new WaitForSeconds(2.5f);
+                Instantiate(stalactite, playerTransform.position + new Vector3(0,20,0),Quaternion.identity);
+                yield return new WaitForSeconds(3f);
             }
 
         anim.SetBool("Rock Start", false);
-            stateToChange = BossStates.Idle;            
-        
-        //Exit
-        print("EXIT");
+            stateToChange = BossStates.Idle;
 
-        ChangeState(stateToChange);
+        //Exit
+        //print("EXIT");
+
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
     
     IEnumerator Attack02()
@@ -448,12 +480,18 @@ public class BossScript : MonoBehaviour, IDamage
         }
         
         //Desabilita o indicador de range
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(5f);
+
         anim.SetBool("Spinning", false);
 
-        stateToChange = BossStates.Idle;      
+        stateToChange = BossStates.Idle;
 
-        ChangeState(stateToChange);
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator Attack03()
@@ -465,15 +503,15 @@ public class BossScript : MonoBehaviour, IDamage
         //FIRE
 
         
-            for(int i = 0; i < missileList.Count; i++)
+            for(int i = 0; i < 3; i++)
             {
                 //Debug.Log("Entrou no For");
                 GameObject missile = GetMissile();
-            if(missile != null)
-            {
-                missile.transform.position = transform.position + Vector3.up * 10;
-                missile.SetActive(true);
-            }                
+                if(missile != null)
+                {
+                    missile.transform.position = transform.position + Vector3.up * 10;
+                    missile.SetActive(true);
+                }                
                 yield return new WaitForSeconds(3);
             }
                        
@@ -481,12 +519,17 @@ public class BossScript : MonoBehaviour, IDamage
             
             anim.SetBool("Rune Start", false);
             stateToChange= BossStates.Idle;
-            
-        
+
+
         //Exit
 
 
-        ChangeState(stateToChange);
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator Attack04()
@@ -506,16 +549,22 @@ public class BossScript : MonoBehaviour, IDamage
 
             GameObject projectile = GetProjectile();
             if(projectile != null)
-            projectile.transform.position = transform.position + projectileDirection.normalized * 2;
+            
 
 
             //Da o Vector3 do Player
-            FastProjectileScript script = projectile.gameObject.GetComponent<FastProjectileScript>();
-            script.SetPlayerDirection(playerTransform.position);
+            if(projectile != null)
+            {
+                projectile.transform.position = transform.position + projectileDirection.normalized * 2;
+                FastProjectileScript script = projectile.gameObject.GetComponent<FastProjectileScript>();
+                script.SetPlayerDirection(playerTransform.position);
+                yield return new WaitForSeconds(2f);
 
-            yield return new WaitForSeconds(2f);
+                projectile.SetActive(true);
+            }
 
-            projectile.SetActive(true);
+
+
 
             
 
@@ -525,19 +574,24 @@ public class BossScript : MonoBehaviour, IDamage
         //Exit
         stateToChange = BossStates.Idle;
         anim.SetBool("Rune Start", false);
-        ChangeState(stateToChange);
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator Attack05()
     {
         anim.SetBool("Rune Start", true);
         BossStates stateToChange = BossStates.Attack05;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(4);
         float pos = -3f;
 
         //ICE
 
-        for (int i = 0; i < arrowList.Count; i++)
+        for (int i = 0; i < 5; i++)
         {
             GameObject arrowObj = GetArrow();
             pos += 1;
@@ -552,13 +606,20 @@ public class BossScript : MonoBehaviour, IDamage
             arrowObj.SetActive(true);
         }
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
 
         stateToChange = BossStates.Idle;
         //Exit
 
         anim.SetBool("Rune Start", false);
-        ChangeState(stateToChange);
+
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
+        
     }
     #endregion
 
@@ -577,12 +638,17 @@ public class BossScript : MonoBehaviour, IDamage
 
             yield return new WaitForSeconds(2);
         }
-        
-       
+
+
         //Exit
 
 
-        ChangeState(stateToChange);
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator Invoking02()
@@ -601,7 +667,12 @@ public class BossScript : MonoBehaviour, IDamage
         //Exit
 
 
-        ChangeState(stateToChange);
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator Invoking03()
@@ -620,7 +691,12 @@ public class BossScript : MonoBehaviour, IDamage
         //Exit
 
 
-        ChangeState(stateToChange);
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator Invoking04()
@@ -639,7 +715,12 @@ public class BossScript : MonoBehaviour, IDamage
         //Exit
 
 
-        ChangeState(stateToChange);
+        while (!animState.IsName("Fight_Idle"))
+        {
+            ChangeState(stateToChange);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
     #endregion
     IEnumerator WeakState()
@@ -674,7 +755,7 @@ public class BossScript : MonoBehaviour, IDamage
 
     private void ChangeElement(Material[] newMat, IEnumerator waitingToExecute)
     {
-        BossStates stateToChange;
+        //BossStates stateToChange;
         //Start
         
 
@@ -713,8 +794,9 @@ public class BossScript : MonoBehaviour, IDamage
 
         mesh.materials = mat;
 
-        stateToChange = BossStates.Idle;
-        ChangeState(stateToChange);
+        //stateToChange = BossStates.Idle;
+        //ChangeState(stateToChange);
+        
         StartCoroutine(waitingToExecute);
     }
     #endregion

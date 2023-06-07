@@ -7,7 +7,7 @@ public class FastProjectileScript : MonoBehaviour
     private Vector3 playerPosition;
 
 
-    private void Awake()
+    private void OnEnable()
     {
         Invoke("SetInactive", 4);
     }
