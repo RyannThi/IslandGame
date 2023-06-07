@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class AimScript : MonoBehaviour
 {
@@ -20,7 +21,13 @@ public class AimScript : MonoBehaviour
     [Range(0,10f)]
     private float attackRange;
     [SerializeField]
+    [Range(0, 10f)]
+    private float meleeAttackRange;
+    [SerializeField]
     private int attackAreaDamage;
+    [SerializeField]
+    private int meleeAttackDamage;
+    
 
     [SerializeField]
     private float bulletSpeed;
@@ -63,8 +70,11 @@ public class AimScript : MonoBehaviour
         ck.Player.Aim.canceled += Aim_canceled;
         ck.Player.Skill1.started += Skill1_started;
         ck.Player.Attack.started += Attack_started;
+        ck.Player.Skill2.started += Skill2_started;
         #endregion
     }
+
+
 
     #region Input Methods
     private void Attack_started(InputAction.CallbackContext obj)
@@ -76,6 +86,10 @@ public class AimScript : MonoBehaviour
     {       
         Attack1(aimPoint);
         Debug.Log("Click");
+    }
+    private void Skill2_started(InputAction.CallbackContext obj)
+    {
+        Attack2();
     }
 
     private void Aim_canceled(InputAction.CallbackContext obj)
@@ -140,11 +154,29 @@ public class AimScript : MonoBehaviour
             }
         }
     }
+
+    private void Attack2()
+    {
+        Collider[] objectsHit = Physics.OverlapSphere(transform.position, meleeAttackRange);
+
+        foreach(Collider col in objectsHit)
+        {
+            if (!col.isTrigger)
+            {
+                if (col.gameObject.CompareTag("Enemy"))
+                {
+                    col.gameObject.GetComponent<IDamage>().TakeDamage(meleeAttackDamage);
+                }
+            }
+        }
+    }
     #endregion
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(aimPoint, attackRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, meleeAttackRange);
     }
 }
