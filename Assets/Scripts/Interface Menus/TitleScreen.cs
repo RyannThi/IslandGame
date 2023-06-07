@@ -16,6 +16,7 @@ public class TitleScreen : MonoBehaviour
     public CanvasGroup mainGroupCanvasGroup;
     public CanvasGroup optionsGroupCanvasGroup;
     public CanvasGroup blackout;
+    public AudioMixer mixer;
 
     [Space(10)]
 
@@ -84,6 +85,11 @@ public class TitleScreen : MonoBehaviour
         FullScreenMode.ExclusiveFullScreen
     };
 
+    [SerializeField]
+    private Coroutine fadeInCoroutine;
+    [SerializeField]
+    private Coroutine fadeOutCoroutine;
+
     private void Awake() { ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
     private void OnDisable() { ck.Disable(); }
@@ -91,6 +97,26 @@ public class TitleScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        fullscreenSlider.value = PlayerPrefs.GetInt("FULLSCREEN_MODE", 0);
+        resolutionSlider.value = PlayerPrefs.GetInt("RESOLUTION_SIZE", 1);
+        musicSlider.value = PlayerPrefs.GetFloat("BGM_VOLUME", 0.05f);
+        soundSlider.value = PlayerPrefs.GetFloat("SFX_VOLUME", 0.05f);
+        mouseSlider.value = PlayerPrefs.GetInt("MOUSE_SENSITIVITY", 50);
+
+        Screen.SetResolution(resolutions[(int)resolutionSlider.value, 0], resolutions[(int)resolutionSlider.value, 1], fullScreenModes[(int)fullscreenSlider.value]);
+
+        mixer.SetFloat("BGMVolumeParam", Mathf.Log10(PlayerPrefs.GetFloat("BGM_VOLUME", 1)) * 20);
+        mixer.SetFloat("SFXVolumeParam", Mathf.Log10(PlayerPrefs.GetFloat("SFX_VOLUME", 1)) * 20);
+
+        fullscreenText.text = fullScreenNames[(int)fullscreenSlider.value];
+        resolutionText.text = resolutions[(int)resolutionSlider.value, 0] + " x " + resolutions[(int)resolutionSlider.value, 1];
+        musicText.text = (int)(musicSlider.value * 100) + "%";
+        soundText.text = (int)(soundSlider.value * 100) + "%";
+        mouseText.text = mouseSlider.value + "%";
+
+        fadeOutCoroutine = StartCoroutine(EmptyCoroutine());
+        fadeInCoroutine = StartCoroutine(EmptyCoroutine());
+
         StartCoroutine(StartTimer());
     }
 
@@ -144,26 +170,31 @@ public class TitleScreen : MonoBehaviour
                 {
                     case 0:
 
-                        StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
-                        StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        StopCoroutine(fadeOutCoroutine);
+                        fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        //fadeInCoroutine = StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
                         break;
 
                     case 1:
 
-                        StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
-                        StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        StopCoroutine(fadeOutCoroutine);
+                        optionsGroupSelectionIndex = 0;
+                        fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        fadeInCoroutine = StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
                         break;
 
                     case 2:
 
-                        StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
-                        StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        StopCoroutine(fadeOutCoroutine);
+                        fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        //fadeInCoroutine = StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
                         break;
 
                     case 3:
 
-                        StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
-                        StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        StopCoroutine(fadeOutCoroutine);
+                        fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        Application.Quit();
                         break;
                 }
 
@@ -197,14 +228,14 @@ public class TitleScreen : MonoBehaviour
 
                     case 2: // Music Volume
 
-                        //musicSlider.value += (int)ck.Player.LeftRight.ReadValue<float>();
-                        //musicText.text = resolutions[(int)resolutionSlider.value, 0] + " x " + resolutions[(int)resolutionSlider.value, 1];
+                        musicSlider.value += (int)ck.Player.LeftRight.ReadValue<float>() * 0.1f;
+                        musicText.text = (int)(musicSlider.value * 100) + "%";
                         break;
 
                     case 3: // Sound Volume
 
-                        //soundSlider.value += (int)ck.Player.LeftRight.ReadValue<float>();
-                        //soundText.text = resolutions[(int)resolutionSlider.value, 0] + " x " + resolutions[(int)resolutionSlider.value, 1];
+                        soundSlider.value += (int)ck.Player.LeftRight.ReadValue<float>() * 0.1f;
+                        soundText.text = (int)(soundSlider.value * 100) + "%";
                         break;
 
                     case 4: // Mouse Sensitivity
@@ -213,12 +244,6 @@ public class TitleScreen : MonoBehaviour
                         mouseText.text = mouseSlider.value + "%";
                         break;
 
-                    case 5: // Save and Apply
-
-                        // apply
-
-
-                        break;
                 }
             }
 
@@ -232,18 +257,28 @@ public class TitleScreen : MonoBehaviour
 
                         PlayerPrefs.SetInt("RESOLUTION_SIZE", (int)resolutionSlider.value);
                         PlayerPrefs.SetInt("FULLSCREEN_MODE", (int)fullscreenSlider.value);
+                        PlayerPrefs.SetInt("MOUSE_SENSITIVITY", (int)mouseSlider.value);
 
-                        StartCoroutine(FadeOutGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
-                        StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        PlayerPrefs.SetFloat("BGM_VOLUME", musicSlider.value);
+                        PlayerPrefs.SetFloat("SFX_VOLUME", soundSlider.value);
+
+                        mixer.SetFloat("BGMVolumeParam", Mathf.Log10(PlayerPrefs.GetFloat("BGM_VOLUME", 1)) * 20);
+                        mixer.SetFloat("SFXVolumeParam", Mathf.Log10(PlayerPrefs.GetFloat("SFX_VOLUME", 1)) * 20);
+
+                        StopCoroutine(fadeOutCoroutine);
+                        fadeOutCoroutine = StartCoroutine(FadeOutGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        fadeInCoroutine = StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
                         break;
+
                 }
 
             }
 
             if (ck.Player.Cancel.WasPressedThisFrame())
             {
-                StartCoroutine(FadeOutGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
-                StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                StopCoroutine(fadeOutCoroutine);
+                fadeOutCoroutine = StartCoroutine(FadeOutGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                fadeInCoroutine = StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
             }
 
         }
@@ -273,12 +308,18 @@ public class TitleScreen : MonoBehaviour
     private IEnumerator FadeOutGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
     {
         setBool(!groupInteract);
+        StopCoroutine(fadeInCoroutine);
         while (group.localScale.x != 0)
         {
             group.localScale = Vector2.Lerp(group.localScale, new Vector2(0, 0), Time.deltaTime * transitionSpeed);
             canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, Time.deltaTime * transitionSpeed * 2);
             yield return null;
         }
+    }
+
+    private IEnumerator EmptyCoroutine()
+    {
+        yield return null;
     }
 
 
@@ -291,23 +332,4 @@ public class TitleScreen : MonoBehaviour
         return _val;
     }
 
-}
-
-
-// Uso de mouse
-
-public class VolumeControl : MonoBehaviour
-{
-    public AudioMixer mixer;
-
-    public void SetLevelBGM(float sliderValue)
-    {
-        mixer.SetFloat("BGMVolumeParam", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("BGM_VOLUME", sliderValue);
-    }
-    public void SetLevelSFX(float sliderValue)
-    {
-        mixer.SetFloat("SFXVolumeParam", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("SFX_VOLUME", sliderValue);
-    }
 }
