@@ -20,7 +20,10 @@ public class PlayerCharControl : MonoBehaviour
 
     public float characterSpeed; //{ get; private set; } // velocidade padrão do player
 
+    [SerializeField]
     private float characterSpeedModifier = 1f;
+
+    [SerializeField]
     private float characterSpeedModifierTimer = 0f;
 
     private float jumpForce = 1f; // força do pulo do player,
@@ -235,7 +238,7 @@ public class PlayerCharControl : MonoBehaviour
             resistanceModifierTimer = time;
         }
     }
-    private int resistance;
+    private int resistance = 1;
     public void TakeDamage(int damage)
     {
         characterHealth -= damage / resistance;

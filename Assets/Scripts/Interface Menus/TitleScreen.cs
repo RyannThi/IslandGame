@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TitleScreen : MonoBehaviour
@@ -40,13 +41,16 @@ public class TitleScreen : MonoBehaviour
     public TextMeshProUGUI[] textBox;
     public Image[] selectionsImages;
     public RectTransform highlight;
+    public RectTransform optionsHighlight;
 
     [Space(10)]
 
     [Header("Object Manipulation")]
     public Vector2[] positions;
+    public Vector2[] optionsHighlightPositions;
     public Vector2 scaleModifier;
     private Vector2 highlightRef = Vector2.zero;
+    private Vector2 optionsHighlightRef = Vector2.zero;
 
     public float fadeInSpeed = 0.5f;
     public float scaleSpeed = 0.5f;
@@ -172,7 +176,7 @@ public class TitleScreen : MonoBehaviour
 
                         StopCoroutine(fadeOutCoroutine);
                         fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
-                        //fadeInCoroutine = StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        StartCoroutine(StartGame());
                         break;
 
                     case 1:
@@ -205,6 +209,8 @@ public class TitleScreen : MonoBehaviour
 
         if (optionsGroupInteract == true)
         {
+            optionsHighlight.anchoredPosition = Vector2.SmoothDamp(optionsHighlight.anchoredPosition, optionsHighlightPositions[optionsGroupSelectionIndex], ref optionsHighlightRef, highlightSpeed * Time.deltaTime);
+
             if (ck.Player.ForwardBack.WasPressedThisFrame())
             {
                 optionsGroupSelectionIndex = (int)Wrap(optionsGroupSelectionIndex - (int)ck.Player.ForwardBack.ReadValue<float>(), 0, 6);
@@ -292,6 +298,16 @@ public class TitleScreen : MonoBehaviour
             yield return null;
         }
         mainGroupInteract = true;
+    }
+
+    private IEnumerator StartGame()
+    {
+        while (blackout.alpha < 0.99f)
+        {
+            blackout.alpha = Mathf.Lerp(blackout.alpha, 1f, Time.deltaTime * fadeInSpeed);
+            yield return null;
+        }
+        SceneManager.LoadScene("MainScene");
     }
     
     private IEnumerator FadeInGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)

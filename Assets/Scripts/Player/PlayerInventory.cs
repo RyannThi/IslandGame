@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEditor;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -130,11 +131,14 @@ public class PlayerInventory : MonoBehaviour
     {
         if (ck.Player.Jump.WasPressedThisFrame())
         {
-            AddItem("Coin");
+            AddItem("Speed Potion");
         }
-
         if (ck.Player.Inventory.WasPressedThisFrame())
         {
+            for (int i = 11; i > -1; i--)
+            {
+                ChangeSlotHighlight(i);
+            }
             isOpen = !isOpen;
             if (positioningCoroutine != null)
             {
@@ -151,7 +155,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (ck.Player.ForwardBack.WasPressedThisFrame() && isOpen)
         {
-            selectedItem = (int)Wrap(selectedItem + (int)ck.Player.ForwardBack.ReadValue<float>() * 3, 0, 12);
+            selectedItem = (int)Wrap(selectedItem - (int)ck.Player.ForwardBack.ReadValue<float>() * 3, 0, 12);
             ChangeSlotHighlight(selectedItem);
         }
 
@@ -159,6 +163,45 @@ public class PlayerInventory : MonoBehaviour
         {
             selectedItem = (int)Wrap(selectedItem + (int)ck.Player.LeftRight.ReadValue<float>(), 0, 12);
             ChangeSlotHighlight(selectedItem);
+        }
+
+        if (ck.Player.Confirm.WasPressedThisFrame() && isOpen)
+        {
+            if (invSlotsChild[selectedItem].activeSelf == true)
+            {
+                if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out var item))
+                {
+                    item.UseItem(PlayerCharControl.instance.gameObject);
+                    switch (invSlotsItems[selectedItem].name)
+                    {
+                        case "Speed Potion":
+
+                            Destroy(invSlotsChild[selectedItem].GetComponent<SpeedPotion>());
+                            break;
+
+                        case "Damage Potion":
+
+                            Destroy(invSlotsChild[selectedItem].GetComponent<DamagePotion>());
+                            break;
+
+                        case "Resistance Potion":
+
+                            Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
+                            break;
+
+                        case "Health Potion":
+
+                            Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
+                            break;
+                    }
+
+                }
+
+                isOpen = !isOpen;
+                invSlotsItems.Remove(invSlotsItems[selectedItem]);
+                StopCoroutine(positioningCoroutine);
+                positioningCoroutine = StartCoroutine(MoveOut());
+            }
         }
     }
 
@@ -188,10 +231,9 @@ public class PlayerInventory : MonoBehaviour
         invLabelDescRect.localScale = Vector2.zero;
     }
     
-    private void AddItem(string _itemName)
+    public void AddItem(string _itemName)
     {
         // CONSERTAR BUG DE QUANDO A QUANTIDADE DE ITEMS EXCEDE A QUANTIDADE DE SLOTS ELE CRASHA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
         // Percorre todos os itens de inventário disponíveis
         foreach (var invItem in invItemInfo)
@@ -212,6 +254,25 @@ public class PlayerInventory : MonoBehaviour
 
         // Ativa o objeto do slot de inventário correspondente ao último item adicionado
         invSlotsChild[invSlotsItems.Count - 1].SetActive(true);
+
+        switch (_itemName)
+        {
+            case "Speed Potion":
+                invSlotsChild[invSlotsItems.Count - 1].AddComponent<SpeedPotion>();
+                break;
+
+            case "Damage Potion":
+                invSlotsChild[invSlotsItems.Count - 1].AddComponent<DamagePotion>();
+                break;
+
+            case "Resistance Potion":
+                invSlotsChild[invSlotsItems.Count - 1].AddComponent<ResistancePotion>();
+                break;
+
+            case "Health Potion":
+                invSlotsChild[invSlotsItems.Count - 1].AddComponent<HealthPotion>();
+                break;
+        }
 
         ChangeSlotHighlight(selectedItem);
     }

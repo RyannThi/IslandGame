@@ -7,5 +7,6 @@ public class SpeedPotion : MonoBehaviour, Iitem
     public void UseItem(GameObject player)
     {
         player.GetComponent<PlayerCharControl>().ChangeCharacterSpeed(1.5f, 5);
+        print("speed");
     }
 }
