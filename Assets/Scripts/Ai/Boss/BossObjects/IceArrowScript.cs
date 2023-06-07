@@ -38,7 +38,7 @@ public class IceArrowScript : MonoBehaviour
                 
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, target, 7 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target, 18 * Time.deltaTime);
         }
         
 
