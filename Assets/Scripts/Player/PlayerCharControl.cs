@@ -7,7 +7,11 @@ public class PlayerCharControl : MonoBehaviour
     public static PlayerCharControl instance;
 
     public Transform orientation;
+    public Transform combatLookAt;
     public Transform camera;
+
+    public GameObject cameraNormal;
+    public GameObject cameraCombat;
 
     private Animator animator;
     private ControlKeys ck; // usado pra verificação de input
@@ -29,6 +33,7 @@ public class PlayerCharControl : MonoBehaviour
     private float jumpForce = 1f; // força do pulo do player,
 
     public State currentState;
+    public bool combatMode = false;
 
     public enum State
     {
@@ -82,6 +87,14 @@ public class PlayerCharControl : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             currentState = State.Jump;
         }
+
+        if (ck.Player.Combat.WasPressedThisFrame())
+        {
+            combatMode = !combatMode;
+            cameraNormal.SetActive(!cameraNormal.activeSelf);
+            cameraCombat.SetActive(!cameraCombat.activeSelf);
+        }
+
     }
 
     void FixedUpdate()
@@ -155,14 +168,29 @@ public class PlayerCharControl : MonoBehaviour
                 animator.SetBool("WALK", true);
 
                 // Direção de movimento
-                Vector3 inputDir = orientation.forward * z + orientation.right * x;
-                if (inputDir != Vector3.zero)
-                {
-                    //transform.forward = Vector3.Slerp(transform.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-                    transform.forward = inputDir.normalized;
-                }
 
-                rb.AddForce(inputDir.normalized * (characterSpeed * characterSpeedModifier), ForceMode.Force);
+                if (combatMode == false)
+                {
+                    Vector3 inputDir = orientation.forward * z + orientation.right * x;
+                    if (inputDir != Vector3.zero)
+                    {
+                        transform.forward = inputDir.normalized;
+                    }
+                    rb.AddForce(inputDir.normalized * (characterSpeed * characterSpeedModifier), ForceMode.Force);
+                } 
+                else
+                {
+                    Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(camera.position.x, combatLookAt.position.y, camera.position.z);
+                    orientation.forward = dirToCombatLookAt.normalized;
+
+                    transform.forward = dirToCombatLookAt.normalized;
+
+                    Vector3 inputDir = orientation.forward * z + orientation.right * x;
+                    rb.AddForce(inputDir.normalized * (characterSpeed * characterSpeedModifier), ForceMode.Force);
+                }
+                
+
+                
 
                 Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 

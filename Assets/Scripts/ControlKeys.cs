@@ -188,6 +188,15 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Combat"",
+                    ""type"": ""Button"",
+                    ""id"": ""19f7cf07-5563-46c3-b712-1aa4227e7868"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -688,6 +697,17 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a1aa8e1a-0ab7-4474-83c5-c3999855c362"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2d7a6fea-415d-48e4-ba71-0b935ca5b6a5"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -743,12 +763,45 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""5e8ca19f-20d6-4463-9fbc-8920861a9c11"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""c84cb0f4-f9cd-4481-8353-cb2f6346aaef"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Skill 2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c044bc85-ad27-493d-bdf0-cc86c2bf7042"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Combat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e88e1f2a-267c-4e59-a2d9-8297e7c4e022"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Combat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -783,6 +836,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Skill1 = m_Player.FindAction("Skill 1", throwIfNotFound: true);
         m_Player_Skill2 = m_Player.FindAction("Skill 2", throwIfNotFound: true);
+        m_Player_Combat = m_Player.FindAction("Combat", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -860,6 +914,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Skill1;
     private readonly InputAction m_Player_Skill2;
+    private readonly InputAction m_Player_Combat;
     public struct PlayerActions
     {
         private @ControlKeys m_Wrapper;
@@ -882,6 +937,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
         public InputAction @Skill2 => m_Wrapper.m_Player_Skill2;
+        public InputAction @Combat => m_Wrapper.m_Player_Combat;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -945,6 +1001,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Skill2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkill2;
                 @Skill2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkill2;
                 @Skill2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkill2;
+                @Combat.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombat;
+                @Combat.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombat;
+                @Combat.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombat;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1003,6 +1062,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Skill2.started += instance.OnSkill2;
                 @Skill2.performed += instance.OnSkill2;
                 @Skill2.canceled += instance.OnSkill2;
+                @Combat.started += instance.OnCombat;
+                @Combat.performed += instance.OnCombat;
+                @Combat.canceled += instance.OnCombat;
             }
         }
     }
@@ -1036,5 +1098,6 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnSkill1(InputAction.CallbackContext context);
         void OnSkill2(InputAction.CallbackContext context);
+        void OnCombat(InputAction.CallbackContext context);
     }
 }

@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,10 +15,16 @@ public class TitleScreen : MonoBehaviour
     [Header("Object Referencing")]
     public RectTransform mainGroup;
     public RectTransform optionsGroup;
+    public RectTransform creditsGroup;
     public CanvasGroup mainGroupCanvasGroup;
     public CanvasGroup optionsGroupCanvasGroup;
+    public CanvasGroup creditsGroupCanvasGroup;
+    public RectTransform overlay;
     public CanvasGroup blackout;
     public AudioMixer mixer;
+    public AudioSource audioSource;
+    public AudioClip buttonMove;
+    public AudioClip buttonConfirm;
 
     [Space(10)]
 
@@ -62,18 +69,22 @@ public class TitleScreen : MonoBehaviour
 
     [Header("Logistics")]
     [SerializeField]
-    private int mainGroupSelectionIndex = 0;
+    public bool mousePress = false;
     [SerializeField]
-    private int optionsGroupSelectionIndex = 0;
+    public int mainGroupSelectionIndex = 0;
     [SerializeField]
-    private bool mainGroupInteract = false;
+    public int optionsGroupSelectionIndex = 0;
     [SerializeField]
-    private bool optionsGroupInteract = false;
+    public bool mainGroupInteract = false;
     [SerializeField]
-    private string[] fullScreenNames = { "Windowed", "Borderless Fullscreen", "Exclusive Fullscreen" };
+    public bool optionsGroupInteract = false;
+    [SerializeField]
+    private bool creditsGroupInteract = false;
+    [SerializeField]
+    public string[] fullScreenNames = { "Windowed", "Borderless Fullscreen", "Exclusive Fullscreen" };
 
     // Não é possivel serializar arrays nem listas multi-dimensionais
-    private int[,] resolutions = {
+    public int[,] resolutions = {
         { 640, 360 },
         { 960, 540 },
         { 1280, 720 },
@@ -127,6 +138,8 @@ public class TitleScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        overlay.eulerAngles += new Vector3(0, 0, 1);
+
         #region Menu Principal
         if (mainGroupInteract == true)
         {
@@ -149,6 +162,7 @@ public class TitleScreen : MonoBehaviour
             // Movimentar nas seleções
             if (ck.Player.ForwardBack.WasPressedThisFrame() || ck.Player.LeftRight.WasPressedThisFrame())
             {
+                audioSource.PlayOneShot(buttonMove);
                 mainGroupSelectionIndex = (int)Wrap(mainGroupSelectionIndex + (int)ck.Player.ForwardBack.ReadValue<float>() * 2, 0, 4);
                 if (mainGroupSelectionIndex == 0 || mainGroupSelectionIndex == 1)
                 {
@@ -161,8 +175,9 @@ public class TitleScreen : MonoBehaviour
             }
 
             // Confirmar a seleção
-            if (ck.Player.Confirm.WasPressedThisFrame())
+            if (ck.Player.Confirm.WasPressedThisFrame() || mousePress)
             {
+                audioSource.PlayOneShot(buttonConfirm);
                 for (int i = 0; i < 4; i++)
                 {
                     if (mainGroupSelectionIndex == i)
@@ -191,7 +206,7 @@ public class TitleScreen : MonoBehaviour
 
                         StopCoroutine(fadeOutCoroutine);
                         fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
-                        //fadeInCoroutine = StartCoroutine(FadeInGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
+                        fadeInCoroutine = StartCoroutine(FadeInGroup(creditsGroup, creditsGroupCanvasGroup, creditsGroupInteract, (value) => creditsGroupInteract = value));
                         break;
 
                     case 3:
@@ -201,23 +216,27 @@ public class TitleScreen : MonoBehaviour
                         Application.Quit();
                         break;
                 }
+                mousePress = false;
 
             }
 
         }
         #endregion
 
+        #region Menu Options
         if (optionsGroupInteract == true)
         {
             optionsHighlight.anchoredPosition = Vector2.SmoothDamp(optionsHighlight.anchoredPosition, optionsHighlightPositions[optionsGroupSelectionIndex], ref optionsHighlightRef, highlightSpeed * Time.deltaTime);
 
             if (ck.Player.ForwardBack.WasPressedThisFrame())
             {
+                audioSource.PlayOneShot(buttonMove);
                 optionsGroupSelectionIndex = (int)Wrap(optionsGroupSelectionIndex - (int)ck.Player.ForwardBack.ReadValue<float>(), 0, 6);
             }
 
             if (ck.Player.LeftRight.WasPressedThisFrame())
             {
+                audioSource.PlayOneShot(buttonMove);
                 switch (optionsGroupSelectionIndex)
                 {
                     case 0: // Fullscreen
@@ -253,8 +272,9 @@ public class TitleScreen : MonoBehaviour
                 }
             }
 
-            if (ck.Player.Confirm.WasPressedThisFrame())
+            if (ck.Player.Confirm.WasPressedThisFrame() || mousePress)
             {
+                audioSource.PlayOneShot(buttonConfirm);
                 switch (optionsGroupSelectionIndex)
                 {
                     case 5:
@@ -277,16 +297,30 @@ public class TitleScreen : MonoBehaviour
                         break;
 
                 }
+                mousePress = false;
 
             }
 
             if (ck.Player.Cancel.WasPressedThisFrame())
             {
+                audioSource.PlayOneShot(buttonMove);
                 StopCoroutine(fadeOutCoroutine);
                 fadeOutCoroutine = StartCoroutine(FadeOutGroup(optionsGroup, optionsGroupCanvasGroup, optionsGroupInteract, (value) => optionsGroupInteract = value));
                 fadeInCoroutine = StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
             }
 
+        }
+        #endregion
+
+        if (creditsGroupInteract == true)
+        {
+            if (ck.Player.Cancel.WasPressedThisFrame())
+            {
+                audioSource.PlayOneShot(buttonMove);
+                StopCoroutine(fadeOutCoroutine);
+                fadeOutCoroutine = StartCoroutine(FadeOutGroup(creditsGroup, creditsGroupCanvasGroup, creditsGroupInteract, (value) => creditsGroupInteract = value));
+                fadeInCoroutine = StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+            }
         }
     }
     private IEnumerator StartTimer()

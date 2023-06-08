@@ -122,8 +122,40 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 492779187}
+  - {fileID: 2189441264715408100}
   m_Father: {fileID: 7284979146237375684}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4794207631102703480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2189441264715408100}
+  m_Layer: 6
+  m_Name: CombatLookAt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2189441264715408100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4794207631102703480}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2428885018587615454}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5234443193977923846
 GameObject:
@@ -279,11 +311,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 2428885018587615454}
+  combatLookAt: {fileID: 0}
   camera: {fileID: 0}
   material: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   characterHealth: 100
   characterSpeed: 6
+  characterSpeedModifier: 1
+  characterSpeedModifierTimer: 0
   currentState: 0
+  combatMode: 0
 --- !u!114 &1745024966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,10 +333,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugObject: {fileID: 0}
-  aim: {fileID: 399140911}
   bullet: {fileID: 4729776563457581437, guid: 5e075f29e9fce1947a0ff4f877905863, type: 3}
   bulletPoint: {fileID: 492779187}
   attackRange: 2.5
+  meleeAttackRange: 0
   attackAreaDamage: 10
-  bulletSpeed: 10
+  meleeAttackDamage: 0
   bulletDamage: 0
+  bulletSpeed: 10
