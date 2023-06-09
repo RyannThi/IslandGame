@@ -7,10 +7,10 @@ public class HealthPotion : MonoBehaviour, Iitem
     
     public void UseItem(GameObject player)
     {
-        int healAmount = 40;
+        float healAmount = 40;
         if(player.GetComponent<PlayerCharControl>().GetHealth() + healAmount > 100)
         {
-            int excedingAmount = (player.GetComponent<PlayerCharControl>().GetHealth() + 30) - 100;
+            float excedingAmount = (player.GetComponent<PlayerCharControl>().GetHealth() + 30) - 100;
             healAmount -= excedingAmount;
         }
 

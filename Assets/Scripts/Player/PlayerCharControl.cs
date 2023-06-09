@@ -273,7 +273,7 @@ public class PlayerCharControl : MonoBehaviour
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(damage) * -1);
     }
 
-    public void HealHealth(int healAmount)
+    public void HealHealth(float healAmount)
     {
         characterHealth += healAmount;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(healAmount));
