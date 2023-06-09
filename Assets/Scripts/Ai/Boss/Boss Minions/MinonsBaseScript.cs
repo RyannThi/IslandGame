@@ -18,11 +18,15 @@ public class MinonsBaseScript : MonoBehaviour
     [SerializeField]
     private GameObject zoneEffect;
 
+    private Animator anim;
+
     #endregion
 
     private void Awake()
     {
         agent= GetComponent<NavMeshAgent>();
+
+        anim = GetComponent<Animator>();
 
         foreach(Transform a in FindObjectsOfType<Transform>())
         {
@@ -32,7 +36,7 @@ public class MinonsBaseScript : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log(playerPosition);
+        //Debug.Log(playerPosition);
     }
 
     // Update is called once per frame
@@ -42,12 +46,15 @@ public class MinonsBaseScript : MonoBehaviour
 
         if(Vector3.Distance(transform.position, playerPosition.position) <= attackRange)
         {
-            Attack();
+            agent.isStopped = true;
+           StartCoroutine(Attack());
         }
     }
 
-    private void Attack()
+    private IEnumerator Attack()
     {
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(1.2f);
         //Animacao do pulo do minion
         Instantiate(zoneEffect, playerPosition.position - new Vector3(0,0.95f,0) , Quaternion.identity);
         Destroy(gameObject);

@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Logistics")]
     [SerializeField]
-    private int playerHealth = 100;
+    private float playerHealth = 100;
     [SerializeField]
     private Color currentHealthColor;
 
@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour
         healthGaugeImage.color = Color.Lerp(healthGaugeImage.color, currentHealthColor, Time.deltaTime * coloringSpeed);
     }
 
-    public void UpdateHealthGauge(int damageOrHeal)
+    public void UpdateHealthGauge(float damageOrHeal)
     {
         playerHealth = playerHealth + damageOrHeal;
         if (playerHealth == 100)

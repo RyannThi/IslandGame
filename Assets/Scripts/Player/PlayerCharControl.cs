@@ -20,7 +20,7 @@ public class PlayerCharControl : MonoBehaviour
     private bool isGrounded; // se o player estiver no chão, true
     private float rotationSpeed = 5f;
 
-    public int characterHealth = 100;
+    public float characterHealth = 100;
 
     public float characterSpeed; //{ get; private set; } // velocidade padrão do player
 
@@ -252,12 +252,12 @@ public class PlayerCharControl : MonoBehaviour
         }
     }
 
-    public int GetHealth()
+    public float GetHealth()
     {
         return characterHealth;
     }
     private float resistanceModifierTimer;
-    public void Resistance(int resistanceModifier, float time = 0f)
+    public void Resistance(float resistanceModifier, float time = 0f)
     {       
             resistance = resistanceModifier;       
             
@@ -266,8 +266,8 @@ public class PlayerCharControl : MonoBehaviour
             resistanceModifierTimer = time;
         }
     }
-    private int resistance = 1;
-    public void TakeDamage(int damage)
+    private float resistance = 1;
+    public void TakeDamage(float damage)
     {
         characterHealth -= damage / resistance;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(damage) * -1);
