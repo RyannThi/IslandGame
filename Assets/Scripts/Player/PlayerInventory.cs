@@ -9,6 +9,7 @@ using UnityEditor;
 public class PlayerInventory : MonoBehaviour
 {
     private ControlKeys ck; // usado pra verificação de input
+    public static PlayerInventory instance;
 
     private GameObject invGroup; // usado pra fade in/out do inventario
 
@@ -77,22 +78,15 @@ public class PlayerInventory : MonoBehaviour
 
     private bool isOpen; // flag para indicar se o inventário está aberto
 
-    private void Awake()
-    {
-        ck = new ControlKeys();
-    }
-    private void OnEnable()
-    {
-        ck.Enable();
-    }
-    private void OnDisable()
-    {
-        ck.Disable();
-    }
+    private void Awake() { ck = new ControlKeys(); }
+    private void OnEnable() { ck.Enable(); }
+    private void OnDisable() { ck.Disable(); }
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
         // encontra os objetos de UI do inventário
         invGroup = GetChildGameObject(gameObject, "InvGroup");
 
@@ -129,10 +123,10 @@ public class PlayerInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ck.Player.Jump.WasPressedThisFrame())
+        /*if (ck.Player.Jump.WasPressedThisFrame())
         {
             AddItem("Speed Potion");
-        }
+        }*/
         if (ck.Player.Inventory.WasPressedThisFrame())
         {
             for (int i = 11; i > -1; i--)
@@ -193,6 +187,11 @@ public class PlayerInventory : MonoBehaviour
 
                             Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
                             break;
+
+                        case "Heavy Snowball":
+
+                            Destroy(invSlotsChild[selectedItem].GetComponent<HeavySnowball>());
+                            break;
                     }
 
                 }
@@ -231,9 +230,14 @@ public class PlayerInventory : MonoBehaviour
         invLabelDescRect.localScale = Vector2.zero;
     }
     
-    public void AddItem(string _itemName)
+    public void AddItem(string _itemName, GameObject _caller = null)
     {
         // CONSERTAR BUG DE QUANDO A QUANTIDADE DE ITEMS EXCEDE A QUANTIDADE DE SLOTS ELE CRASHA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if (invSlotsItems.Count + 1 >= 13)
+        {
+            return;
+        }
 
         // Percorre todos os itens de inventário disponíveis
         foreach (var invItem in invItemInfo)
@@ -272,6 +276,15 @@ public class PlayerInventory : MonoBehaviour
             case "Health Potion":
                 invSlotsChild[invSlotsItems.Count - 1].AddComponent<HealthPotion>();
                 break;
+
+            case "Heavy Snowball":
+                invSlotsChild[invSlotsItems.Count - 1].AddComponent<HeavySnowball>();
+                break;
+        }
+
+        if (_caller != null)
+        {
+            Destroy(_caller);
         }
 
         ChangeSlotHighlight(selectedItem);

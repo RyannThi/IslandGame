@@ -120,11 +120,11 @@ public class PlayerCharControl : MonoBehaviour
         {
             material.color = Color.cyan;
         }
-        if (ck.Player.Confirm.WasPressedThisFrame())
+        /*if (ck.Player.Confirm.WasPressedThisFrame())
         {
             characterHealth -= 20;
             TakeDamage(20);
-        }
+        }*/
         #endregion
 
         #region Ground check

@@ -197,6 +197,15 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d93d3af-40be-4bfa-bc8f-3449e4533070"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -804,6 +813,28 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""action"": ""Combat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8dc618e6-b49a-43eb-bc50-2ffd367438b1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""acb23a03-3643-4455-901d-d03fdfc86ab5"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -837,6 +868,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         m_Player_Skill1 = m_Player.FindAction("Skill 1", throwIfNotFound: true);
         m_Player_Skill2 = m_Player.FindAction("Skill 2", throwIfNotFound: true);
         m_Player_Combat = m_Player.FindAction("Combat", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -915,6 +947,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Skill1;
     private readonly InputAction m_Player_Skill2;
     private readonly InputAction m_Player_Combat;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @ControlKeys m_Wrapper;
@@ -938,6 +971,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
         public InputAction @Skill2 => m_Wrapper.m_Player_Skill2;
         public InputAction @Combat => m_Wrapper.m_Player_Combat;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1004,6 +1038,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Combat.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombat;
                 @Combat.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombat;
                 @Combat.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombat;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1065,6 +1102,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Combat.started += instance.OnCombat;
                 @Combat.performed += instance.OnCombat;
                 @Combat.canceled += instance.OnCombat;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -1099,5 +1139,6 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         void OnSkill1(InputAction.CallbackContext context);
         void OnSkill2(InputAction.CallbackContext context);
         void OnCombat(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
