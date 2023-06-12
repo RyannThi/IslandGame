@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class TitleScreenTriggers : EventTrigger, IPointerClickHandler
 {
     private TitleScreen titleScreen;
-    private void Start()
+    private void Awake()
     {
         titleScreen = FindObjectOfType<TitleScreen>();
     }
@@ -94,6 +94,5 @@ public class TitleScreenTriggers : EventTrigger, IPointerClickHandler
             titleScreen.soundText.text = (int)(titleScreen.soundSlider.value * 100) + "%";
             titleScreen.mouseText.text = titleScreen.mouseSlider.value + "%";
         }
-        
     }
 }

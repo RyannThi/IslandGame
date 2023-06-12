@@ -13,8 +13,14 @@ public class BallHolderBehavior : MonoBehaviour
 
     public float timer = 0f;
 
+    public bool activated = false;
+
     Vector3 posOffset = new Vector3();
     Vector3 tempPos = new Vector3();
+
+    public Transform[] platformList;
+    public Vector3[] platformListInitial;
+    public Vector3[] platformListFinal;
 
     private void Awake() { ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
@@ -44,6 +50,43 @@ public class BallHolderBehavior : MonoBehaviour
             PlayerInventory.instance.AddItem("Heavy Snowball");
             holderChild.gameObject.SetActive(false);
         }
-        print(Vector3.Distance(transform.position, PlayerCharControl.instance.transform.position));
+
+        if (holderChild.gameObject.activeSelf == true)
+        {
+            activated = true;
+        } else
+        {
+            activated = false;
+        }
+
+        for (int i = 0; i < platformList.Length; i++)
+        {
+            if (activated == true)
+            {
+                platformList[i].transform.position = Vector3.Lerp(platformList[i].transform.position, platformListFinal[i], 0.5f * Time.deltaTime);
+            }
+            else
+            {
+                GameObject[] holderList = FindGameObjectsByName("BallHolder");
+
+                foreach (GameObject holder in holderList)
+                {
+                    if (holder.GetComponent<BallHolderBehavior>().activated == true)
+                    {
+                        break;
+                    }
+                }
+
+                platformList[i].transform.position = Vector3.Lerp(platformList[i].transform.position, platformListInitial[i], 0.05f * Time.deltaTime);
+
+
+            }
+        }
+
+    }
+
+    private GameObject[] FindGameObjectsByName(string name)
+    {
+        return System.Array.FindAll((FindObjectsOfType(typeof(GameObject)) as GameObject[]), p => p.name == name);
     }
 }
