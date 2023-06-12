@@ -163,7 +163,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (invSlotsChild[selectedItem].activeSelf == true)
             {
-                if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out var item))
+                if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out Iitem item))
                 {
                     item.UseItem(PlayerCharControl.instance.gameObject);
                     switch (invSlotsItems[selectedItem].name)
