@@ -54,8 +54,29 @@ public class PlayerCharControl : MonoBehaviour
 
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        ck.Player.Aim.performed += Aim_performed;
+        ck.Player.Aim.canceled += Aim_canceled;
     }
 
+
+
+
+    #region Input Methods
+
+    private void Aim_canceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        combatMode = !combatMode;
+        cameraNormal.SetActive(!cameraNormal.activeSelf);
+        cameraCombat.SetActive(!cameraCombat.activeSelf);
+    }
+    private void Aim_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        combatMode = !combatMode;
+        cameraNormal.SetActive(!cameraNormal.activeSelf);
+        cameraCombat.SetActive(!cameraCombat.activeSelf);
+    }
+    #endregion
     private void Update()
     {
         if (characterSpeedModifierTimer > 0)
@@ -88,12 +109,12 @@ public class PlayerCharControl : MonoBehaviour
             currentState = State.Jump;
         }
 
-        if (ck.Player.Combat.WasPressedThisFrame())
+        /*if (ck.Player.Combat.WasPressedThisFrame())
         {
             combatMode = !combatMode;
             cameraNormal.SetActive(!cameraNormal.activeSelf);
             cameraCombat.SetActive(!cameraCombat.activeSelf);
-        }
+        }*/
 
     }
 
@@ -243,6 +264,8 @@ public class PlayerCharControl : MonoBehaviour
         }
     }
 
+    #region Change Player Methods
+
     public void ChangeCharacterSpeed(float speedModifier, float time = 0f)
     {
         characterSpeedModifier = speedModifier;
@@ -278,4 +301,5 @@ public class PlayerCharControl : MonoBehaviour
         characterHealth += healAmount;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(healAmount));
     }
+    #endregion
 }

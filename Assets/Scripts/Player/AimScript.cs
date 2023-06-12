@@ -123,6 +123,7 @@ public class AimScript : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(screnCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit hit, 20f, ~7))
         {
+            Debug.Log("HIT RAY");
             debugObject.transform.position = hit.point;
             aimPoint = hit.point;
         }
