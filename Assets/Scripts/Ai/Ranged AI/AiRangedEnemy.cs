@@ -202,12 +202,18 @@ public class AiRangedEnemy : MonoBehaviour, IDamage
         hasExecuted = false;
         
     }
+    [SerializeField]
     private int health;
+
+    [SerializeField]
+    private GameObject dropPotion;
+
     public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
         {
+            Instantiate(dropPotion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

@@ -172,13 +172,19 @@ public class AnimalAi : MonoBehaviour, IDamage
         
     }
 
+    [SerializeField]
     private int health = 10;
+
+    [SerializeField]
+    private GameObject dropPotion;
+
     public void TakeDamage(int damage)
     {
         Debug.Log(damage);
         health -= damage;
         if (health <= 0)
         {
+            Instantiate(dropPotion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

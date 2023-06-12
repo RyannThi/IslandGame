@@ -340,11 +340,11 @@ public class BossScript : MonoBehaviour, IDamage
                 StartCoroutine(Die());
 
                 break;
-        #endregion
+        
 
         }
+        #endregion
 
-        
     }
 
     #region State CoRoutines

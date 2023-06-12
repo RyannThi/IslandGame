@@ -118,13 +118,18 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage
     }
     #endregion
 
+    [SerializeField]
     private int health = 50;
+
+    [SerializeField]
+    private GameObject dropPotion;
     public void TakeDamage(int damage)
     {
         Debug.Log(damage);
         health -= damage;
         if (health <= 0)
         {
+            Instantiate(dropPotion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

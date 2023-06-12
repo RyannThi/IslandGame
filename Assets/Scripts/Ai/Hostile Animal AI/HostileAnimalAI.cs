@@ -21,6 +21,9 @@ public class HostileAnimalAI : MonoBehaviour, IDamage
 
     private Animator anim;
 
+    [SerializeField]
+    private GameObject dropPotion;
+
     #region Flags
     private bool isAttacking = false;
     #endregion
@@ -218,12 +221,14 @@ public class HostileAnimalAI : MonoBehaviour, IDamage
 
     }
 
+    [SerializeField]
     private int health;
     public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
         {
+            Instantiate(dropPotion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

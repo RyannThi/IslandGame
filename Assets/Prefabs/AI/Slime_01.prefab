@@ -207,7 +207,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4602657720035884750}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.5
   m_Speed: 5
   m_Acceleration: 20
@@ -237,6 +237,8 @@ MonoBehaviour:
   huntedSpeedMultiplier: 1.5
   maxDistance: 50
   triggerActivated: 0
+  health: 10
+  dropPotion: {fileID: 0}
 --- !u!1 &5178339056121179026
 GameObject:
   m_ObjectHideFlags: 0
