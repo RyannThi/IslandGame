@@ -16,4 +16,13 @@ public class HealthPotion : MonoBehaviour, Iitem
 
         player.GetComponent<PlayerCharControl>().HealHealth(healAmount);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerInventory.instance.AddItem("Health Potion");
+            Destroy(gameObject);
+        }
+    }
 }

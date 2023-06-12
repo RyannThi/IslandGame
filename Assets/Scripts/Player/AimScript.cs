@@ -190,8 +190,6 @@ public class AimScript : MonoBehaviour
     public void SetDamageModifier(int newDamageModifier, float time = 0f)
     {
         damageModifier = newDamageModifier;
-
-
     }
     private void OnDrawGizmos()
     {

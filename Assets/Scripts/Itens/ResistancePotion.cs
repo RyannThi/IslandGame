@@ -8,4 +8,13 @@ public class ResistancePotion : MonoBehaviour, Iitem
     {
         player.GetComponent<PlayerCharControl>().Resistance(2, 10);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerInventory.instance.AddItem("Resistance Potion");
+            Destroy(gameObject);
+        }
+    }
 }
