@@ -27,8 +27,12 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage
     #endregion
 
     #region Attack Variables
+    [Header ("Combat")]
     [SerializeField]
     private float attackRange;
+
+    [SerializeField]
+    private float damage;
     #endregion
 
     private NavMeshAgent agent;
@@ -53,6 +57,7 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage
 
 
     // Update is called once per frame
+    private bool gambiarra;
     void Update()
     {
         switch (meleeEnemyState)
@@ -70,7 +75,13 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage
                 break;
             case MeleeEnemyStates.Attacking:
 
-                Attacking();
+                if (gambiarra)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(Attacking());
+                    gambiarra = false;
+                }
+                
 
                 break;
             case MeleeEnemyStates.Returning:
@@ -99,14 +110,28 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage
         if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
             meleeEnemyState = MeleeEnemyStates.Attacking;
     }
-
-    private void Attacking()
+    
+    private IEnumerator Attacking()
     {
         //Aqui executar a animação de ataque dando dano no final da animação caso esteja no range
         //print("Atacou");
-        //Checar isso somente após a animação for concluida
-        if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
-            meleeEnemyState = MeleeEnemyStates.Chasing;
+        while (true)
+        {
+
+
+            yield return new WaitForSeconds(0.5f);
+            PlayerCharControl.instance.TakeDamage(damage);
+            //Checar isso somente após a animação for concluida
+            if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
+            {
+                meleeEnemyState = MeleeEnemyStates.Chasing;
+                gambiarra = true;
+                break;
+            }
+            new WaitForEndOfFrame();
+        }
+            
+        
     }
 
     private void Returning()

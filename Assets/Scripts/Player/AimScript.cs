@@ -49,8 +49,10 @@ public class AimScript : MonoBehaviour
     }
     private void OnEnable()
     {
-        ck.Enable();
+        ck.Enable();        
     }
+    [SerializeField]
+    private ParticleSystem explosion;
     private void OnDisable()
     {
         ck.Disable();
@@ -87,21 +89,28 @@ public class AimScript : MonoBehaviour
     private void Skill1_started(InputAction.CallbackContext obj)
     {       
         Attack1(aimPoint);
+
+
+
         Debug.Log("Click");
     }
     private void Skill2_started(InputAction.CallbackContext obj)
     {
+        explosion.transform.position = transform.position;
+        explosion.Play();
         Attack2();
     }
 
     private void Aim_canceled(InputAction.CallbackContext obj)
     {
-        debugObject.SetActive(false);
+        if (debugObject != null)
+            debugObject.SetActive(false);
     }
 
     private void Aim_performed(InputAction.CallbackContext obj)
     {
-        debugObject.SetActive(true);
+        if (debugObject != null)
+            debugObject.SetActive(true);
     }
     #endregion
     // Update is called once per frame
@@ -123,8 +132,10 @@ public class AimScript : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(screnCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit hit, 20f, ~7))
         {
-            Debug.Log("HIT RAY");
-            debugObject.transform.position = hit.point;
+            //Debug.Log("HIT RAY");
+            if(debugObject != null)
+                debugObject.transform.position = hit.point;
+
             aimPoint = hit.point;
         }
     }

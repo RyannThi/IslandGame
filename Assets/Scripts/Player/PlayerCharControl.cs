@@ -295,8 +295,11 @@ public class PlayerCharControl : MonoBehaviour
     private float resistance = 1;
     public void TakeDamage(float damage)
     {
+        
         characterHealth -= damage / resistance;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(damage) * -1);
+
+        Debug.Log(damage);
     }
 
     public void HealHealth(float healAmount)
