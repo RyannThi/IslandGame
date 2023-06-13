@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6395638715736000652}
   - component: {fileID: 1297773808171718136}
+  - component: {fileID: 6291875174286333693}
   m_Layer: 0
   m_Name: House3.0
   m_TagString: Untagged
@@ -226,6 +227,19 @@ LODGroup:
     renderers:
     - renderer: {fileID: 5181872300258086195}
   m_Enabled: 1
+--- !u!65 &6291875174286333693
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6395638715736000653}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.610001, y: 6.096224, z: 7.0592422}
+  m_Center: {x: -0.08833313, y: -0.5519171, z: -0.18548584}
 --- !u!1 &6758875973836863911
 GameObject:
   m_ObjectHideFlags: 0
