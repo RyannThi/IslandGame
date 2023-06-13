@@ -66,15 +66,15 @@ public class PlayerCharControl : MonoBehaviour
 
     private void Aim_canceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        combatMode = !combatMode;
-        cameraNormal.SetActive(!cameraNormal.activeSelf);
-        cameraCombat.SetActive(!cameraCombat.activeSelf);
+        //combatMode = !combatMode;
+        //cameraNormal.SetActive(!cameraNormal.activeSelf);
+        //cameraCombat.SetActive(!cameraCombat.activeSelf);
     }
     private void Aim_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        combatMode = !combatMode;
-        cameraNormal.SetActive(!cameraNormal.activeSelf);
-        cameraCombat.SetActive(!cameraCombat.activeSelf);
+        //combatMode = !combatMode;
+        //cameraNormal.SetActive(!cameraNormal.activeSelf);
+        //cameraCombat.SetActive(!cameraCombat.activeSelf);
     }
     #endregion
     private void Update()
@@ -201,12 +201,15 @@ public class PlayerCharControl : MonoBehaviour
                 } 
                 else
                 {
-                    Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(camera.position.x, combatLookAt.position.y, camera.position.z);
-                    orientation.forward = dirToCombatLookAt.normalized;
-
-                    transform.forward = dirToCombatLookAt.normalized;
-
                     Vector3 inputDir = orientation.forward * z + orientation.right * x;
+
+                    Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(camera.position.x, combatLookAt.position.y, camera.position.z);
+                    orientation.forward = viewDir.normalized;
+                    //combatLookAt.forward = dirToCombatLookAt.normalized;
+
+                    transform.forward = inputDir.normalized;
+
+                    
                     rb.AddForce(inputDir.normalized * (characterSpeed * characterSpeedModifier), ForceMode.Force);
                 }
                 

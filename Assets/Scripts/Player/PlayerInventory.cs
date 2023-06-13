@@ -59,6 +59,11 @@ public class PlayerInventory : MonoBehaviour
     private RectTransform invBackTopRect;
     private RectTransform invBackBottomRect;
 
+    private RectTransform invPopup;
+    private CanvasGroup invPopupCanvasGroup;
+    private Image invPopupIcon;
+    private TextMeshProUGUI invPopupText;
+
     // referências para as posições e escalas dos objetos de UI do inventário
     private Vector2 invLabelHeaderRef = Vector2.zero;
     private Vector2 invLabelNameRef   = Vector2.zero;
@@ -71,6 +76,8 @@ public class PlayerInventory : MonoBehaviour
     private Vector2 invLabelDescScaleRef = Vector2.zero;
     private Vector2 invBackTopScaleRef = Vector2.zero;
     private Vector2 invBackBottomScaleRef = Vector2.zero;
+    
+    private Vector2 invPopupRef = Vector2.zero;
 
     private int selectedItem = 0; // índice do slot atualmente selecionado
 
@@ -103,6 +110,11 @@ public class PlayerInventory : MonoBehaviour
 
         invBackTopRect = invBackTop.GetComponent<RectTransform>();
         invBackBottomRect = invBackBottom.GetComponent<RectTransform>();
+
+        invPopup = GetChildGameObject(gameObject, "InvPopup").GetComponent<RectTransform>();
+        invPopupCanvasGroup = invPopup.gameObject.GetComponent<CanvasGroup>();
+        invPopupIcon = GetChildGameObject(gameObject, "InvNewIcon").GetComponent<Image>();
+        invPopupText = GetChildGameObject(gameObject, "InvNewItemText").GetComponent<TextMeshProUGUI>();
 
         for (int i = 0; i < 12; i++)
         {
@@ -288,6 +300,28 @@ public class PlayerInventory : MonoBehaviour
         }
 
         ChangeSlotHighlight(selectedItem);
+    }
+
+    private IEnumerator PopupItem(string _itemName)
+    {
+        invPopup.anchoredPosition = new Vector2(870, -450);
+        invPopupCanvasGroup.alpha = 0;
+        foreach (var invItem in invItemInfo)
+        {
+            if (_itemName == invItem.name)
+            {
+                invPopupIcon.sprite = invItem.image;
+                invPopupText.text = "+1 " + invItem.name;
+            }
+        }
+
+        while (invPopup.anchoredPosition.x <= 735.5f)
+        {
+            invPopup.anchoredPosition = Vector2.SmoothDamp(invPopup.anchoredPosition, new Vector2(735, -450), ref invPopupRef, 0.5f * Time.deltaTime);
+            yield return null;
+        }
+
+        invPopupCanvasGroup.alpha = Mathf.Lerp(invPopupCanvasGroup.alpha, 0, 0.5f * Time.deltaTime);
     }
 
     private void RemoveItem(string _itemName)
