@@ -41,6 +41,9 @@ public class AiRangedEnemy : MonoBehaviour, IDamage
 
     private NavMeshAgent agent;
     private Animator anim;
+    [Header("Bulelt")]
+    [SerializeField]
+    private GameObject bullet;
 
     // Start is called before the first frame update
     void Awake()
@@ -138,6 +141,9 @@ public class AiRangedEnemy : MonoBehaviour, IDamage
 
         if (!hasExecuted)
         {
+            Debug.Log(transform.position + Vector3.forward * 2);
+            GameObject enemyBullet = Instantiate(bullet, transform.position + Vector3.forward * 2, Quaternion.identity);
+            enemyBullet.GetComponent<EnemyBullet>().GetPlayer(playerLocation.gameObject);
             anim.SetTrigger("Attack");
             hasExecuted = true;
         }

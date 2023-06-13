@@ -11,7 +11,7 @@ public class HostileAnimalAI : MonoBehaviour, IDamage
     private Transform playerLocation;
 
     private Vector3 startLocation;
-
+    [Header("Movement")]
     [SerializeField]
     [Range(1, 5)]
     private float huntingSpeedMultiplier;
@@ -37,6 +37,9 @@ public class HostileAnimalAI : MonoBehaviour, IDamage
     private float attackRange;
 
     #endregion
+    [Header("Combat")]
+    [SerializeField]
+    private float damage;
 
     #region State Machine
     private enum HostileAnimalStates
@@ -179,11 +182,12 @@ public class HostileAnimalAI : MonoBehaviour, IDamage
     {
         anim.SetBool("Walk Forward", false);
         anim.SetBool("Run Forward", false);
-        anim.SetTrigger("Stab Attack");
+        anim.SetTrigger("Stab Attack");        
         yield return new WaitForSeconds(0.7f);
 
         //Check if Player is in range, if yes do damage, else hunt
 
+        PlayerCharControl.instance.TakeDamage(damage);
         agent.isStopped = false;
         hostileAnimalState = HostileAnimalStates.Hunting;
         isAttacking = false;
