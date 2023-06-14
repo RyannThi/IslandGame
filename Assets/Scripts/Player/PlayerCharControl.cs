@@ -13,7 +13,7 @@ public class PlayerCharControl : MonoBehaviour
     public GameObject cameraNormal;
     public GameObject cameraCombat;
 
-    private Animator animator;
+    public Animator animator;
     private ControlKeys ck; // usado pra verificação de input
     private Rigidbody rb;
     public Material material; // para debug, pra pintar a capsula
@@ -52,7 +52,7 @@ public class PlayerCharControl : MonoBehaviour
     {
         instance = this;
 
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
 
         ck.Player.Aim.performed += Aim_performed;
@@ -152,7 +152,7 @@ public class PlayerCharControl : MonoBehaviour
         // Verificação se o player está colidindo com o chão
         Vector3 rayOrigin = transform.position + Vector3.down * 0.5f;
         Vector3 rayDirection = Vector3.down;
-        float rayDistance = 1f;
+        float rayDistance = 1.5f;
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, rayDistance))
         {
