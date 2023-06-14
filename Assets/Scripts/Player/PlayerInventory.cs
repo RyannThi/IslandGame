@@ -83,6 +83,8 @@ public class PlayerInventory : MonoBehaviour
 
     private Coroutine positioningCoroutine; // referência para a corrotina de posicionamento dos objetos de UI
 
+    private Coroutine popupCoroutine;
+
     private bool isOpen; // flag para indicar se o inventário está aberto
 
     private void Awake() { ck = new ControlKeys(); }
@@ -113,7 +115,7 @@ public class PlayerInventory : MonoBehaviour
 
         invPopup = GetChildGameObject(gameObject, "InvPopup").GetComponent<RectTransform>();
         invPopupCanvasGroup = invPopup.gameObject.GetComponent<CanvasGroup>();
-        invPopupIcon = GetChildGameObject(gameObject, "InvNewIcon").GetComponent<Image>();
+        invPopupIcon = GetChildGameObject(gameObject, "InvNewItem").GetComponent<Image>();
         invPopupText = GetChildGameObject(gameObject, "InvNewItemText").GetComponent<TextMeshProUGUI>();
 
         for (int i = 0; i < 12; i++)
@@ -128,6 +130,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         positioningCoroutine = StartCoroutine(EmptyCoroutine());
+        popupCoroutine = StartCoroutine(EmptyCoroutine());
         ChangeSlotHighlight(selectedItem);
         ResetInventory();
     }
@@ -244,8 +247,6 @@ public class PlayerInventory : MonoBehaviour
     
     public void AddItem(string _itemName, GameObject _caller = null)
     {
-        // CONSERTAR BUG DE QUANDO A QUANTIDADE DE ITEMS EXCEDE A QUANTIDADE DE SLOTS ELE CRASHA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         if (invSlotsItems.Count + 1 >= 13)
         {
             return;
@@ -264,6 +265,9 @@ public class PlayerInventory : MonoBehaviour
                 invSlotsItems.Add(inv);
             }
         }
+
+        StopCoroutine(popupCoroutine);
+        popupCoroutine = StartCoroutine(PopupItem(_itemName));
 
         // Define a imagem do slot de inventário correspondente ao último item adicionado
         invSlotsChild[invSlotsItems.Count - 1].GetComponent<Image>().sprite = invSlotsItems[invSlotsItems.Count - 1].image;
@@ -315,13 +319,23 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        while (invPopup.anchoredPosition.x <= 735.5f)
+        while (invPopup.anchoredPosition.x >= 735.5f)
         {
-            invPopup.anchoredPosition = Vector2.SmoothDamp(invPopup.anchoredPosition, new Vector2(735, -450), ref invPopupRef, 0.5f * Time.deltaTime);
+            invPopupCanvasGroup.alpha = Mathf.Lerp(invPopupCanvasGroup.alpha, 1, 5f * Time.deltaTime);
+            //invPopup.anchoredPosition = Vector2.SmoothDamp(invPopup.anchoredPosition, new Vector2(735, -450), ref invPopupRef, 0.005f * Time.deltaTime);
+            var invPopupPos = invPopup.anchoredPosition;
+            invPopupPos.x = Mathf.Lerp(invPopupPos.x, 735, 5f * Time.deltaTime);
+            invPopup.anchoredPosition = invPopupPos;
             yield return null;
         }
 
-        invPopupCanvasGroup.alpha = Mathf.Lerp(invPopupCanvasGroup.alpha, 0, 0.5f * Time.deltaTime);
+        yield return new WaitForSeconds(1);
+
+        while (invPopupCanvasGroup.alpha > 0)
+        {
+            invPopupCanvasGroup.alpha = Mathf.Lerp(invPopupCanvasGroup.alpha, 0, 4f * Time.deltaTime);
+            yield return null;
+        }
     }
 
     private void RemoveItem(string _itemName)
