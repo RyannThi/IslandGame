@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    private ControlKeys ck;
+
     private bool playerClose = false;
 
     public DialogueManager manager;
     public Dialogue dialogue;
-    public KeyCode tecla = KeyCode.E;
+
+    private void Awake() { ck = new ControlKeys(); }
+    private void OnEnable() { ck.Enable(); }
+    private void OnDisable() { ck.Disable(); }
 
     private void Start()
     {
@@ -16,7 +21,7 @@ public class DialogueTrigger : MonoBehaviour
     }
     void Update()
     {
-        if (playerClose && Input.GetKeyDown(tecla))
+        if (playerClose && (ck.Player.Interact.WasPressedThisFrame() || ck.Player.Confirm.WasPressedThisFrame()))
         {
             TriggerDialogue();
         }
