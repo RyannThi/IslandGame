@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: f67e9142a64c73d44941d248b5601c21
+guid: 03e00555b9105094d97ab01ab63f2598
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lava.001
+    second: {fileID: 2100000, guid: 74740ef61f66f234981f590e9774f99e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light
+    second: {fileID: 2100000, guid: 67b34680ec3f0ed40a69d06dee1acf4f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

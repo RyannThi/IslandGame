@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: a594b1a940a96084e999a59066590f88
+guid: 5be5afd8aafadfa4586875e20fc2bcbc
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grey Marble
+    second: {fileID: 2100000, guid: 94965fc988d252c43a30cd526562392b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
