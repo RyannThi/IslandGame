@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HostileAnimalAI : MonoBehaviour, IDamage
+public class HostileAnimalAI : MonoBehaviour, IDamage, IHealth
 {
     /*[SerializeField]
      private Transform whereToMove;*/
@@ -236,6 +236,12 @@ public class HostileAnimalAI : MonoBehaviour, IDamage
             Destroy(gameObject);
         }
     }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;

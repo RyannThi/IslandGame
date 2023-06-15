@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AiEvokerScript : MonoBehaviour, IDamage
+public class AiEvokerScript : MonoBehaviour, IDamage, IHealth
 {
     public enum EvokerStates
     {
@@ -246,6 +246,11 @@ public class AiEvokerScript : MonoBehaviour, IDamage
             Instantiate(dropPotion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 
     private void OnTriggerEnter(Collider other)

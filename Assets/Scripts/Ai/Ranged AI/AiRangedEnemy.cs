@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AiRangedEnemy : MonoBehaviour, IDamage
+public class AiRangedEnemy : MonoBehaviour, IDamage, IHealth
 {
     /*[SerializeField]
    private Transform whereToMove;*/
@@ -222,6 +222,11 @@ public class AiRangedEnemy : MonoBehaviour, IDamage
             Instantiate(dropPotion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 
     private void OnTriggerEnter(Collider other)

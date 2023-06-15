@@ -14,6 +14,11 @@ public class PlayerInventory : MonoBehaviour
     private GameObject invGroup; // usado pra fade in/out do inventario
 
     public Sprite blankImage;
+    public AudioSource audioSource;
+    public AudioClip buttonMove;
+    public AudioClip buttonConfirm;
+    public AudioClip buttonCancel;
+    public AudioClip inventoryOpen;
     public List<GameObject> invSlots; // os slots do inventário em lista
     public List<GameObject> invSlotsChild = new List<GameObject>(12); // os overlays de item do inventário em lista
 
@@ -79,13 +84,14 @@ public class PlayerInventory : MonoBehaviour
     
     private Vector2 invPopupRef = Vector2.zero;
 
-    private int selectedItem = 0; // índice do slot atualmente selecionado
+    public int selectedItem = 0; // índice do slot atualmente selecionado
 
     private Coroutine positioningCoroutine; // referência para a corrotina de posicionamento dos objetos de UI
 
     private Coroutine popupCoroutine;
 
-    private bool isOpen; // flag para indicar se o inventário está aberto
+    public bool isOpen; // flag para indicar se o inventário está aberto
+    public bool hasClicked = false; // flag para indicar se o mouse foi pressionado
 
     private void Awake() { ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
@@ -144,10 +150,12 @@ public class PlayerInventory : MonoBehaviour
         }*/
         if (ck.Player.Inventory.WasPressedThisFrame())
         {
+            audioSource.PlayOneShot(inventoryOpen);
             for (int i = 11; i > -1; i--)
             {
                 ChangeSlotHighlight(i);
             }
+            selectedItem = 0;
             isOpen = !isOpen;
             if (positioningCoroutine != null)
             {
@@ -166,18 +174,23 @@ public class PlayerInventory : MonoBehaviour
         {
             selectedItem = (int)Wrap(selectedItem - (int)ck.Player.ForwardBack.ReadValue<float>() * 3, 0, 12);
             ChangeSlotHighlight(selectedItem);
+            audioSource.PlayOneShot(buttonMove);
         }
 
         if (ck.Player.LeftRight.WasPressedThisFrame() && isOpen)
         {
             selectedItem = (int)Wrap(selectedItem + (int)ck.Player.LeftRight.ReadValue<float>(), 0, 12);
             ChangeSlotHighlight(selectedItem);
+            audioSource.PlayOneShot(buttonMove);
         }
 
-        if (ck.Player.Confirm.WasPressedThisFrame() && isOpen)
+        if ((ck.Player.Confirm.WasPressedThisFrame() || hasClicked) && isOpen)
         {
+            hasClicked = false;
+            
             if (invSlotsChild[selectedItem].activeSelf == true)
             {
+                audioSource.PlayOneShot(buttonConfirm);
                 if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out Iitem item))
                 {
                     item.UseItem(PlayerCharControl.instance.gameObject);
@@ -215,6 +228,9 @@ public class PlayerInventory : MonoBehaviour
                 invSlotsItems.Remove(invSlotsItems[selectedItem]);
                 StopCoroutine(positioningCoroutine);
                 positioningCoroutine = StartCoroutine(MoveOut());
+            } else
+            {
+                audioSource.PlayOneShot(buttonCancel);
             }
         }
     }
@@ -419,7 +435,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void ChangeSlotHighlight(int _slotNumber)
+    public void ChangeSlotHighlight(int _slotNumber)
     {
         // Itera através dos slots de inventário
         for (int i = 0; i < 12; i++)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AnimalAi : MonoBehaviour, IDamage
+public class AnimalAi : MonoBehaviour, IDamage, IHealth
 {
     /*[SerializeField]
      private Transform whereToMove;*/
@@ -188,6 +188,12 @@ public class AnimalAi : MonoBehaviour, IDamage
             Destroy(gameObject);
         }
     }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
     void OnAnimatorMove()
     {
         // apply root motion to AI
