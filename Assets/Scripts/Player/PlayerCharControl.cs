@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ public class PlayerCharControl : MonoBehaviour
     public Transform combatLookAt;
     public Transform camera;
 
-    public GameObject cameraNormal;
-    public GameObject cameraCombat;
+    public CinemachineFreeLook cameraCinemachine;
+    //public GameObject cameraCombat;
 
     public Animator animator;
     private ControlKeys ck; // usado pra verificação de input
@@ -35,6 +36,10 @@ public class PlayerCharControl : MonoBehaviour
     public State currentState;
     public bool combatMode = false;
 
+    private CinemachineComposer cmRig0;
+    private CinemachineComposer cmRig1;
+    private CinemachineComposer cmRig2;
+
     public enum State
     {
         Idle,
@@ -57,6 +62,10 @@ public class PlayerCharControl : MonoBehaviour
 
         ck.Player.Aim.performed += Aim_performed;
         ck.Player.Aim.canceled += Aim_canceled;
+
+        cmRig0 = cameraCinemachine.GetRig(0).GetCinemachineComponent<CinemachineComposer>();
+        cmRig1 = cameraCinemachine.GetRig(1).GetCinemachineComponent<CinemachineComposer>();
+        cmRig2 = cameraCinemachine.GetRig(2).GetCinemachineComponent<CinemachineComposer>();
     }
 
 
@@ -66,19 +75,32 @@ public class PlayerCharControl : MonoBehaviour
 
     private void Aim_canceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        //combatMode = !combatMode;
+        combatMode = !combatMode;
         //cameraNormal.SetActive(!cameraNormal.activeSelf);
         //cameraCombat.SetActive(!cameraCombat.activeSelf);
     }
     private void Aim_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        //combatMode = !combatMode;
+        combatMode = !combatMode;
         //cameraNormal.SetActive(!cameraNormal.activeSelf);
         //cameraCombat.SetActive(!cameraCombat.activeSelf);
     }
+
     #endregion
     private void Update()
     {
+        if (combatMode)
+        {
+            cmRig0.m_ScreenX = Mathf.Lerp(cmRig0.m_ScreenX, 0.35f, 4f * Time.deltaTime);
+            cmRig1.m_ScreenX = Mathf.Lerp(cmRig0.m_ScreenX, 0.35f, 4f * Time.deltaTime);
+            cmRig2.m_ScreenX = Mathf.Lerp(cmRig0.m_ScreenX, 0.35f, 4f * Time.deltaTime);
+        } else
+        {
+            cmRig0.m_ScreenX = Mathf.Lerp(cmRig0.m_ScreenX, 0.5f, 4f * Time.deltaTime);
+            cmRig1.m_ScreenX = Mathf.Lerp(cmRig0.m_ScreenX, 0.5f, 4f * Time.deltaTime);
+            cmRig2.m_ScreenX = Mathf.Lerp(cmRig0.m_ScreenX, 0.5f, 4f * Time.deltaTime);
+        }
+
         if (characterSpeedModifierTimer > 0)
         {
             characterSpeedModifierTimer -= Time.deltaTime; 
