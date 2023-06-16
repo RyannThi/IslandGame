@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 37bd11583c2333b4eade627ccb997a7d
+guid: bf0f2f96e4fb22441b53cd73e9ea6686
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lava
+    second: {fileID: 2100000, guid: 1147b0e7f8b3b954f9dcdcdbf9a45159, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stylized stones with dirt
+    second: {fileID: 2100000, guid: 1ab1c7937887ccf4bb14fc7f002807b5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
