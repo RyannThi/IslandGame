@@ -695,17 +695,6 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""47b7161a-6188-4db6-9df6-a8891441ad62"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Confirm"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a1aa8e1a-0ab7-4474-83c5-c3999855c362"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -784,7 +773,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c84cb0f4-f9cd-4481-8353-cb2f6346aaef"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -817,7 +806,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8dc618e6-b49a-43eb-bc50-2ffd367438b1"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
