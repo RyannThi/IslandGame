@@ -138,7 +138,7 @@ public class TitleScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //overlay.eulerAngles += new Vector3(0, 0, 1);
+        overlay.eulerAngles += new Vector3(0, 0, 1);
 
         #region Menu Principal
         if (mainGroupInteract == true)
@@ -323,32 +323,25 @@ public class TitleScreen : MonoBehaviour
             }
         }
     }
-
-    private void FixedUpdate()
-    {
-        overlay.eulerAngles += new Vector3(0, 0, 1);
-    }
-
     private IEnumerator StartTimer()
     {
-        mainGroupInteract = true;
         while (blackout.alpha > 0.301f)
         {
             mainGroup.localScale = Vector2.Lerp(mainGroup.localScale, new Vector2(1, 1), Time.deltaTime * fadeInSpeed);
             blackout.alpha = Mathf.Lerp(blackout.alpha, 0.3f, Time.deltaTime * fadeInSpeed);
             yield return null;
         }
+        mainGroupInteract = true;
     }
 
     private IEnumerator StartGame()
     {
-        StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
         while (blackout.alpha < 0.99f)
         {
             blackout.alpha = Mathf.Lerp(blackout.alpha, 1f, Time.deltaTime * fadeInSpeed);
             yield return null;
         }
-        //SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene");
     }
     
     private IEnumerator FadeInGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
