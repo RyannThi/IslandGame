@@ -6,9 +6,19 @@ using UnityEngine.UIElements;
 
 public class AimScript : MonoBehaviour
 {
+    #region Components
+    [Header("Animator")]
+    [SerializeField]
+    private Animator anim;
+    [SerializeField]
+    private AnimatorOverrideController meleeOverride;
+    [SerializeField]
+    private AnimatorOverrideController skillOverride;
+    #endregion
+
     [Header("Objects")]
     private ControlKeys ck;
-    public GameObject debugObject;
+    public GameObject aimObject;
     //public Transform aim;
     private Vector3 aimPoint;
     [SerializeField]
@@ -31,6 +41,21 @@ public class AimScript : MonoBehaviour
     private int bulletDamage;
     [SerializeField]
     private float bulletSpeed;
+    [SerializeField]
+    private float skill1Cooldown;
+    [SerializeField]
+    private float skill2Cooldown;
+
+    private bool skill1Active;
+    private bool skill2Active;
+    private bool shootActive;
+
+    [Header("VFX")]
+    [SerializeField]
+    private GameObject fireVfx;
+
+    [SerializeField]
+    private GameObject explosion;
 
     private int damageModifier = 1;
 
@@ -46,21 +71,27 @@ public class AimScript : MonoBehaviour
     private void Awake()
     {
         ck = new ControlKeys();
+        
     }
     private void OnEnable()
     {
         ck.Enable();        
     }
-    [SerializeField]
-    private ParticleSystem explosion;
+
     private void OnDisable()
     {
         ck.Disable();
     }
     void Start()
     {
+        #region GAMBIARRA
+        //Faz com que o vfx n bug na primera vez q eh usado
+        explosion.SetActive(true);
+        explosion.SetActive(false);
+        #endregion
+
         #region Bullet Pooling
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             GameObject obj = Instantiate(bullet);
             obj.SetActive(false);
@@ -83,34 +114,37 @@ public class AimScript : MonoBehaviour
     #region Input Methods
     private void Attack_started(InputAction.CallbackContext obj)
     {
+        if(!shootActive)
         Shoot();
+
         Debug.Log("Shoot");
     }
     private void Skill1_started(InputAction.CallbackContext obj)
-    {       
-        Attack1(aimPoint);
-
+    {  
+       if(!skill1Active)
+       StartCoroutine(Attack1(aimPoint));
 
 
         Debug.Log("Click");
     }
     private void Skill2_started(InputAction.CallbackContext obj)
     {
-        explosion.transform.position = transform.position;
-        explosion.Play();
-        Attack2();
+        /*explosion.transform.position = transform.position;
+        explosion.Play();*/
+        if(!skill2Active)
+        StartCoroutine(Attack2());
     }
 
     private void Aim_canceled(InputAction.CallbackContext obj)
     {
-        if (debugObject != null)
-            debugObject.SetActive(false);
+        if (aimObject != null)
+            aimObject.SetActive(false);
     }
 
     private void Aim_performed(InputAction.CallbackContext obj)
     {
-        if (debugObject != null)
-            debugObject.SetActive(true);
+        if (aimObject != null)
+            aimObject.SetActive(true);
     }
     #endregion
     // Update is called once per frame
@@ -133,8 +167,8 @@ public class AimScript : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 20f, ~7))
         {
             //Debug.Log("HIT RAY");
-            if(debugObject != null)
-                debugObject.transform.position = hit.point;
+            if(aimObject != null)
+                aimObject.transform.position = hit.point;
 
             aimPoint = hit.point;
         }
@@ -154,19 +188,31 @@ public class AimScript : MonoBehaviour
     #endregion
 
     #region Attack Methods
-    private void Shoot()
+    private IEnumerator Shoot()
     {
+        shootActive = true;
+        anim.Play("Basic Attack",0,0);
         GameObject sBullet = GetBullet();
         sBullet.transform.position = bulletPoint.position;
         sBullet.GetComponent<BulletScript>().SetDamage(bulletDamage *= damageModifier);
         sBullet.transform.rotation= Quaternion.identity;
         sBullet.SetActive(true);
         sBullet.GetComponent<Rigidbody>().AddForce(bulletPoint.forward * bulletSpeed,ForceMode.Force);
+        yield return new WaitForSeconds(1);
+
+        shootActive = false;
+
     }
 
     
-    private void Attack1(Vector3 position)
+    private IEnumerator Attack1(Vector3 position)
     {
+        anim.runtimeAnimatorController = skillOverride;
+
+        skill1Active = true;
+        fireVfx.transform.position = position;
+        fireVfx.SetActive(true);
+
         Collider[] objectsHit = Physics.OverlapSphere(position, attackRange);
         //Pega os Colliders dentro do range, Ignora os trigger e da dano se tiver IDamage
         foreach ( Collider col in objectsHit)
@@ -179,10 +225,19 @@ public class AimScript : MonoBehaviour
                 }
             }
         }
+        yield return new WaitForSeconds(skill1Cooldown);
+
+        fireVfx.SetActive(false);
+        skill1Active = false;
     }
 
-    private void Attack2()
+    private IEnumerator Attack2()
     {
+        anim.runtimeAnimatorController = meleeOverride;
+
+        skill2Active = true;
+        explosion.transform.position = transform.position;
+        explosion.SetActive(true);
         Collider[] objectsHit = Physics.OverlapSphere(transform.position, meleeAttackRange);
 
         foreach(Collider col in objectsHit)
@@ -195,6 +250,11 @@ public class AimScript : MonoBehaviour
                 }
             }
         }
+
+        yield return new WaitForSeconds(skill2Cooldown);
+
+        explosion.SetActive(false);
+        skill2Active = false;
     }
     #endregion
 
