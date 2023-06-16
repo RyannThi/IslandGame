@@ -378,7 +378,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 31.38
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &6964889540608743485
 NavMeshAgent:
@@ -415,9 +415,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 2.82
-  damage: 0
+  damage: 5
   health: 50
-  dropPotion: {fileID: 0}
+  dropPotion: {fileID: 9002179165072882420, guid: de924a1c629e3904dbf67e74e59f847a, type: 3}
 --- !u!1 &3133808593911954830
 GameObject:
   m_ObjectHideFlags: 0
