@@ -5,13 +5,25 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     private int bulletDamage;
+
+    private Vector3 target;
     private void OnEnable()
     {
         Invoke("DisableBullet", 5);
     }
+    private void Update()
+    {
+        if(target!= null)
+        transform.position = Vector3.MoveTowards(transform.position, target, 18 * Time.deltaTime);
+    }
     public void SetDamage(int damage)
     {
         bulletDamage = damage;
+    }
+
+    public void SetTarget(Vector3 pos)
+    {
+        target= pos;
     }
 
     private void DisableBullet()
@@ -20,11 +32,14 @@ public class BulletScript : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider col)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        Debug.Log(col.gameObject.name);
+
+        if (col.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<IDamage>().TakeDamage(bulletDamage);
+            Debug.Log("Hit");
+            col.gameObject.GetComponent<IDamage>().TakeDamage(bulletDamage);
             DisableBullet();
         }
         else

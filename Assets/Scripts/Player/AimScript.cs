@@ -14,6 +14,8 @@ public class AimScript : MonoBehaviour
     private AnimatorOverrideController meleeOverride;
     [SerializeField]
     private AnimatorOverrideController skillOverride;
+    [SerializeField]
+    private AnimatorOverrideController basicAttack;
     #endregion
 
     [Header("Objects")]
@@ -26,6 +28,7 @@ public class AimScript : MonoBehaviour
     [SerializeField]
     private Transform bulletPoint;
 
+    [Space(2)]
     [Header("Attack Variables")]
     [SerializeField]
     [Range(0,10f)]
@@ -46,9 +49,9 @@ public class AimScript : MonoBehaviour
     [SerializeField]
     private float skill2Cooldown;
 
-    private bool skill1Active;
-    private bool skill2Active;
-    private bool shootActive;
+    private bool skill1Active = false;
+    private bool skill2Active = false;
+    private bool shootActive = false;
 
     [Header("VFX")]
     [SerializeField]
@@ -115,9 +118,9 @@ public class AimScript : MonoBehaviour
     private void Attack_started(InputAction.CallbackContext obj)
     {
         if(!shootActive)
-        Shoot();
+        StartCoroutine(Shoot());
 
-        Debug.Log("Shoot");
+        
     }
     private void Skill1_started(InputAction.CallbackContext obj)
     {  
@@ -190,15 +193,19 @@ public class AimScript : MonoBehaviour
     #region Attack Methods
     private IEnumerator Shoot()
     {
+        Debug.Log("Shoot");
         shootActive = true;
+        anim.runtimeAnimatorController = basicAttack;
         anim.Play("Basic Attack",0,0);
+
+        yield return new WaitForSeconds(0.4f);
         GameObject sBullet = GetBullet();
         sBullet.transform.position = bulletPoint.position;
         sBullet.GetComponent<BulletScript>().SetDamage(bulletDamage *= damageModifier);
         sBullet.transform.rotation= Quaternion.identity;
+        sBullet.GetComponent<BulletScript>().SetTarget(aimPoint);
         sBullet.SetActive(true);
-        sBullet.GetComponent<Rigidbody>().AddForce(bulletPoint.forward * bulletSpeed,ForceMode.Force);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.6f);
 
         shootActive = false;
 
@@ -208,6 +215,7 @@ public class AimScript : MonoBehaviour
     private IEnumerator Attack1(Vector3 position)
     {
         anim.runtimeAnimatorController = skillOverride;
+        anim.Play("Basic Attack",0,0);
 
         skill1Active = true;
         fireVfx.transform.position = position;
@@ -233,9 +241,13 @@ public class AimScript : MonoBehaviour
 
     private IEnumerator Attack2()
     {
-        anim.runtimeAnimatorController = meleeOverride;
-
         skill2Active = true;
+        anim.runtimeAnimatorController = meleeOverride;
+        anim.Play("Basic Attack", 0, 0);
+
+        yield return new WaitForSeconds(0.8f);
+
+        
         explosion.transform.position = transform.position;
         explosion.SetActive(true);
         Collider[] objectsHit = Physics.OverlapSphere(transform.position, meleeAttackRange);

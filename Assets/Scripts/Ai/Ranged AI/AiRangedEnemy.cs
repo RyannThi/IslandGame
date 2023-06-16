@@ -141,7 +141,7 @@ public class AiRangedEnemy : MonoBehaviour, IDamage, IHealth
 
         if (!hasExecuted)
         {
-            Debug.Log(transform.position + Vector3.forward * 2);
+            //Debug.Log(transform.position + Vector3.forward * 2);
             GameObject enemyBullet = Instantiate(bullet, transform.position + Vector3.forward * 2, Quaternion.identity);
             enemyBullet.GetComponent<EnemyBullet>().GetPlayer(playerLocation.gameObject);
             anim.SetTrigger("Attack");
