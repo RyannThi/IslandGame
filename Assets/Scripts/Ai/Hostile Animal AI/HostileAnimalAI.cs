@@ -186,8 +186,9 @@ public class HostileAnimalAI : MonoBehaviour, IDamage, IHealth
         yield return new WaitForSeconds(0.7f);
 
         //Check if Player is in range, if yes do damage, else hunt
+        if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
+            PlayerCharControl.instance.TakeDamage(damage);
 
-        PlayerCharControl.instance.TakeDamage(damage);
         agent.isStopped = false;
         hostileAnimalState = HostileAnimalStates.Hunting;
         isAttacking = false;

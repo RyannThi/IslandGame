@@ -57,7 +57,7 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage, IHealth
 
 
     // Update is called once per frame
-    private bool gambiarra;
+    private bool isAttacking;
     void Update()
     {
         switch (meleeEnemyState)
@@ -75,11 +75,11 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage, IHealth
                 break;
             case MeleeEnemyStates.Attacking:
 
-                if (gambiarra)
+                if (!isAttacking)
                 {
                     StopAllCoroutines();
                     StartCoroutine(Attacking());
-                    gambiarra = false;
+                    isAttacking = true;
                 }
                 
 
@@ -118,14 +118,14 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage, IHealth
         while (true)
         {
 
-
-            yield return new WaitForSeconds(0.5f);
+            Debug.Log("Ataque");
+            yield return new WaitForSeconds(1f);
             PlayerCharControl.instance.TakeDamage(damage);
             //Checar isso somente após a animação for concluida
             if (Vector3.Distance(transform.position, playerLocation.position) > attackRange)
             {
                 meleeEnemyState = MeleeEnemyStates.Chasing;
-                gambiarra = true;
+                isAttacking = false;
                 break;
             }
             new WaitForEndOfFrame();
