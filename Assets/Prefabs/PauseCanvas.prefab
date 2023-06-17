@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 3583007493888744377}
   - component: {fileID: 3583007493888744378}
   - component: {fileID: 3583007493888744379}
-  - component: {fileID: 3583007493888744376}
+  - component: {fileID: 5807842757730199049}
   m_Layer: 5
   m_Name: FullscreenSlider
   m_TagString: Untagged
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3583007493888744376}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
@@ -159,9 +159,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3583007493888744376}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
+        - m_Target: {fileID: 5807842757730199049}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &3583007493888744376
+--- !u!114 &5807842757730199049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3583007493888744374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
@@ -195,8 +195,6 @@ GameObject:
   - component: {fileID: 3583007493955587885}
   - component: {fileID: 3583007493955587793}
   - component: {fileID: 3583007493955587886}
-  - component: {fileID: 3583007493955587887}
-  - component: {fileID: 3583007493955587884}
   m_Layer: 5
   m_Name: MouseHeader
   m_TagString: Untagged
@@ -323,48 +321,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007493955587887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007493955587882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007493955587884}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007493955587884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007493955587882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007493968314901
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,8 +332,6 @@ GameObject:
   - component: {fileID: 3583007493968314900}
   - component: {fileID: 3583007493968314904}
   - component: {fileID: 3583007493968314905}
-  - component: {fileID: 3583007493968314902}
-  - component: {fileID: 3583007493968314903}
   m_Layer: 5
   m_Name: FullscreenText
   m_TagString: Untagged
@@ -502,48 +456,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007493968314902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007493968314901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007493968314903}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007493968314903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007493968314901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007494045959460
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,8 +467,6 @@ GameObject:
   - component: {fileID: 3583007494045959463}
   - component: {fileID: 3583007494045959467}
   - component: {fileID: 3583007494045959464}
-  - component: {fileID: 3583007494045959465}
-  - component: {fileID: 3583007494045959462}
   m_Layer: 5
   m_Name: FullscreenHeader
   m_TagString: Untagged
@@ -683,48 +593,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007494045959465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007494045959460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007494045959462}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007494045959462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007494045959460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007494152634792
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +604,7 @@ GameObject:
   - component: {fileID: 3583007494152634795}
   - component: {fileID: 3583007494152634796}
   - component: {fileID: 3583007494152634797}
-  - component: {fileID: 3583007494152634794}
+  - component: {fileID: 4548320734514876189}
   m_Layer: 5
   m_Name: ResolutionSlider
   m_TagString: Untagged
@@ -818,7 +686,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3583007494152634794}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
@@ -847,9 +715,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3583007494152634794}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
+        - m_Target: {fileID: 4548320734514876189}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -859,7 +727,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &3583007494152634794
+--- !u!114 &4548320734514876189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -868,7 +736,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3583007494152634792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
@@ -1495,7 +1363,7 @@ GameObject:
   - component: {fileID: 3583007494486603234}
   - component: {fileID: 3583007494486603239}
   - component: {fileID: 3583007494486603236}
-  - component: {fileID: 3583007494486603237}
+  - component: {fileID: 7789564204002783484}
   m_Layer: 5
   m_Name: MouseSlider
   m_TagString: Untagged
@@ -1577,7 +1445,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3583007494486603237}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
@@ -1606,9 +1474,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3583007494486603237}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
+        - m_Target: {fileID: 7789564204002783484}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1618,7 +1486,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &3583007494486603237
+--- !u!114 &7789564204002783484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1627,7 +1495,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3583007494486603235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
@@ -1718,6 +1586,8 @@ GameObject:
   - component: {fileID: 3583007494536494469}
   - component: {fileID: 3583007494536494471}
   - component: {fileID: 3583007494536494468}
+  - component: {fileID: 6964975542192770824}
+  - component: {fileID: 5656791210657290638}
   m_Layer: 5
   m_Name: PauseOptions
   m_TagString: Untagged
@@ -1842,6 +1712,64 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6964975542192770824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583007494536494466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5656791210657290638}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5656791210657290638}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &5656791210657290638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583007494536494466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3583007494545359477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,8 +1988,6 @@ GameObject:
   - component: {fileID: 3583007494563426916}
   - component: {fileID: 3583007494563426920}
   - component: {fileID: 3583007494563426921}
-  - component: {fileID: 3583007494563426918}
-  - component: {fileID: 3583007494563426919}
   m_Layer: 5
   m_Name: SoundText
   m_TagString: Untagged
@@ -2186,48 +2112,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007494563426918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007494563426917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007494563426919}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007494563426919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007494563426917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007494646077997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2124,7 @@ GameObject:
   - component: {fileID: 3583007494646077904}
   - component: {fileID: 3583007494646077905}
   - component: {fileID: 3583007494646077998}
-  - component: {fileID: 3583007494646077999}
+  - component: {fileID: 8421576575406342841}
   m_Layer: 5
   m_Name: SaveHeader
   m_TagString: Untagged
@@ -2382,8 +2266,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3583007494646077999}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
+        - m_Target: {fileID: 8421576575406342841}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
           m_MethodName: ChangeSelectionIndex
           m_Mode: 1
           m_Arguments:
@@ -2398,8 +2282,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3583007494646077999}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
+        - m_Target: {fileID: 8421576575406342841}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
           m_MethodName: ConfirmSelection
           m_Mode: 1
           m_Arguments:
@@ -2410,7 +2294,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &3583007494646077999
+--- !u!114 &8421576575406342841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2419,7 +2303,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3583007494646077997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
@@ -2722,7 +2606,7 @@ GameObject:
   - component: {fileID: 3583007494912144908}
   - component: {fileID: 3583007494912144909}
   - component: {fileID: 3583007494912144906}
-  - component: {fileID: 3583007494912144907}
+  - component: {fileID: 6019128256043181385}
   m_Layer: 5
   m_Name: SoundSlider
   m_TagString: Untagged
@@ -2816,7 +2700,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3583007494912144907}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
@@ -2858,9 +2742,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3583007494912144907}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
+        - m_Target: {fileID: 6019128256043181385}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2870,7 +2754,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &3583007494912144907
+--- !u!114 &6019128256043181385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2879,7 +2763,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3583007494912144905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
@@ -2894,8 +2778,6 @@ GameObject:
   - component: {fileID: 3583007494970521268}
   - component: {fileID: 3583007494970521272}
   - component: {fileID: 3583007494970521273}
-  - component: {fileID: 3583007494970521270}
-  - component: {fileID: 3583007494970521271}
   m_Layer: 5
   m_Name: MusicText
   m_TagString: Untagged
@@ -3020,48 +2902,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007494970521270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007494970521269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007494970521271}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007494970521271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007494970521269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007495010334412
 GameObject:
   m_ObjectHideFlags: 0
@@ -3073,6 +2913,8 @@ GameObject:
   - component: {fileID: 3583007495010334415}
   - component: {fileID: 3583007495010334449}
   - component: {fileID: 3583007495010334414}
+  - component: {fileID: 8421590299875201446}
+  - component: {fileID: 8058213044863812359}
   m_Layer: 5
   m_Name: PauseContinue
   m_TagString: Untagged
@@ -3197,6 +3039,64 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8421590299875201446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583007495010334412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8058213044863812359}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8058213044863812359}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8058213044863812359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583007495010334412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3583007495024198156
 GameObject:
   m_ObjectHideFlags: 0
@@ -3208,8 +3108,6 @@ GameObject:
   - component: {fileID: 3583007495024198159}
   - component: {fileID: 3583007495024198195}
   - component: {fileID: 3583007495024198192}
-  - component: {fileID: 3583007495024198193}
-  - component: {fileID: 3583007495024198158}
   m_Layer: 5
   m_Name: MusicHeader
   m_TagString: Untagged
@@ -3336,48 +3234,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007495024198193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495024198156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007495024198158}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007495024198158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495024198156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007495032765310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3700,8 +3556,6 @@ GameObject:
   - component: {fileID: 3583007495157096349}
   - component: {fileID: 3583007495157096321}
   - component: {fileID: 3583007495157096350}
-  - component: {fileID: 3583007495157096351}
-  - component: {fileID: 3583007495157096348}
   m_Layer: 5
   m_Name: ResolutionText
   m_TagString: Untagged
@@ -3826,48 +3680,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007495157096351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495157096346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007495157096348}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007495157096348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495157096346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007495182936513
 GameObject:
   m_ObjectHideFlags: 0
@@ -3955,8 +3767,6 @@ GameObject:
   - component: {fileID: 3583007495240810391}
   - component: {fileID: 3583007495240810395}
   - component: {fileID: 3583007495240810392}
-  - component: {fileID: 3583007495240810393}
-  - component: {fileID: 3583007495240810390}
   m_Layer: 5
   m_Name: SoundHeader
   m_TagString: Untagged
@@ -4083,48 +3893,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007495240810393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495240810388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007495240810390}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007495240810390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495240810388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007495326374841
 GameObject:
   m_ObjectHideFlags: 0
@@ -4136,6 +3904,8 @@ GameObject:
   - component: {fileID: 3583007495326374840}
   - component: {fileID: 3583007495326374842}
   - component: {fileID: 3583007495326374843}
+  - component: {fileID: 3695732826669547330}
+  - component: {fileID: 506565662163295310}
   m_Layer: 5
   m_Name: PauseExitGame
   m_TagString: Untagged
@@ -4260,6 +4030,64 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3695732826669547330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583007495326374841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 506565662163295310}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 506565662163295310}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &506565662163295310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583007495326374841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3583007495326708161
 GameObject:
   m_ObjectHideFlags: 0
@@ -4700,8 +4528,6 @@ GameObject:
   - component: {fileID: 3583007495526183037}
   - component: {fileID: 3583007495526183009}
   - component: {fileID: 3583007495526183038}
-  - component: {fileID: 3583007495526183039}
-  - component: {fileID: 3583007495526183036}
   m_Layer: 5
   m_Name: MouseText
   m_TagString: Untagged
@@ -4826,48 +4652,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007495526183039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495526183034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007495526183036}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007495526183036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495526183034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!1 &3583007495526795416
 GameObject:
   m_ObjectHideFlags: 0
@@ -5482,7 +5266,7 @@ GameObject:
   - component: {fileID: 3583007495940215572}
   - component: {fileID: 3583007495940215573}
   - component: {fileID: 3583007495940215570}
-  - component: {fileID: 3583007495940215571}
+  - component: {fileID: 3862364590391311797}
   m_Layer: 5
   m_Name: MusicSlider
   m_TagString: Untagged
@@ -5576,7 +5360,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3583007495940215571}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
@@ -5618,9 +5402,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3583007495940215571}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
+        - m_Target: {fileID: 3862364590391311797}
+          m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5630,7 +5414,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &3583007495940215571
+--- !u!114 &3862364590391311797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5639,7 +5423,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3583007495940215569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
+  m_Script: {fileID: 11500000, guid: 59ef19b7ce9d29141b90666ea32751f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
@@ -5654,8 +5438,6 @@ GameObject:
   - component: {fileID: 3583007495945182383}
   - component: {fileID: 3583007495945182291}
   - component: {fileID: 3583007495945182288}
-  - component: {fileID: 3583007495945182289}
-  - component: {fileID: 3583007495945182382}
   m_Layer: 5
   m_Name: ResolutionHeader
   m_TagString: Untagged
@@ -5782,45 +5564,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3583007495945182289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495945182380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3583007495945182382}
-          m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
-          m_MethodName: ChangeSelectionIndex
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &3583007495945182382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583007495945182380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f353b9e97c059b438e13c255715517a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []

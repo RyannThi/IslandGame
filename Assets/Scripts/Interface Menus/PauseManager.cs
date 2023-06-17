@@ -130,13 +130,12 @@ public class PauseManager : MonoBehaviour
         {
             if (mainGroupInteract == false)
             {
-                mainGroupInteract = true;
-                StopCoroutine(fadeInCoroutine);
+                audioSource.PlayOneShot(buttonConfirm);
+                StopCoroutine(fadeOutCoroutine);
                 fadeInCoroutine = StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
                 Time.timeScale = 0f;
             } else if (mainGroupInteract == true && optionsGroupInteract == false)
             {
-                mainGroupInteract = false;
                 StopCoroutine(fadeOutCoroutine);
                 fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
                 Time.timeScale = 1f;
@@ -147,13 +146,13 @@ public class PauseManager : MonoBehaviour
         if (mainGroupInteract == true)
         {
 
-            highlight.anchoredPosition = Vector2.SmoothDamp(highlight.anchoredPosition, positions[mainGroupSelectionIndex], ref highlightRef, highlightSpeed * Time.deltaTime);
+            highlight.anchoredPosition = Vector2.SmoothDamp(highlight.anchoredPosition, positions[mainGroupSelectionIndex], ref highlightRef, highlightSpeed * Time.unscaledDeltaTime, 999999, Time.unscaledDeltaTime);
 
             // Movimentar nas seleções
             if (ck.Player.ForwardBack.WasPressedThisFrame())
             {
                 audioSource.PlayOneShot(buttonMove);
-                mainGroupSelectionIndex = (int)Wrap(mainGroupSelectionIndex + (int)ck.Player.ForwardBack.ReadValue<float>(), 0, 4);
+                mainGroupSelectionIndex = (int)Wrap(mainGroupSelectionIndex - (int)ck.Player.ForwardBack.ReadValue<float>(), 0, 3);
             }
 
             // Confirmar a seleção
@@ -194,7 +193,7 @@ public class PauseManager : MonoBehaviour
         #region Menu Options
         if (optionsGroupInteract == true)
         {
-            optionsHighlight.anchoredPosition = Vector2.SmoothDamp(optionsHighlight.anchoredPosition, optionsHighlightPositions[optionsGroupSelectionIndex], ref optionsHighlightRef, highlightSpeed * Time.deltaTime);
+            optionsHighlight.anchoredPosition = Vector2.SmoothDamp(optionsHighlight.anchoredPosition, optionsHighlightPositions[optionsGroupSelectionIndex], ref optionsHighlightRef, highlightSpeed * Time.unscaledDeltaTime, 999999, Time.unscaledDeltaTime);
 
             if (ck.Player.ForwardBack.WasPressedThisFrame())
             {
@@ -292,8 +291,8 @@ public class PauseManager : MonoBehaviour
         setBool(!groupInteract);
         while (group.localScale.x != 1)
         {
-            group.localScale = Vector2.Lerp(group.localScale, new Vector2(1, 1), Time.deltaTime * transitionSpeed);
-            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, Time.deltaTime * transitionSpeed * 2);
+            group.localScale = Vector2.Lerp(group.localScale, new Vector2(1, 1), Time.unscaledDeltaTime * transitionSpeed);
+            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 1, Time.unscaledDeltaTime * transitionSpeed * 2);
             yield return null;
         }
     }
@@ -304,8 +303,8 @@ public class PauseManager : MonoBehaviour
         StopCoroutine(fadeInCoroutine);
         while (group.localScale.x != 0)
         {
-            group.localScale = Vector2.Lerp(group.localScale, new Vector2(0, 0), Time.deltaTime * transitionSpeed);
-            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, Time.deltaTime * transitionSpeed * 2);
+            group.localScale = Vector2.Lerp(group.localScale, new Vector2(0, 0), Time.unscaledDeltaTime * transitionSpeed);
+            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0, Time.unscaledDeltaTime * transitionSpeed * 2);
             yield return null;
         }
     }
