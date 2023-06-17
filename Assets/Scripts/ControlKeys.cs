@@ -215,6 +215,15 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Noclip"",
+                    ""type"": ""Button"",
+                    ""id"": ""b82d3235-bb82-4638-9bd0-1f400641b3fd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -855,6 +864,17 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d3f27ee-2252-48bb-93d5-26aaf3410692"",
+                    ""path"": ""<Keyboard>/rightAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Noclip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -890,6 +910,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         m_Player_Combat = m_Player.FindAction("Combat", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Noclip = m_Player.FindAction("Noclip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -970,6 +991,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Combat;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Noclip;
     public struct PlayerActions
     {
         private @ControlKeys m_Wrapper;
@@ -995,6 +1017,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         public InputAction @Combat => m_Wrapper.m_Player_Combat;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Noclip => m_Wrapper.m_Player_Noclip;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1067,6 +1090,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Noclip.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoclip;
+                @Noclip.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoclip;
+                @Noclip.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoclip;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1134,6 +1160,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Noclip.started += instance.OnNoclip;
+                @Noclip.performed += instance.OnNoclip;
+                @Noclip.canceled += instance.OnNoclip;
             }
         }
     }
@@ -1170,5 +1199,6 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         void OnCombat(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnNoclip(InputAction.CallbackContext context);
     }
 }
