@@ -1139,8 +1139,8 @@ MonoBehaviour:
   spacingDistance: 5
   attackRange: 7.87
   bullet: {fileID: 3766079429192312582, guid: ea8a15bfaa6c0e0489a0ce5df9b4fdb0, type: 3}
-  health: 0
-  dropPotion: {fileID: 0}
+  health: 20
+  dropPotion: {fileID: 458231736826586854, guid: 4138eef194a3fa246955b42138de213f, type: 3}
 --- !u!1 &6121424882806634182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,7 +1799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921634312025188110, guid: bb622b35733793a41845d606802ed9bd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -560.109
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4921634312025188110, guid: bb622b35733793a41845d606802ed9bd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1819,11 +1819,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921634312025188110, guid: bb622b35733793a41845d606802ed9bd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 776.5862
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4921634312025188110, guid: bb622b35733793a41845d606802ed9bd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 19.81635
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 4921634312025188110, guid: bb622b35733793a41845d606802ed9bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
