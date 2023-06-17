@@ -7,6 +7,11 @@ public class PlayerCharControl : MonoBehaviour
 {
     public static PlayerCharControl instance;
 
+    #region Keys
+    private bool gotFireKey;
+    private bool gotIceKey;
+    #endregion
+
     public Transform orientation;
     public Transform combatLookAt;
     public Transform camera;
@@ -67,9 +72,6 @@ public class PlayerCharControl : MonoBehaviour
         cmRig1 = cameraCinemachine.GetRig(1).GetCinemachineComponent<CinemachineComposer>();
         cmRig2 = cameraCinemachine.GetRig(2).GetCinemachineComponent<CinemachineComposer>();
     }
-
-
-
 
     #region Input Methods
 
@@ -288,6 +290,15 @@ public class PlayerCharControl : MonoBehaviour
             currentState = State.Attack;
         }
     }
+    private void Respawn()
+    {
+        SaveInfo save = SaveInfo.instance;
+
+        transform.position = save.lastSavePosition;
+        characterHealth = save.lastSaveHealth;
+        gotFireKey = save.hasFireKey;
+        gotIceKey = save.hasIceKey;
+    }
 
     #region Change Player Methods
 
@@ -329,5 +340,28 @@ public class PlayerCharControl : MonoBehaviour
         characterHealth += healAmount;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(healAmount));
     }
+
+    #region Keys
+    public void SetFireKey(bool key)
+    {
+        gotFireKey = key;
+    }
+
+    public void SetIceKey(bool key)
+    {
+        gotIceKey = key;
+    }
+
+    public bool GetFireKey()
+    {
+        return gotFireKey;
+    }
+    public bool GetIceKey()
+    {
+        return gotIceKey;
+    }
+    #endregion
+
+
     #endregion
 }
