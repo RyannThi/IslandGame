@@ -66,6 +66,15 @@ public class AimScript : MonoBehaviour
 
     private List<GameObject> bulletList;
 
+    [Space(2)]
+    [Header("SFX")]
+    [SerializeField]
+    private AudioSource shootAudio;
+    [SerializeField]
+    private AudioSource skill1Audio;
+    [SerializeField]
+    private AudioSource skill2Audio;
+
     private AimScript()
     {
         bulletList = new List<GameObject>();
@@ -192,13 +201,15 @@ public class AimScript : MonoBehaviour
 
     #region Attack Methods
     private IEnumerator Shoot()
-    {
+    {        
         Debug.Log("Shoot");
         shootActive = true;
         anim.runtimeAnimatorController = basicAttack;
         anim.Play("Basic Attack",0,0);
 
         yield return new WaitForSeconds(0.4f);
+
+        shootAudio.Play();
         GameObject sBullet = GetBullet();
         sBullet.transform.position = bulletPoint.position;
         sBullet.GetComponent<BulletScript>().SetDamage(bulletDamage *= damageModifier);
@@ -220,6 +231,7 @@ public class AimScript : MonoBehaviour
         skill1Active = true;
         fireVfx.transform.position = position;
         fireVfx.SetActive(true);
+        skill1Audio.Play();
 
         Collider[] objectsHit = Physics.OverlapSphere(position, attackRange);
         //Pega os Colliders dentro do range, Ignora os trigger e da dano se tiver IDamage
@@ -237,6 +249,7 @@ public class AimScript : MonoBehaviour
 
         fireVfx.SetActive(false);
         skill1Active = false;
+        skill1Audio.Stop();
     }
 
     private IEnumerator Attack2()
@@ -247,7 +260,7 @@ public class AimScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.8f);
 
-        
+        skill2Audio.Play();
         explosion.transform.position = transform.position;
         explosion.SetActive(true);
         Collider[] objectsHit = Physics.OverlapSphere(transform.position, meleeAttackRange);

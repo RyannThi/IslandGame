@@ -45,6 +45,11 @@ public class PlayerCharControl : MonoBehaviour
     private CinemachineComposer cmRig1;
     private CinemachineComposer cmRig2;
 
+    [Header("SFX")]
+    [SerializeField]
+    private AudioSource walkSfx;
+
+    private bool sfxOnce = false;
     public enum State
     {
         Idle,
@@ -226,13 +231,21 @@ public class PlayerCharControl : MonoBehaviour
 
         // Caso o player não esteja atacando, executar a movimentação se o player se mover
 
-
+        
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerCharAttack"))
         {
+
+            
             if (ck.Player.ForwardBack.IsPressed() || ck.Player.LeftRight.IsPressed())
             {
                 animator.SetBool("WALK", true);
-
+                if (!sfxOnce)
+                {
+                    Debug.Log("Audio");
+                    walkSfx.Play();
+                    sfxOnce= true;
+                }
+                    
                 // Direção de movimento
 
                 if (combatMode == false)
@@ -299,6 +312,8 @@ public class PlayerCharControl : MonoBehaviour
             else
             {
                 animator.SetBool("WALK", false);
+                walkSfx.Stop();
+                sfxOnce = false;
                 currentState = State.Idle;
             }
 
