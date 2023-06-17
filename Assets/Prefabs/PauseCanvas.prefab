@@ -130,8 +130,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
+      - m_Target: {fileID: 5807842757730199049}
+        m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
         m_Arguments:
@@ -161,7 +161,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 5807842757730199049}
           m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
-          m_MethodName: ConfirmSelection
+          m_MethodName: ChangeSelectionIndex
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -686,8 +686,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
+      - m_Target: {fileID: 4548320734514876189}
+        m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
         m_Arguments:
@@ -717,7 +717,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 4548320734514876189}
           m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
-          m_MethodName: ConfirmSelection
+          m_MethodName: ChangeSelectionIndex
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1203,11 +1203,11 @@ MonoBehaviour:
   - {x: 0, y: -309}
   - {x: 0, y: -385}
   scaleModifier: {x: 0, y: 0}
-  fadeInSpeed: 0.5
-  scaleSpeed: 0.5
-  coloringSpeed: 0.5
+  fadeInSpeed: 2
+  scaleSpeed: 5
+  coloringSpeed: 7
   highlightSpeed: 0.5
-  transitionSpeed: 0.5
+  transitionSpeed: 5
   mousePress: 0
   mainGroupSelectionIndex: 0
   optionsGroupSelectionIndex: 0
@@ -1445,8 +1445,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
+      - m_Target: {fileID: 7789564204002783484}
+        m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
         m_Arguments:
@@ -1476,7 +1476,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 7789564204002783484}
           m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
-          m_MethodName: ConfirmSelection
+          m_MethodName: ChangeSelectionIndex
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2700,8 +2700,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
+      - m_Target: {fileID: 6019128256043181385}
+        m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
         m_Arguments:
@@ -2744,7 +2744,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 6019128256043181385}
           m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
-          m_MethodName: ConfirmSelection
+          m_MethodName: ChangeSelectionIndex
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5360,8 +5360,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleScreenTriggers, Assembly-CSharp
+      - m_Target: {fileID: 3862364590391311797}
+        m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
         m_MethodName: ConfirmSelection
         m_Mode: 1
         m_Arguments:
@@ -5404,7 +5404,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3862364590391311797}
           m_TargetAssemblyTypeName: PauseTriggers, Assembly-CSharp
-          m_MethodName: ConfirmSelection
+          m_MethodName: ChangeSelectionIndex
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
