@@ -101,6 +101,10 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
     private BossStates bossState;
 
     #endregion
+    [Space(2)]
+    [Header("SFX")]
+    [SerializeField]
+    private AudioSource victorySound;
 
     private BossScript()
     {
@@ -744,8 +748,11 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
     {
         //Start        
         BossStates stateToChange = BossStates.Die;
+        victorySound.Play();
         //Die anim
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(7);
+        victorySound.Stop();
+        ScreenTransition.instance.GoToScene("Credits");
         Destroy(gameObject);
         //Exit
 

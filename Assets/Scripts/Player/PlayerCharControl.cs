@@ -160,10 +160,10 @@ public class PlayerCharControl : MonoBehaviour
             currentState = State.Jump;
         }
 
-        if (ck.Player.Jump.WasPressedThisFrame() && isGrounded)
+        /*if (ck.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
             Instantiate(gameOverDebug);
-        }
+        }*/
 
         /*if (ck.Player.Combat.WasPressedThisFrame())
         {
@@ -333,14 +333,15 @@ public class PlayerCharControl : MonoBehaviour
             currentState = State.Attack;
         }
     }
-    private void Respawn()
+    public void Respawn()
     {
         SaveInfo save = SaveInfo.instance;
-
+        
         transform.position = save.lastSavePosition;
         characterHealth = save.lastSaveHealth;
         gotFireKey = save.hasFireKey;
         gotIceKey = save.hasIceKey;
+        PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(characterHealth));
     }
 
     #region Change Player Methods
@@ -374,6 +375,10 @@ public class PlayerCharControl : MonoBehaviour
         
         characterHealth -= damage / resistance;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(damage) * -1);
+        if(characterHealth <= 0)
+        {
+            Instantiate(gameOverDebug);
+        }
 
         Debug.Log(damage);
     }

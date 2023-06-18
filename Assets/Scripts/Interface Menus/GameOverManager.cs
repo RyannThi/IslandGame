@@ -87,6 +87,7 @@ public class GameOverManager : MonoBehaviour
 
                         StopCoroutine(fadeOutCoroutine);
                         fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        Respawn();
                         break;
 
                     case 1:
@@ -116,6 +117,13 @@ public class GameOverManager : MonoBehaviour
             }
 
         }
+    }
+
+    private void Respawn()
+    {
+        Time.timeScale = 1f;
+        PlayerCharControl.instance.Respawn();
+        Destroy(gameObject);
     }
 
     private IEnumerator EmptyCoroutine()

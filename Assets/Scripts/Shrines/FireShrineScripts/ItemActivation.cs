@@ -27,6 +27,7 @@ public class ItemActivation : MonoBehaviour
     private void ActivateItem()
     {
         activated = true;
+        PlayerCharControl.instance.SetFireKey(true);
         separateWall.SetActive(false);
         gameObject.SetActive(false);
     }
