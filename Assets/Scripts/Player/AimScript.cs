@@ -110,7 +110,7 @@ public class AimScript : MonoBehaviour
         explosion.SetActive(true);
         
         #endregion
-
+        aimObject.SetActive(false);
 
 
         #region Input Creation
