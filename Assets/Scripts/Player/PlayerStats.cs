@@ -9,10 +9,10 @@ public class PlayerStats : MonoBehaviour
     public static PlayerStats instance;
 
     [Header("Object Referencing")]
-    public Transform statsGauge;
-    public Transform healthGauge;
     public CanvasGroup statsGaugeCanvasGroup;
     public Image healthGaugeImage;
+    public Image greenGaugeImage;
+    public Image orangeGaugeImage;
 
     [Space(10)]
 
@@ -27,9 +27,13 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private float playerHealth = 100;
     [SerializeField]
+    private float greenAmount = 1;
+    [SerializeField]
+    private float orangeAmount = 1;
+    [SerializeField]
     private Color currentHealthColor;
 
-    private void Awake() { ck = new ControlKeys(); }
+    private void Awake() { DontDestroyOnLoad(gameObject); ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
     private void OnDisable() { ck.Disable(); }
 
@@ -44,6 +48,7 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         healthGaugeImage.fillAmount = Mathf.Lerp(healthGaugeImage.fillAmount, playerHealth * 0.01f, Time.deltaTime * gaugeFillSpeed);
+
         healthGaugeImage.color = Color.Lerp(healthGaugeImage.color, currentHealthColor, Time.deltaTime * coloringSpeed);
     }
 
@@ -66,5 +71,29 @@ public class PlayerStats : MonoBehaviour
         {
             currentHealthColor = healthColors[3];
         }
+    }
+
+    public void UpdateGreenGauge()
+    {
+        StartCoroutine(MoveOverSeconds(greenGaugeImage, 1, 5));
+    }
+
+    public void UpdateOrangeGauge()
+    {
+        StartCoroutine(MoveOverSeconds(orangeGaugeImage, 1, 2.9f));
+    }
+
+    public IEnumerator MoveOverSeconds(Image gauge, float end, float seconds)
+    {
+        float elapsedTime = 0;
+        float progress = 0;
+        gauge.fillAmount = 0;
+        while (elapsedTime < seconds)
+        {
+            gauge.fillAmount = Mathf.Lerp(progress, end, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        gauge.fillAmount = end;
     }
 }

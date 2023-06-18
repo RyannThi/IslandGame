@@ -17,6 +17,7 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         sentences = new Queue<string>();
     }
 

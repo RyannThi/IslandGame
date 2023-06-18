@@ -96,7 +96,8 @@ public class PauseManager : MonoBehaviour
     private Coroutine fadeOutCoroutine;
 
     private void Awake()
-    { 
+    {
+        DontDestroyOnLoad(gameObject);
         ck = new ControlKeys();
         fadeOutCoroutine = StartCoroutine(EmptyCoroutine());
         fadeInCoroutine = StartCoroutine(EmptyCoroutine());

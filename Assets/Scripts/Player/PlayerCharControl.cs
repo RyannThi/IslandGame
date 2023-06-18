@@ -61,7 +61,7 @@ public class PlayerCharControl : MonoBehaviour
 
     public GameObject gameOverDebug;
 
-    private void Awake() { ck = new ControlKeys(); }
+    private void Awake() { DontDestroyOnLoad(gameObject); ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
     private void OnDisable() { ck.Disable(); }
 

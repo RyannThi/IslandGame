@@ -93,7 +93,7 @@ public class PlayerInventory : MonoBehaviour
     public bool isOpen; // flag para indicar se o inventário está aberto
     public bool hasClicked = false; // flag para indicar se o mouse foi pressionado
 
-    private void Awake() { ck = new ControlKeys(); }
+    private void Awake() { DontDestroyOnLoad(gameObject); ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
     private void OnDisable() { ck.Disable(); }
 

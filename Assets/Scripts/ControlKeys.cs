@@ -724,6 +724,17 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""f151f817-0bd8-4f4e-a89c-3f8af35d27c2"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2d7a6fea-415d-48e4-ba71-0b935ca5b6a5"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",

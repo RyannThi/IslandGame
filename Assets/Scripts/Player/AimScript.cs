@@ -233,6 +233,8 @@ public class AimScript : MonoBehaviour
         fireVfx.SetActive(true);
         skill1Audio.Play();
 
+        PlayerStats.instance.UpdateGreenGauge();
+
         Collider[] objectsHit = Physics.OverlapSphere(position, attackRange);
         //Pega os Colliders dentro do range, Ignora os trigger e da dano se tiver IDamage
         foreach ( Collider col in objectsHit)
@@ -265,7 +267,9 @@ public class AimScript : MonoBehaviour
         explosion.SetActive(true);
         Collider[] objectsHit = Physics.OverlapSphere(transform.position, meleeAttackRange);
 
-        foreach(Collider col in objectsHit)
+        PlayerStats.instance.UpdateOrangeGauge();
+
+        foreach (Collider col in objectsHit)
         {
             if (!col.isTrigger)
             {

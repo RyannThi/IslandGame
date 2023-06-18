@@ -29,6 +29,12 @@ public class ScreenTransition : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+        if (sceneName == "MainMenu")
+        {
+            //Destroy(GameObject.Find("PlayerCharacter"));
+            //Destroy(GameObject.Find("PlayerCharacter"));
+        }
+        
         SceneManager.LoadScene(sceneName); 
     }
 }

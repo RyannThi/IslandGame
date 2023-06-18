@@ -112,6 +112,8 @@ public class TitleScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
+
         fullscreenSlider.value = PlayerPrefs.GetInt("FULLSCREEN_MODE", 0);
         resolutionSlider.value = PlayerPrefs.GetInt("RESOLUTION_SIZE", 1);
         musicSlider.value = PlayerPrefs.GetFloat("BGM_VOLUME", 0.05f);
