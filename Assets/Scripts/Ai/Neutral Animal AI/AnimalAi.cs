@@ -30,6 +30,10 @@ public class AnimalAi : MonoBehaviour, IDamage, IHealth
 
     #endregion
 
+    [Header("SFX")]
+    [SerializeField]
+    private AudioSource walkSfx;
+
     #region State Machine
     private enum AnimalStates
     {
@@ -171,7 +175,8 @@ public class AnimalAi : MonoBehaviour, IDamage, IHealth
         
         
     }
-
+    [Space(2)]
+    [Header("Health")]
     [SerializeField]
     private int health = 10;
 
@@ -185,7 +190,9 @@ public class AnimalAi : MonoBehaviour, IDamage, IHealth
         if (health <= 0)
         {
             Instantiate(dropPotion, transform.position, Quaternion.identity);
+            walkSfx.Stop();
             Destroy(gameObject);
+            
         }
     }
 

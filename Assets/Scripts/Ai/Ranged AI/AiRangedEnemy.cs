@@ -41,6 +41,11 @@ public class AiRangedEnemy : MonoBehaviour, IDamage, IHealth
 
     private NavMeshAgent agent;
     private Animator anim;
+    [Space(2)]
+    [Header("Sfx")]
+    [SerializeField]
+    private AudioSource attackSfx;
+
     [Header("Bulelt")]
     [SerializeField]
     private GameObject bullet;
@@ -141,6 +146,7 @@ public class AiRangedEnemy : MonoBehaviour, IDamage, IHealth
 
         if (!hasExecuted)
         {
+            attackSfx.Play();
             //Debug.Log(transform.position + Vector3.forward * 2);
             GameObject enemyBullet = Instantiate(bullet, transform.position + Vector3.forward * 2, Quaternion.identity);
             enemyBullet.GetComponent<EnemyBullet>().GetPlayer(playerLocation.gameObject);

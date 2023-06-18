@@ -37,6 +37,10 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage, IHealth
 
     private NavMeshAgent agent;
     private Animator anim;
+    [Space(2)]
+    [Header("Sfx")]
+    [SerializeField]
+    private AudioSource walkSfx;
 
     // Start is called before the first frame update
     void Awake()
@@ -156,6 +160,7 @@ public class AiMeleeEnemy : MonoBehaviour, IDamage, IHealth
         {
             Instantiate(dropPotion, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            walkSfx.Stop();
         }
     }
 

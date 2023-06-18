@@ -41,6 +41,13 @@ public class HostileAnimalAI : MonoBehaviour, IDamage, IHealth
     [SerializeField]
     private float damage;
 
+    [Space(2)]
+    [Header("Sfx")]
+    [SerializeField]
+    private AudioSource walkSfx;
+    [SerializeField]
+    private AudioSource attackSfx;
+
     #region State Machine
     private enum HostileAnimalStates
     {
@@ -129,6 +136,9 @@ public class HostileAnimalAI : MonoBehaviour, IDamage, IHealth
 
         if (!hasExecutedH)
         {
+            if (!walkSfx.isPlaying)
+                walkSfx.Play();
+
             anim.SetBool("Walk Forward", false);
             anim.SetBool("Run Forward", true);
             hasExecutedH = true;
@@ -138,6 +148,7 @@ public class HostileAnimalAI : MonoBehaviour, IDamage, IHealth
         //print(transform.position - playerLocation.position);
         if (Vector3.Distance(transform.position, playerLocation.position) <= attackRange)
         {
+            walkSfx.Stop();
             hasExecutedH = false;
             agent.speed /= huntingSpeedMultiplier;
             agent.acceleration /= huntingSpeedMultiplier;
@@ -163,6 +174,9 @@ public class HostileAnimalAI : MonoBehaviour, IDamage, IHealth
         //print(hasExecuted);
         if (!hasExecutedR)
         {
+            if(!walkSfx.isPlaying)
+                walkSfx.Play();
+
             anim.SetBool("Walk Forward", true);
             agent.destination = NextRandomWaypoint();
             hasExecutedR = true;
@@ -180,6 +194,9 @@ public class HostileAnimalAI : MonoBehaviour, IDamage, IHealth
 
     IEnumerator Attack()
     {
+        if(!attackSfx.isPlaying)
+            attackSfx.Play();
+
         anim.SetBool("Walk Forward", false);
         anim.SetBool("Run Forward", false);
         anim.SetTrigger("Stab Attack");        
