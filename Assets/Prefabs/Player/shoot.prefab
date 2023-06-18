@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4729776563457581410}
   - component: {fileID: -6439341692494677281}
   - component: {fileID: 3143907831294151034}
+  - component: {fileID: 2675920471763797492}
   m_Layer: 0
   m_Name: shoot
   m_TagString: Untagged
@@ -127,3 +128,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2675920471763797492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4729776563457581437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd4484e9d3ab924e90f0290240c9bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

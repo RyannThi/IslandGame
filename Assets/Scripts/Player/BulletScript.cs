@@ -29,7 +29,8 @@ public class BulletScript : MonoBehaviour
     private void DisableBullet()
     {
         //VFX then false
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider col)

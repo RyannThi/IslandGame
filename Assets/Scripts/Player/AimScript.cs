@@ -87,21 +87,7 @@ public class AimScript : MonoBehaviour
     }
     private void OnEnable()
     {
-        ck.Enable();        
-    }
-
-    private void OnDisable()
-    {
-        ck.Disable();
-    }
-    void Start()
-    {
-        #region GAMBIARRA
-        //Faz com que o vfx n bug na primera vez q eh usado
-        explosion.SetActive(true);
-        explosion.SetActive(false);
-        #endregion
-
+        ck.Enable();
         #region Bullet Pooling
         for (int i = 0; i < 10; i++)
         {
@@ -111,6 +97,21 @@ public class AimScript : MonoBehaviour
         }
 
         #endregion
+    }
+
+    private void OnDisable()
+    {
+        ck.Disable();        
+    }
+    void Start()
+    {
+        #region GAMBIARRA
+        //Faz com que o vfx n bug na primera vez q eh usado
+        explosion.SetActive(true);
+        
+        #endregion
+
+
 
         #region Input Creation
         ck.Player.Aim.performed += Aim_performed;
@@ -122,7 +123,7 @@ public class AimScript : MonoBehaviour
     }
 
 
-
+    bool gambiarra = false;
     #region Input Methods
     private void Attack_started(InputAction.CallbackContext obj)
     {
@@ -162,6 +163,11 @@ public class AimScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!gambiarra)
+        {
+            explosion.SetActive(false);
+            gambiarra= true;
+        }
         #region Timers
         if (damageModifierTimer > 0)
         {
@@ -188,14 +194,14 @@ public class AimScript : MonoBehaviour
     #region Bullet Pooling
     private GameObject GetBullet()
     {
-        foreach(GameObject obj in bulletList)
+        /*foreach(GameObject obj in bulletList)
         {
             if(!obj.activeInHierarchy)
             {
                 return obj;
             }
-        }
-        return null;
+        }*/
+        return Instantiate(bullet);
     }
     #endregion
 
