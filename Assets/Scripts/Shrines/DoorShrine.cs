@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorShrine : MonoBehaviour
 {
     private ControlKeys ck;
     [SerializeField]
     private string sceneName;
-    public bool checkForKeys;
+    public bool checkForKeys = false;
     
 
     private void Awake() { ck = new ControlKeys(); }
@@ -26,6 +27,7 @@ public class DoorShrine : MonoBehaviour
                     if (ck.Player.Interact.WasPressedThisFrame())
                     {
                         ScreenTransition.instance.GoToScene(sceneName);
+                        //SceneManager.LoadScene(sceneName);
                     }
                 }
             }
@@ -34,8 +36,15 @@ public class DoorShrine : MonoBehaviour
         {
             if (ck.Player.Interact.WasPressedThisFrame())
             {
-                ScreenTransition.instance.GoToScene(sceneName);
+                Debug.Log("Pressionou");
+                ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene(sceneName));
+                //SceneManager.LoadScene(sceneName);
             }
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 5);
     }
 }

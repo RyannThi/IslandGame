@@ -34,7 +34,8 @@ public class ScreenTransition : MonoBehaviour
             Destroy(GameObject.Find("PlayerCharacter"));
             Destroy(GameObject.Find("DialogueManager"));
         }
-        
+
+        Debug.Log(sceneName);
         SceneManager.LoadScene(sceneName); 
         if (sceneName == "MainMenu")
         {
