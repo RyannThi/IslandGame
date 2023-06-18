@@ -28,7 +28,6 @@ public class ItemActivation : MonoBehaviour
     {
         activated = true;
         PlayerCharControl.instance.SetFireKey(true);
-        separateWall.SetActive(false);
-        gameObject.SetActive(false);
+        ScreenTransition.instance.GoToScene("MainScene");
     }
 }

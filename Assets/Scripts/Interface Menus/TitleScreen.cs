@@ -344,7 +344,7 @@ public class TitleScreen : MonoBehaviour
 
     private IEnumerator StartGame()
     {
-        StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
+        StartCoroutine(ScreenTransition.instance.GoToScene("LoadObjects"));
         while (blackout.alpha < 0.99f)
         {
             blackout.alpha = Mathf.Lerp(blackout.alpha, 1f, Time.deltaTime * fadeInSpeed);

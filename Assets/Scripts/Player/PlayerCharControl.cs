@@ -77,7 +77,7 @@ public class PlayerCharControl : MonoBehaviour
         ck.Player.Aim.canceled += Aim_canceled;
         ck.Player.Noclip.started += Noclip_started;
         ck.Player.CheatScene.started += CheatScene_started;
-
+         
         cmRig0 = cameraCinemachine.GetRig(0).GetCinemachineComponent<CinemachineComposer>();
         cmRig1 = cameraCinemachine.GetRig(1).GetCinemachineComponent<CinemachineComposer>();
         cmRig2 = cameraCinemachine.GetRig(2).GetCinemachineComponent<CinemachineComposer>();
