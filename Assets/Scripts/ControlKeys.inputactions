@@ -202,6 +202,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CheatScene",
+                    "type": "Button",
+                    "id": "ff7468a5-dc6c-47aa-b922-1fcafa6bb0c0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -862,6 +871,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Noclip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "009f3b95-0989-4f57-b884-14c0c29a6a20",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CheatScene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

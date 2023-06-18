@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCharControl : MonoBehaviour
 {
@@ -75,10 +76,18 @@ public class PlayerCharControl : MonoBehaviour
         ck.Player.Aim.performed += Aim_performed;
         ck.Player.Aim.canceled += Aim_canceled;
         ck.Player.Noclip.started += Noclip_started;
+        ck.Player.CheatScene.started += CheatScene_started;
 
         cmRig0 = cameraCinemachine.GetRig(0).GetCinemachineComponent<CinemachineComposer>();
         cmRig1 = cameraCinemachine.GetRig(1).GetCinemachineComponent<CinemachineComposer>();
         cmRig2 = cameraCinemachine.GetRig(2).GetCinemachineComponent<CinemachineComposer>();
+
+    }
+
+    private void CheatScene_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene + 1);
     }
 
     private void Noclip_started(UnityEngine.InputSystem.InputAction.CallbackContext obj)

@@ -224,6 +224,15 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CheatScene"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff7468a5-dc6c-47aa-b922-1fcafa6bb0c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -886,6 +895,17 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                     ""action"": ""Noclip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""009f3b95-0989-4f57-b884-14c0c29a6a20"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CheatScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -922,6 +942,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Noclip = m_Player.FindAction("Noclip", throwIfNotFound: true);
+        m_Player_CheatScene = m_Player.FindAction("CheatScene", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1003,6 +1024,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Noclip;
+    private readonly InputAction m_Player_CheatScene;
     public struct PlayerActions
     {
         private @ControlKeys m_Wrapper;
@@ -1029,6 +1051,7 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Noclip => m_Wrapper.m_Player_Noclip;
+        public InputAction @CheatScene => m_Wrapper.m_Player_CheatScene;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1104,6 +1127,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Noclip.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoclip;
                 @Noclip.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoclip;
                 @Noclip.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoclip;
+                @CheatScene.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheatScene;
+                @CheatScene.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheatScene;
+                @CheatScene.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheatScene;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1174,6 +1200,9 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
                 @Noclip.started += instance.OnNoclip;
                 @Noclip.performed += instance.OnNoclip;
                 @Noclip.canceled += instance.OnNoclip;
+                @CheatScene.started += instance.OnCheatScene;
+                @CheatScene.performed += instance.OnCheatScene;
+                @CheatScene.canceled += instance.OnCheatScene;
             }
         }
     }
@@ -1211,5 +1240,6 @@ public partial class @ControlKeys : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnNoclip(InputAction.CallbackContext context);
+        void OnCheatScene(InputAction.CallbackContext context);
     }
 }
