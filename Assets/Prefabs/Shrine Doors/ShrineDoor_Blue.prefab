@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 9055542852641800563}
   - component: {fileID: 6507480970514019769}
   - component: {fileID: 5588583232933767487}
+  - component: {fileID: 1157435625199164148}
   m_Layer: 0
   m_Name: ShrineDoor_Blue
   m_TagString: Untagged
@@ -110,7 +111,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4706203365891478636}
-  m_LocalRotation: {x: -0.6736754, y: 0.21485235, z: 0.21485235, w: 0.6736753}
+  m_LocalRotation: {x: -0.6736747, y: 0.21485446, z: 0.21485446, w: 0.6736747}
   m_LocalPosition: {x: 800.74, y: 12.29, z: 584.91}
   m_LocalScale: {x: 16.921, y: 16.921, z: 16.921}
   m_ConstrainProportionsScale: 0
@@ -183,3 +184,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5053925668127403250, guid: 0cd6205db2c5d5c4c9262e7ec94755ef, type: 3}
+--- !u!114 &1157435625199164148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706203365891478636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66061b09100509458d4a141c6bdb27d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: IceShrine
+  checkForKeys: 0
