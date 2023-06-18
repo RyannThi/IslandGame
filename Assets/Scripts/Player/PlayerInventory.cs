@@ -15,6 +15,7 @@ public class PlayerInventory : MonoBehaviour
 
     public Sprite blankImage;
     public AudioSource audioSource;
+    public AudioClip itemGet;
     public AudioClip buttonMove;
     public AudioClip buttonConfirm;
     public AudioClip buttonCancel;
@@ -144,10 +145,6 @@ public class PlayerInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (ck.Player.Jump.WasPressedThisFrame())
-        {
-            AddItem("Speed Potion");
-        }*/
         if (ck.Player.Inventory.WasPressedThisFrame())
         {
             audioSource.PlayOneShot(inventoryOpen);
@@ -265,8 +262,22 @@ public class PlayerInventory : MonoBehaviour
     {
         if (invSlotsItems.Count + 1 >= 13)
         {
-            return;
+            if (invSlotsItems[invSlotsItems.Count - 1].name != "Ice Rune" || invSlotsItems[invSlotsItems.Count - 1].name != "Fire Rune")
+            {
+                invSlotsItems.RemoveAt(invSlotsItems.Count - 1);
+            }
+            else if (invSlotsItems[invSlotsItems.Count - 2].name != "Ice Rune" || invSlotsItems[invSlotsItems.Count - 2].name != "Fire Rune")
+            {
+                invSlotsItems.RemoveAt(invSlotsItems.Count - 2);
+            }
+            else if (invSlotsItems[invSlotsItems.Count - 3].name != "Ice Rune" || invSlotsItems[invSlotsItems.Count - 3].name != "Fire Rune")
+            {
+                invSlotsItems.RemoveAt(invSlotsItems.Count - 3);
+            }
+
         }
+
+        audioSource.PlayOneShot(itemGet);
 
         // Percorre todos os itens de inventário disponíveis
         foreach (var invItem in invItemInfo)

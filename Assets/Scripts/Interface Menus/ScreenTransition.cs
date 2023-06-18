@@ -29,7 +29,7 @@ public class ScreenTransition : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
-        if (sceneName == "MainMenu")
+        if (sceneName == "MainMenu" || sceneName == "Credits")
         {
             Destroy(GameObject.Find("PlayerCharacter"));
             Destroy(GameObject.Find("DialogueManager"));
