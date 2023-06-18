@@ -20,7 +20,11 @@ public class IceRuneBehavior : MonoBehaviour
     void Start()
     {
         posOffset = transform.position;
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
         if (ck.Player.Interact.WasPressedThisFrame() && Vector3.Distance(transform.position, PlayerCharControl.instance.transform.position) < 5)
         {
             PlayerInventory.instance.AddItem("Ice Rune");
@@ -28,11 +32,6 @@ public class IceRuneBehavior : MonoBehaviour
             ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         tempPos = posOffset;
         tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
 
