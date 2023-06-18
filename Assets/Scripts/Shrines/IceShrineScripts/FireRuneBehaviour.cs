@@ -25,7 +25,7 @@ public class FireRuneBehaviour : MonoBehaviour
         {
             PlayerInventory.instance.AddItem("Fire Rune");
             Destroy(gameObject);
-            ScreenTransition.instance.GoToScene("MainScene");
+            ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
         }
 
     }
