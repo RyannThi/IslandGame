@@ -365,7 +365,10 @@ public class TitleScreen : MonoBehaviour
     private IEnumerator FadeOutGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
     {
         setBool(!groupInteract);
-        StopCoroutine(fadeInCoroutine);
+        if (fadeInCoroutine != null)
+        {
+            StopCoroutine(fadeInCoroutine);
+        }
         while (group.localScale.x != 0)
         {
             group.localScale = Vector2.Lerp(group.localScale, new Vector2(0, 0), Time.deltaTime * transitionSpeed);

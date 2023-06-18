@@ -59,6 +59,8 @@ public class PlayerCharControl : MonoBehaviour
         Attack
     }
 
+    public GameObject gameOverDebug;
+
     private void Awake() { ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
     private void OnDisable() { ck.Disable(); }
@@ -156,6 +158,11 @@ public class PlayerCharControl : MonoBehaviour
             animator.SetTrigger("JUMP");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             currentState = State.Jump;
+        }
+
+        if (ck.Player.Jump.WasPressedThisFrame() && isGrounded)
+        {
+            Instantiate(gameOverDebug);
         }
 
         /*if (ck.Player.Combat.WasPressedThisFrame())

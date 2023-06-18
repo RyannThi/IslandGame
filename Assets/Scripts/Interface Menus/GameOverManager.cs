@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
@@ -59,6 +60,7 @@ public class GameOverManager : MonoBehaviour
     void Start()
     {
         fadeInCoroutine = StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+        Time.timeScale = 0f;
     }
 
     // Update is called once per frame
@@ -91,7 +93,15 @@ public class GameOverManager : MonoBehaviour
 
                         StopCoroutine(fadeOutCoroutine);
                         fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
-                        StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
+                        if (ScreenTransition.instance != null)
+                        {
+                            StartCoroutine(ScreenTransition.instance.GoToScene("MainMenu", true));
+                        }
+                        else
+                        {
+                            SceneManager.LoadScene("MainMenu");
+                        }
+                        
                         break;
 
                     case 2:
@@ -127,7 +137,10 @@ public class GameOverManager : MonoBehaviour
     private IEnumerator FadeOutGroup(Transform group, CanvasGroup canvasGroup, bool groupInteract, System.Action<bool> setBool)
     {
         setBool(!groupInteract);
-        StopCoroutine(fadeInCoroutine);
+        if (fadeInCoroutine != null)
+        {
+            StopCoroutine(fadeInCoroutine);
+        }
         while (group.localScale.x != 0)
         {
             group.localScale = Vector2.Lerp(group.localScale, new Vector2(0, 0), Time.unscaledDeltaTime * transitionSpeed);
