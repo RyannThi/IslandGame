@@ -23,7 +23,7 @@ public class PlayerCharControl : MonoBehaviour
     public Animator animator;
     private ControlKeys ck; // usado pra verificação de input
     private Rigidbody rb;
-    public Material material; // para debug, pra pintar a capsula
+    //public Material material; // para debug, pra pintar a capsula
     private bool isGrounded; // se o player estiver no chão, true
     private float rotationSpeed = 5f;
 
@@ -186,6 +186,7 @@ public class PlayerCharControl : MonoBehaviour
     void FixedUpdate()
     {
         #region Debug
+        /*
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerCharIdle"))
         {
             material.color = Color.green;
@@ -206,6 +207,7 @@ public class PlayerCharControl : MonoBehaviour
         {
             material.color = Color.cyan;
         }
+        */
         /*if (ck.Player.Confirm.WasPressedThisFrame())
         {
             characterHealth -= 20;

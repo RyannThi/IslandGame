@@ -26,7 +26,7 @@ public class DoorShrine : MonoBehaviour
                 {
                     if (ck.Player.Interact.WasPressedThisFrame())
                     {
-                        ScreenTransition.instance.GoToScene(sceneName);
+                        ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene(sceneName));
                         //SceneManager.LoadScene(sceneName);
                     }
                 }

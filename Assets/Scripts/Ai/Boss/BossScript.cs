@@ -752,7 +752,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         //Die anim
         yield return new WaitForSeconds(7);
         victorySound.Stop();
-        ScreenTransition.instance.GoToScene("Credits");
+        StartCoroutine(ScreenTransition.instance.GoToScene("Credits"));
         Destroy(gameObject);
         //Exit
 

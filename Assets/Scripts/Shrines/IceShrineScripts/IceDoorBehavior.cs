@@ -23,7 +23,7 @@ public class IceDoorBehavior : MonoBehaviour
     {
         if (ck.Player.Interact.WasPressedThisFrame() && Vector3.Distance(transform.position, PlayerCharControl.instance.transform.position) < 7 && hasInteracted == false)
         {
-            ScreenTransition.instance.GoToScene("MainScene");
+            ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
             hasInteracted = true;
         }
     }

@@ -28,6 +28,6 @@ public class ItemActivation : MonoBehaviour
     {
         activated = true;
         PlayerCharControl.instance.SetFireKey(true);
-        ScreenTransition.instance.GoToScene("MainScene");
+        StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
     }
 }

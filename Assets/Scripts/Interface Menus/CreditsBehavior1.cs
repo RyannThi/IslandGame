@@ -32,6 +32,6 @@ public class CreditsBehavior1 : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        ScreenTransition.instance.GoToScene("MainMenu");
+        ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene("MainMenu"));
     }
 }

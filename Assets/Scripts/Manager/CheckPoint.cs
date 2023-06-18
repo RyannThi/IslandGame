@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
+    private ControlKeys ck;
 
+    private void Awake() { ck = new ControlKeys(); }
+    private void OnEnable() { ck.Enable(); }
+    private void OnDisable() { ck.Disable(); }
+
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position, PlayerCharControl.instance.transform.position) < 5)
+        {
+            if (ck.Player.Interact.WasPressedThisFrame())
+            {
+                Debug.Log("Save");
+                SaveInfo.instance.SetSaveInfo();
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Save");
-        if(other.CompareTag("Player"))
-         SaveInfo.instance.SetSaveInfo();
+        
     }
 }

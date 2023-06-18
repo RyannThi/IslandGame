@@ -20,7 +20,7 @@ public class VoidResets : MonoBehaviour
     {
         if (other.GetComponent<PlayerCharControl>() != null)
         {
-            ScreenTransition.instance.ObjectGoToPosition(PlayerCharControl.instance.gameObject, position);
+            StartCoroutine(ScreenTransition.instance.ObjectGoToPosition(PlayerCharControl.instance.gameObject, position));
         }
 
         GameObject[] holderList = FindGameObjectsByName("BallHolder");
