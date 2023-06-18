@@ -19,6 +19,11 @@ public class FastProjectileScript : MonoBehaviour
             //Debug.Log(playerPosition);
             transform.position = Vector3.MoveTowards(transform.position, playerPosition, 100 * Time.deltaTime);
         }
+
+        if(Vector3.Distance(playerPosition, transform.position) < 1.5)
+        {
+            PlayerCharControl.instance.TakeDamage(10);
+        }
         
     }
 

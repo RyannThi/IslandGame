@@ -54,7 +54,7 @@ public class MissileScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Do Damage
+            PlayerCharControl.instance.TakeDamage(10);
             DisableObject();
         }
     }

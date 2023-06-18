@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossScript : MonoBehaviour, IDamage
+public class BossScript : MonoBehaviour, IDamage, IHealth
 {
     
 
@@ -120,7 +120,7 @@ public class BossScript : MonoBehaviour, IDamage
 
         
 
-        health = 1000;
+        health = 300;
 
         foreach (Transform obj in FindObjectsOfType<Transform>())
         {
@@ -475,7 +475,7 @@ public class BossScript : MonoBehaviour, IDamage
             if (collider.gameObject.CompareTag("Player"))
             {
                 Debug.Log("Acertou");
-                //Do Damage
+                PlayerCharControl.instance.TakeDamage(15);
             }
         }
         
@@ -509,7 +509,7 @@ public class BossScript : MonoBehaviour, IDamage
                 GameObject missile = GetMissile();
                 if(missile != null)
                 {
-                    missile.transform.position = transform.position + Vector3.up * 10;
+                    missile.transform.position = transform.position + Vector3.up * 10 + Vector3.left * 2;
                     missile.SetActive(true);
                 }                
                 yield return new WaitForSeconds(3);
@@ -805,6 +805,11 @@ public class BossScript : MonoBehaviour, IDamage
     public void TakeDamage(int damage)
     {
         health -= damage;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
     private void OnDrawGizmosSelected()
     {
