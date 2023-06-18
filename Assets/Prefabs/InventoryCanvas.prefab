@@ -3730,13 +3730,19 @@ MonoBehaviour:
     desc: Increases your damage by 2x.
   - name: Resistance Potion
     image: {fileID: 21300000, guid: 17282fb36d3c614468c66abe10db6acc, type: 3}
-    desc: resistance
+    desc: Reduces damage taken by 50%.
   - name: Health Potion
     image: {fileID: 21300000, guid: 918a6afd99556d040a492944f3c01da1, type: 3}
     desc: Increases your health amount by 40.
   - name: Heavy Snowball
     image: {fileID: 21300000, guid: ca4549190795d75458c642c18ba46e34, type: 3}
     desc: A heavy snowball used to activate totems.
+  - name: Fire Rune
+    image: {fileID: 21300000, guid: 23af1bb22db083748a0a09af8ed79956, type: 3}
+    desc: A fire rune.
+  - name: Ice Rune
+    image: {fileID: 21300000, guid: 286581a5d5e0d8047b57434e93795983, type: 3}
+    desc: An ice rune.
   invSlotsItems: []
   invSlotsPosition:
   - {x: -370, y: 500}

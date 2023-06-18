@@ -42,4 +42,11 @@ public class ScreenTransition : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public IEnumerator ObjectGoToPosition(GameObject obj, Vector3 position)
+    {
+        animator.SetTrigger("SwitchScene");
+        yield return new WaitForSecondsRealtime(1f);
+        obj.transform.position = position;
+    }
 }
