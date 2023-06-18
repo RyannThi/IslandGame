@@ -25,6 +25,7 @@ public class IceRuneBehavior : MonoBehaviour
         {
             PlayerInventory.instance.AddItem("Ice Rune");
             Destroy(gameObject);
+            ScreenTransition.instance.GoToScene("MainScene");
         }
 
     }
