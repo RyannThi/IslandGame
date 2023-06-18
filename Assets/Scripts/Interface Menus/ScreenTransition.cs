@@ -21,10 +21,14 @@ public class ScreenTransition : MonoBehaviour
         
     }
 
-    public IEnumerator GoToScene(string sceneName)
+    public IEnumerator GoToScene(string sceneName, bool restartTime = false)
     {
         animator.SetTrigger("SwitchScene");
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(sceneName);
+        if (restartTime == true)
+        {
+            Time.timeScale = 1f;
+        }
+        SceneManager.LoadScene(sceneName); 
     }
 }
