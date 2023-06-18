@@ -173,7 +173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 735, y: -450}
+  m_AnchoredPosition: {x: 870, y: -450}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1679473445153036495
@@ -222,7 +222,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2594200714552091398}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -318,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5957546868685730322
 RectTransform:
   m_ObjectHideFlags: 0
@@ -455,6 +455,8 @@ GameObject:
   - component: {fileID: 5957546868880114079}
   - component: {fileID: 5957546868880114073}
   - component: {fileID: 5957546868880114078}
+  - component: {fileID: 1047815373}
+  - component: {fileID: 1047815374}
   m_Layer: 5
   m_Name: InvSlot_2
   m_TagString: Untagged
@@ -521,6 +523,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1047815373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546868880114076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1047815374}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1047815374}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1047815374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546868880114076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5957546868973432230
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +592,8 @@ GameObject:
   - component: {fileID: 5957546868973432225}
   - component: {fileID: 5957546868973432227}
   - component: {fileID: 5957546868973432224}
+  - component: {fileID: 436686948}
+  - component: {fileID: 436686949}
   m_Layer: 5
   m_Name: InvSlot_1
   m_TagString: Untagged
@@ -598,6 +660,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &436686948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546868973432230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 436686949}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 436686949}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &436686949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546868973432230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5957546869015348292
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +864,8 @@ GameObject:
   - component: {fileID: 5957546869061137143}
   - component: {fileID: 5957546869061137137}
   - component: {fileID: 5957546869061137142}
-  m_Layer: 5
+  - component: {fileID: 340260560}
+  m_Layer: 2
   m_Name: InvSlot_7_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -809,6 +930,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &340260560
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869061137140}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546869118264903
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +953,8 @@ GameObject:
   - component: {fileID: 5957546869118264902}
   - component: {fileID: 5957546869118264896}
   - component: {fileID: 5957546869118264897}
-  m_Layer: 5
+  - component: {fileID: 2000829002}
+  m_Layer: 2
   m_Name: InvSlot_5_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -885,6 +1019,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2000829002
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869118264903}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546869183141724
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,6 +1042,8 @@ GameObject:
   - component: {fileID: 5957546869183141727}
   - component: {fileID: 5957546869183141721}
   - component: {fileID: 5957546869183141726}
+  - component: {fileID: 148280323}
+  - component: {fileID: 148280324}
   m_Layer: 5
   m_Name: InvSlot_11
   m_TagString: Untagged
@@ -962,6 +1110,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &148280323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869183141724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 148280324}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 148280324}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &148280324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869183141724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5957546869248742957
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +1179,8 @@ GameObject:
   - component: {fileID: 5957546869248742956}
   - component: {fileID: 5957546869248742958}
   - component: {fileID: 5957546869248742959}
-  m_Layer: 5
+  - component: {fileID: 1076738970}
+  m_Layer: 2
   m_Name: InvSlot_0_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,6 +1245,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1076738970
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869248742957}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546869321337980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1268,8 @@ GameObject:
   - component: {fileID: 5957546869321337983}
   - component: {fileID: 5957546869321337977}
   - component: {fileID: 5957546869321337982}
-  m_Layer: 5
+  - component: {fileID: 2025993381}
+  m_Layer: 2
   m_Name: InvSlot_8_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1114,6 +1334,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2025993381
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869321337980}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546869528934890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1357,8 @@ GameObject:
   - component: {fileID: 5957546869528934885}
   - component: {fileID: 5957546869528934887}
   - component: {fileID: 5957546869528934884}
+  - component: {fileID: 1553487511}
+  - component: {fileID: 1553487512}
   m_Layer: 5
   m_Name: InvSlot_6
   m_TagString: Untagged
@@ -1191,6 +1425,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1553487511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869528934890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1553487512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869528934890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1553487511}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1553487511}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5957546869560863828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1494,8 @@ GameObject:
   - component: {fileID: 5957546869560863831}
   - component: {fileID: 5957546869560863825}
   - component: {fileID: 5957546869560863830}
+  - component: {fileID: 1847189648}
+  - component: {fileID: 1847189649}
   m_Layer: 5
   m_Name: InvSlot_7
   m_TagString: Untagged
@@ -1268,6 +1562,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1847189648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869560863828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1847189649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869560863828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1847189648}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1847189648}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5957546869581624893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,7 +1770,8 @@ GameObject:
   - component: {fileID: 5957546869697513578}
   - component: {fileID: 5957546869697513572}
   - component: {fileID: 5957546869697513573}
-  m_Layer: 5
+  - component: {fileID: 1847487579}
+  m_Layer: 2
   m_Name: InvSlot_10_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1483,6 +1836,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1847487579
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869697513579}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546869823966660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,7 +1859,8 @@ GameObject:
   - component: {fileID: 5957546869823966663}
   - component: {fileID: 5957546869823966657}
   - component: {fileID: 5957546869823966662}
-  m_Layer: 5
+  - component: {fileID: 726402676}
+  m_Layer: 2
   m_Name: InvSlot_11_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1559,6 +1925,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &726402676
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869823966660}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546869834489775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,6 +2024,8 @@ GameObject:
   - component: {fileID: 5957546869920747029}
   - component: {fileID: 5957546869920747031}
   - component: {fileID: 5957546869920747028}
+  - component: {fileID: 1696850174}
+  - component: {fileID: 1696850175}
   m_Layer: 5
   m_Name: InvSlot_9
   m_TagString: Untagged
@@ -1712,6 +2092,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1696850174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869920747034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1696850175}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1696850175}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1696850175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546869920747034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5957546870031839309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +2161,8 @@ GameObject:
   - component: {fileID: 5957546870031839308}
   - component: {fileID: 5957546870031839310}
   - component: {fileID: 5957546870031839311}
-  m_Layer: 5
+  - component: {fileID: 657584360}
+  m_Layer: 2
   m_Name: InvSlot_1_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1788,6 +2227,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &657584360
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870031839309}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546870038263543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,6 +2250,8 @@ GameObject:
   - component: {fileID: 5957546870038263542}
   - component: {fileID: 5957546870038263536}
   - component: {fileID: 5957546870038263537}
+  - component: {fileID: 1918327752}
+  - component: {fileID: 1918327753}
   m_Layer: 5
   m_Name: InvSlot_4
   m_TagString: Untagged
@@ -1865,6 +2318,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1918327752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870038263543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1918327753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870038263543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1918327752}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1918327752}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5957546870073024076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,6 +2387,8 @@ GameObject:
   - component: {fileID: 5957546870073024079}
   - component: {fileID: 5957546870073024073}
   - component: {fileID: 5957546870073024078}
+  - component: {fileID: 1459534256}
+  - component: {fileID: 1459534257}
   m_Layer: 5
   m_Name: InvSlot_5
   m_TagString: Untagged
@@ -1942,6 +2455,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1459534256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870073024076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1459534257}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1459534257}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1459534257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870073024076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5957546870331599494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +2524,8 @@ GameObject:
   - component: {fileID: 5957546870331599489}
   - component: {fileID: 5957546870331599491}
   - component: {fileID: 5957546870331599488}
+  - component: {fileID: 934365007}
+  - component: {fileID: 934365008}
   m_Layer: 5
   m_Name: InvSlot_3
   m_TagString: Untagged
@@ -2019,6 +2592,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &934365007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870331599494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 934365008}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 934365008}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &934365008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870331599494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5957546870346746593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,6 +2661,8 @@ GameObject:
   - component: {fileID: 5957546870346746592}
   - component: {fileID: 5957546870346746594}
   - component: {fileID: 5957546870346746595}
+  - component: {fileID: 1566760300}
+  - component: {fileID: 1566760301}
   m_Layer: 5
   m_Name: InvSlot_0
   m_TagString: Untagged
@@ -2096,6 +2729,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1566760300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870346746593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1566760301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870346746593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1566760300}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1566760300}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5957546870372029256
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,7 +2933,8 @@ GameObject:
   - component: {fileID: 5957546870379986081}
   - component: {fileID: 5957546870379986083}
   - component: {fileID: 5957546870379986080}
-  m_Layer: 5
+  - component: {fileID: 1498859846}
+  m_Layer: 2
   m_Name: InvSlot_9_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2307,6 +2999,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1498859846
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870379986086}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546870430882533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,6 +3022,8 @@ GameObject:
   - component: {fileID: 5957546870430882532}
   - component: {fileID: 5957546870430882534}
   - component: {fileID: 5957546870430882535}
+  - component: {fileID: 2075401241}
+  - component: {fileID: 2075401242}
   m_Layer: 5
   m_Name: InvSlot_8
   m_TagString: Untagged
@@ -2384,6 +3090,64 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2075401241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870430882533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2075401242}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2075401242}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2075401242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870430882533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &5957546870438619325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,7 +3159,8 @@ GameObject:
   - component: {fileID: 5957546870438619324}
   - component: {fileID: 5957546870438619326}
   - component: {fileID: 5957546870438619327}
-  m_Layer: 5
+  - component: {fileID: 1818604567}
+  m_Layer: 2
   m_Name: InvSlot_4_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2460,6 +3225,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1818604567
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870438619325}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546870450331207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,7 +3248,8 @@ GameObject:
   - component: {fileID: 5957546870450331206}
   - component: {fileID: 5957546870450331200}
   - component: {fileID: 5957546870450331201}
-  m_Layer: 5
+  - component: {fileID: 1983223988}
+  m_Layer: 2
   m_Name: InvSlot_2_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2536,6 +3314,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1983223988
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870450331207}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546870489830796
 GameObject:
   m_ObjectHideFlags: 0
@@ -2547,7 +3337,8 @@ GameObject:
   - component: {fileID: 5957546870489830799}
   - component: {fileID: 5957546870489830793}
   - component: {fileID: 5957546870489830798}
-  m_Layer: 5
+  - component: {fileID: 337756094}
+  m_Layer: 2
   m_Name: InvSlot_3_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2612,6 +3403,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &337756094
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870489830796}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546870589357673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,7 +3426,8 @@ GameObject:
   - component: {fileID: 5957546870589357672}
   - component: {fileID: 5957546870589357674}
   - component: {fileID: 5957546870589357675}
-  m_Layer: 5
+  - component: {fileID: 127379138}
+  m_Layer: 2
   m_Name: InvSlot_6_Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2688,6 +3492,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &127379138
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870589357673}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5957546870594533626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2777,6 +3593,7 @@ GameObject:
   - component: {fileID: 5957546870595524604}
   - component: {fileID: 5957546870595524605}
   - component: {fileID: 5957546870595524482}
+  - component: {fileID: 910432836}
   m_Layer: 5
   m_Name: InventoryCanvas
   m_TagString: Untagged
@@ -2882,6 +3699,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blankImage: {fileID: 0}
+  audioSource: {fileID: 910432836}
+  buttonMove: {fileID: 8300000, guid: ea2b14949047fec46be003f0c9b4d6f0, type: 3}
+  buttonConfirm: {fileID: 8300000, guid: 3e8dbd8090be4bf4fb69f5fe9d40af03, type: 3}
+  buttonCancel: {fileID: 8300000, guid: 0e6fbfc2918c5c34bb2b85a53ef94043, type: 3}
+  inventoryOpen: {fileID: 8300000, guid: 9bf3c170fa65a7f44b87848e88a67da5, type: 3}
   invSlots:
   - {fileID: 5957546870346746593}
   - {fileID: 5957546868973432230}
@@ -2929,6 +3751,105 @@ MonoBehaviour:
   - {x: -370, y: 50}
   - {x: -225, y: 50}
   - {x: -80, y: 50}
+  selectedItem: 0
+  isOpen: 0
+  hasClicked: 0
+--- !u!82 &910432836
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870595524483}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 164188251680555946, guid: 05a0816e2ccc437459ac9f1c340beeb8, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5957546870615091374
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,6 +3996,8 @@ GameObject:
   - component: {fileID: 5957546870645774512}
   - component: {fileID: 5957546870645774514}
   - component: {fileID: 5957546870645774515}
+  - component: {fileID: 308421360}
+  - component: {fileID: 308421361}
   m_Layer: 5
   m_Name: InvSlot_10
   m_TagString: Untagged
@@ -3141,3 +4064,61 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &308421360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870645774513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 308421361}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ChangeSelectionIndex
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 308421361}
+          m_TargetAssemblyTypeName: PlayerInventoryTriggers, Assembly-CSharp
+          m_MethodName: ConfirmSelection
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &308421361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957546870645774513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192749fdbc27f6443ab87ff01b8f6057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []

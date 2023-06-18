@@ -24,17 +24,21 @@ public class ScreenTransition : MonoBehaviour
     public IEnumerator GoToScene(string sceneName, bool restartTime = false)
     {
         animator.SetTrigger("SwitchScene");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         if (restartTime == true)
         {
             Time.timeScale = 1f;
         }
         if (sceneName == "MainMenu")
         {
-            //Destroy(GameObject.Find("PlayerCharacter"));
-            //Destroy(GameObject.Find("PlayerCharacter"));
+            Destroy(GameObject.Find("PlayerCharacter"));
+            Destroy(GameObject.Find("DialogueManager"));
         }
         
         SceneManager.LoadScene(sceneName); 
+        if (sceneName == "MainMenu")
+        {
+            Destroy(gameObject);
+        }
     }
 }
