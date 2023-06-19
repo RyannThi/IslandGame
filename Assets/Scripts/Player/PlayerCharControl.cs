@@ -17,6 +17,9 @@ public class PlayerCharControl : MonoBehaviour
     public Transform combatLookAt;
     public Transform camera;
 
+    [HideInInspector]
+    public int whichKey;
+
     public CinemachineFreeLook cameraCinemachine;
     //public GameObject cameraCombat;
 
@@ -411,11 +414,13 @@ public class PlayerCharControl : MonoBehaviour
     public void SetFireKey(bool key)
     {
         gotFireKey = key;
+        whichKey = 1;
     }
 
     public void SetIceKey(bool key)
     {
         gotIceKey = key;
+        whichKey = 2;
     }
 
     public bool GetFireKey()
