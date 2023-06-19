@@ -428,11 +428,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5579608739775783317, guid: 1751039029839c340a290d9c037681e9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000021524489
+      value: -0.00000003458213
       objectReference: {fileID: 0}
     - target: {fileID: 5579608739775783317, guid: 1751039029839c340a290d9c037681e9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000010102683
+      value: 0.000000016231365
       objectReference: {fileID: 0}
     - target: {fileID: 5579608740042824307, guid: 1751039029839c340a290d9c037681e9, type: 3}
       propertyPath: m_CollideAgainst.m_Bits
@@ -513,6 +513,18 @@ PrefabInstance:
     - target: {fileID: 5579608740967527661, guid: 1751039029839c340a290d9c037681e9, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.000000017154843
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995842137418416401, guid: 1751039029839c340a290d9c037681e9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995842137418416401, guid: 1751039029839c340a290d9c037681e9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995842137418416401, guid: 1751039029839c340a290d9c037681e9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8995842137745744887, guid: 1751039029839c340a290d9c037681e9, type: 3}
       propertyPath: m_AnchorMax.x
