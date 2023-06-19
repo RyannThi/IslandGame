@@ -37,13 +37,13 @@ public class BulletScript : MonoBehaviour
     {
         Debug.Log(col.gameObject.name);
 
-        if (col.gameObject.CompareTag("Enemy"))
+        if (col.gameObject.CompareTag("Enemy") && !col.isTrigger)
         {
             Debug.Log("Hit");
             col.gameObject.GetComponent<IDamage>().TakeDamage(bulletDamage);
             DisableBullet();
         }
-        else
+        else if(!col.isTrigger)
             DisableBullet();
     }
 }

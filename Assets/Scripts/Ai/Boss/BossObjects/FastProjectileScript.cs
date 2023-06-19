@@ -21,8 +21,9 @@ public class FastProjectileScript : MonoBehaviour
         }
 
         if(Vector3.Distance(playerPosition, transform.position) < 1.5)
-        {
+        {         
             PlayerCharControl.instance.TakeDamage(10);
+            SetInactive();
         }
         
     }

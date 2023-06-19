@@ -581,7 +581,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
                 projectile.transform.position = transform.position + projectileDirection.normalized * 2;
                 FastProjectileScript script = projectile.gameObject.GetComponent<FastProjectileScript>();
                 script.SetPlayerDirection(playerTransform.position);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(3f);
                 if(!projectileSfx.isPlaying)
                     projectileSfx.Play();
 

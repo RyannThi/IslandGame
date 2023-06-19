@@ -6,6 +6,6 @@ public class ZoneEffectResistance : ZoneEffect
 {
     protected override void EffectFromZone()
     {
-        player.Resistance(0.5f, 15);
+        player.Resistance(1f, 15);
     }
 }

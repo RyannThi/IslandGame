@@ -3030,6 +3030,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 919132149155446097, guid: 7ccb6a325ae4c0e4d8cd7f1523eb21f9, type: 3}
     - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
+      propertyPath: spinSfx
+      value: 
+      objectReference: {fileID: 1149343844}
+    - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
       propertyPath: fireCube
       value: 
       objectReference: {fileID: 919132149155446097, guid: 96f160b9b2d6aa444a7f1bb31541a338, type: 3}
@@ -3041,6 +3045,10 @@ PrefabInstance:
       propertyPath: iceMinion
       value: 
       objectReference: {fileID: 637336378033073958, guid: 54df2bc0688fac64f82847855484313d, type: 3}
+    - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
+      propertyPath: summonSfx
+      value: 
+      objectReference: {fileID: 1214119973}
     - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
       propertyPath: fireMinion
       value: 
@@ -3054,13 +3062,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 919132149155446097, guid: 716b4bb1564b24142aa0732317468fd2, type: 3}
     - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
+      propertyPath: iceArrowSfx
+      value: 
+      objectReference: {fileID: 1161766181}
+    - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
+      propertyPath: victorySound
+      value: 
+      objectReference: {fileID: 565002843}
+    - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
       propertyPath: missilePrefab
       value: 
       objectReference: {fileID: 5162372784779579410, guid: c57713c927ac6e34bb4ba001b09dce7e, type: 3}
     - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
+      propertyPath: projectileSfx
+      value: 
+      objectReference: {fileID: 440804692}
+    - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
+      propertyPath: stalactiteSfx
+      value: 
+      objectReference: {fileID: 512870680}
+    - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
       propertyPath: fastProjectile
       value: 
       objectReference: {fileID: 6457514188567245556, guid: 2fc52845aa407084c9b63e72ebcbdf31, type: 3}
+    - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
+      propertyPath: fireMissileSfx
+      value: 
+      objectReference: {fileID: 2095501511}
     - target: {fileID: 4010658023880936310, guid: 5903d9630e3544f47a96b65eaee5aeda, type: 3}
       propertyPath: geoMaterials.Array.size
       value: 3
@@ -3264,7 +3292,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 294722224031790956, guid: 604edeb52014f0049a196e25afb8599f, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 294722224031790956, guid: 604edeb52014f0049a196e25afb8599f, type: 3}
       propertyPath: m_LocalPosition.x

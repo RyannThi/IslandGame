@@ -1403,11 +1403,11 @@ MonoBehaviour:
   dropPotion: {fileID: 4832183416322282543, guid: d6d8b7daf2c0c69478b0e3318c376664, type: 3}
   maxDistance: 25
   attackRange: 3.7
-  damage: 0
+  damage: 10
   walkSfx: {fileID: 7558036877108198609}
   attackSfx: {fileID: 4881772667992454555}
   triggerActivated: 0
-  health: 0
+  health: 35
 --- !u!82 &7558036877108198609
 AudioSource:
   m_ObjectHideFlags: 0
