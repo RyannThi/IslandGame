@@ -188,41 +188,47 @@ public class PlayerInventory : MonoBehaviour
             if (invSlotsChild[selectedItem].activeSelf == true)
             {
                 audioSource.PlayOneShot(buttonConfirm);
-                if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out Iitem item))
+                if (invSlotsItems[selectedItem].name != "Fire Rune" || invSlotsItems[selectedItem].name != "Ice Rune")
                 {
-                    item.UseItem(PlayerCharControl.instance.gameObject);
-                    switch (invSlotsItems[selectedItem].name)
+                    if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out Iitem item))
                     {
-                        case "Speed Potion":
+                        item.UseItem(PlayerCharControl.instance.gameObject);
+                        switch (invSlotsItems[selectedItem].name)
+                        {
+                            case "Speed Potion":
 
-                            Destroy(invSlotsChild[selectedItem].GetComponent<SpeedPotion>());
-                            break;
+                                Destroy(invSlotsChild[selectedItem].GetComponent<SpeedPotion>());
+                                break;
 
-                        case "Damage Potion":
+                            case "Damage Potion":
 
-                            Destroy(invSlotsChild[selectedItem].GetComponent<DamagePotion>());
-                            break;
+                                Destroy(invSlotsChild[selectedItem].GetComponent<DamagePotion>());
+                                break;
 
-                        case "Resistance Potion":
+                            case "Resistance Potion":
 
-                            Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
-                            break;
+                                Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
+                                break;
 
-                        case "Health Potion":
+                            case "Health Potion":
 
-                            Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
-                            break;
+                                Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
+                                break;
 
-                        case "Heavy Snowball":
+                            case "Heavy Snowball":
 
-                            Destroy(invSlotsChild[selectedItem].GetComponent<HeavySnowball>());
-                            break;
+                                Destroy(invSlotsChild[selectedItem].GetComponent<HeavySnowball>());
+                                break;
+                        }
+
                     }
-
                 }
-
+                
                 isOpen = !isOpen;
-                invSlotsItems.Remove(invSlotsItems[selectedItem]);
+                if (invSlotsItems[selectedItem].name != "Fire Rune" || invSlotsItems[selectedItem].name != "Ice Rune")
+                {
+                    invSlotsItems.Remove(invSlotsItems[selectedItem]);
+                }
                 StopCoroutine(positioningCoroutine);
                 positioningCoroutine = StartCoroutine(MoveOut());
             } else

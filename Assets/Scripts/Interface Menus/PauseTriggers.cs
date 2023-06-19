@@ -25,9 +25,14 @@ public class PauseTriggers : EventTrigger, IPointerClickHandler
                 pauseScreen.mainGroupSelectionIndex = 1;
                 break;
 
-            case "PauseExitGame":
+            case "PauseTitle":
 
                 pauseScreen.mainGroupSelectionIndex = 2;
+                break;
+
+            case "PauseExitGame":
+
+                pauseScreen.mainGroupSelectionIndex = 3;
                 break;
 
             // ----------------------- Options

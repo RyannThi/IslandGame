@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
@@ -155,7 +156,7 @@ public class PauseManager : MonoBehaviour
             if (ck.Player.ForwardBack.WasPressedThisFrame())
             {
                 audioSource.PlayOneShot(buttonMove);
-                mainGroupSelectionIndex = (int)Wrap(mainGroupSelectionIndex - (int)ck.Player.ForwardBack.ReadValue<float>(), 0, 3);
+                mainGroupSelectionIndex = (int)Wrap(mainGroupSelectionIndex - (int)ck.Player.ForwardBack.ReadValue<float>(), 0, 4);
             }
 
             // Confirmar a seleção
@@ -181,6 +182,20 @@ public class PauseManager : MonoBehaviour
                         break;
 
                     case 2:
+
+                        StopCoroutine(fadeOutCoroutine);
+                        fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
+                        if (ScreenTransition.instance != null)
+                        {
+                            StartCoroutine(ScreenTransition.instance.GoToScene("MainMenu", true));
+                        }
+                        else
+                        {
+                            SceneManager.LoadScene("MainMenu");
+                        }
+                        break;
+
+                    case 3:
 
                         StopCoroutine(fadeOutCoroutine);
                         fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
