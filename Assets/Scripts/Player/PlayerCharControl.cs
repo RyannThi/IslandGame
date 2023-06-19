@@ -396,6 +396,7 @@ public class PlayerCharControl : MonoBehaviour
         
         characterHealth -= damage / resistance;
         PlayerStats.instance.UpdateHealthGauge(Mathf.Abs(damage) * -1);
+
         if(characterHealth <= 0)
         {
             Instantiate(gameOverDebug);

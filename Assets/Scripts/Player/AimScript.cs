@@ -182,7 +182,7 @@ public class AimScript : MonoBehaviour
 
         Vector2 screnCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screnCenterPoint);
-        if (Physics.Raycast(ray, out RaycastHit hit, 20f, ~7))
+        if (Physics.Raycast(ray, out RaycastHit hit, 30f, ~7))
         {
             //Debug.Log("HIT RAY");
             if(aimObject != null)
