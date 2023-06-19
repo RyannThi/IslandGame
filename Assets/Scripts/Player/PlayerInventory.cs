@@ -188,7 +188,7 @@ public class PlayerInventory : MonoBehaviour
             if (invSlotsChild[selectedItem].activeSelf == true)
             {
                 audioSource.PlayOneShot(buttonConfirm);
-                if (invSlotsItems[selectedItem].name != "Fire Rune" || invSlotsItems[selectedItem].name != "Ice Rune")
+                if (invSlotsItems[selectedItem].name != "Fire Rune" && invSlotsItems[selectedItem].name != "Ice Rune")
                 {
                     if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out Iitem item))
                     {
@@ -212,7 +212,7 @@ public class PlayerInventory : MonoBehaviour
 
                             case "Health Potion":
 
-                                Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
+                                Destroy(invSlotsChild[selectedItem].GetComponent<HealthPotion>());
                                 break;
 
                             case "Heavy Snowball":
@@ -225,7 +225,7 @@ public class PlayerInventory : MonoBehaviour
                 }
                 
                 isOpen = !isOpen;
-                if (invSlotsItems[selectedItem].name != "Fire Rune" || invSlotsItems[selectedItem].name != "Ice Rune")
+                if (invSlotsItems[selectedItem].name != "Fire Rune" && invSlotsItems[selectedItem].name != "Ice Rune")
                 {
                     invSlotsItems.Remove(invSlotsItems[selectedItem]);
                 }
