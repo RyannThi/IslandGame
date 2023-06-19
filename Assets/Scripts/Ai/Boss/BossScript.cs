@@ -105,6 +105,18 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
     [Header("SFX")]
     [SerializeField]
     private AudioSource victorySound;
+    [SerializeField]
+    private AudioSource stalactiteSfx;
+    [SerializeField]
+    private AudioSource projectileSfx;
+    [SerializeField]
+    private AudioSource iceArrowSfx;
+    [SerializeField]
+    private AudioSource spinSfx;
+    [SerializeField]
+    private AudioSource summonSfx;
+    [SerializeField]
+    private AudioSource fireMissileSfx;
 
     private BossScript()
     {
@@ -436,11 +448,14 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         anim.SetBool("Rock Start", true);
         // GEO       
         yield return new WaitForSeconds(2);
+        
 
             for(int i = 0; i < 3; i++)
             {
                 Instantiate(stalactite, playerTransform.position + new Vector3(0,20,0),Quaternion.identity);
+                stalactiteSfx.Play();
                 yield return new WaitForSeconds(3f);
+                stalactiteSfx.Stop();
             }
 
         anim.SetBool("Rock Start", false);
@@ -467,6 +482,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         //Indicada o range
         anim.SetTrigger("Spin Start"); 
         yield return new WaitForSeconds(3);
+        spinSfx.Play();
         anim.SetBool("Spinning", true);
 
         //Faz animação
@@ -485,6 +501,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         
         //Desabilita o indicador de range
         yield return new WaitForSeconds(5f);
+        spinSfx.Stop();
 
         anim.SetBool("Spinning", false);
 
@@ -505,7 +522,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         BossStates stateToChange = BossStates.Attack03;
         yield return new WaitForSeconds(1);
         //FIRE
-
+            
         
             for(int i = 0; i < 3; i++)
             {
@@ -515,8 +532,10 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
                 {
                     missile.transform.position = transform.position + Vector3.up * 10 + Vector3.left * 2;
                     missile.SetActive(true);
-                }                
+                }
+                fireMissileSfx.Play();
                 yield return new WaitForSeconds(3);
+                fireMissileSfx.Stop();
             }
                        
 
@@ -563,6 +582,8 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
                 FastProjectileScript script = projectile.gameObject.GetComponent<FastProjectileScript>();
                 script.SetPlayerDirection(playerTransform.position);
                 yield return new WaitForSeconds(2f);
+                if(!projectileSfx.isPlaying)
+                    projectileSfx.Play();
 
                 projectile.SetActive(true);
             }
@@ -591,6 +612,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         anim.SetBool("Rune Start", true);
         BossStates stateToChange = BossStates.Attack05;
         yield return new WaitForSeconds(4);
+        iceArrowSfx.Play();
         float pos = -3f;
 
         //ICE
@@ -635,6 +657,9 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         //Start
         anim.SetTrigger("Summon");
         yield return new WaitForSeconds(4);
+
+        if (!summonSfx.isPlaying)
+            summonSfx.Play();
         BossStates stateToChange = BossStates.Idle;
         for(int i = 0; i < 3 ; i++)
         {
@@ -660,6 +685,9 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         //Start
         anim.SetTrigger("Summon");
         yield return new WaitForSeconds(4);
+
+        if(!summonSfx.isPlaying)
+            summonSfx.Play();
         BossStates stateToChange = BossStates.Invoking02;
 
         for (int i = 0; i < 3; i++)
@@ -686,6 +714,9 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         yield return new WaitForSeconds(4);
         BossStates stateToChange = BossStates.Invoking03;
 
+        if (!summonSfx.isPlaying)
+            summonSfx.Play();
+
         for (int i = 0; i < 3; i++)
         {
             Instantiate(geoMinion, transform.position + Vector3.forward * 10, Quaternion.identity);
@@ -709,6 +740,9 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         anim.SetTrigger("Summon");
         yield return new WaitForSeconds(4);
         BossStates stateToChange = BossStates.Invoking04;
+
+        if (!summonSfx.isPlaying)
+            summonSfx.Play();
 
         for (int i = 0; i < 3; i++)
         {
