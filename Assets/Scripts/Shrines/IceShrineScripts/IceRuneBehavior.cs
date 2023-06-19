@@ -27,6 +27,7 @@ public class IceRuneBehavior : MonoBehaviour
     {
         if (ck.Player.Interact.WasPressedThisFrame() && Vector3.Distance(transform.position, PlayerCharControl.instance.transform.position) < 5)
         {
+            PlayerCharControl.instance.SetIceKey(true);
             PlayerInventory.instance.AddItem("Ice Rune");
             Destroy(gameObject);
             ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));

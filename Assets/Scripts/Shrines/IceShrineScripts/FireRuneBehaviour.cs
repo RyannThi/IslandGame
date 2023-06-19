@@ -27,6 +27,7 @@ public class FireRuneBehaviour : MonoBehaviour
     {
         if (ck.Player.Interact.WasPressedThisFrame() && Vector3.Distance(transform.position, PlayerCharControl.instance.transform.position) < 5)
         {
+            PlayerCharControl.instance.SetFireKey(true);
             PlayerInventory.instance.AddItem("Fire Rune");
             Destroy(gameObject);
             ScreenTransition.instance.StartCoroutine(ScreenTransition.instance.GoToScene("MainScene"));
