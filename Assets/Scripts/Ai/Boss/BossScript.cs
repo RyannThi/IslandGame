@@ -136,7 +136,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         
 
-        health = 300;
+        health = 150;
 
         foreach (Transform obj in FindObjectsOfType<Transform>())
         {
