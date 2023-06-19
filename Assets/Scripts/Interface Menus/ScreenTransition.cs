@@ -31,8 +31,7 @@ public class ScreenTransition : MonoBehaviour
         }
         if (sceneName == "MainMenu" || sceneName == "Credits")
         {
-            Destroy(GameObject.Find("PlayerCharacter"));
-            Destroy(GameObject.Find("DialogueManager"));
+            Destroy(GameObject.Find("Dont Destroy On Load"));
         }
 
         Debug.Log(sceneName);
