@@ -136,7 +136,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         
 
-        health = 150;
+        health = 300;
 
         foreach (Transform obj in FindObjectsOfType<Transform>())
         {
@@ -373,11 +373,11 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         yield return new WaitForSeconds(2);
 
         //attack = 5;
-        if (health >= 2 * health / 3)
+        if (health >= 200)
             attack = Random.Range(1, 6);
-        else if (health < 2 * health / 3)
+        else if (health < 200 && health >= 100)
             attack = Random.Range(6, 10);
-        else if (health < health / 3)
+        else if (health < 100)
             attack = Random.Range(1, 10);
 
 
@@ -466,11 +466,12 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
+
 
             yield return new WaitForEndOfFrame();
         }
-    }
+            ChangeState(stateToChange);
+        }
     
     IEnumerator Attack02()
     {
@@ -509,10 +510,11 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
+            
 
             yield return new WaitForEndOfFrame();
         }
+            ChangeState(stateToChange);
     }
 
     IEnumerator Attack03()
@@ -549,10 +551,10 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
-
+            
             yield return new WaitForEndOfFrame();
         }
+        ChangeState(stateToChange);
     }
 
     IEnumerator Attack04()
@@ -601,10 +603,9 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         anim.SetBool("Rune Start", false);
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
-
             yield return new WaitForEndOfFrame();
         }
+        ChangeState(stateToChange);
     }
 
     IEnumerator Attack05()
@@ -641,11 +642,10 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
-
             yield return new WaitForEndOfFrame();
         }
-        
+        ChangeState(stateToChange);
+
     }
     #endregion
 
@@ -671,13 +671,12 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         //Exit
 
-
+        anim.SetTrigger("Summon");
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
-
             yield return new WaitForEndOfFrame();
         }
+        ChangeState(stateToChange);
     }
 
     IEnumerator Invoking02()
@@ -688,7 +687,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
 
         if(!summonSfx.isPlaying)
             summonSfx.Play();
-        BossStates stateToChange = BossStates.Invoking02;
+        BossStates stateToChange = BossStates.Idle;
 
         for (int i = 0; i < 3; i++)
         {
@@ -698,13 +697,12 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         }
         //Exit
 
-
+        anim.SetTrigger("Summon");
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
-
             yield return new WaitForEndOfFrame();
         }
+        ChangeState(stateToChange);
     }
 
     IEnumerator Invoking03()
@@ -712,7 +710,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         //Start
         anim.SetTrigger("Summon");
         yield return new WaitForSeconds(4);
-        BossStates stateToChange = BossStates.Invoking03;
+        BossStates stateToChange = BossStates.Idle;
 
         if (!summonSfx.isPlaying)
             summonSfx.Play();
@@ -725,13 +723,12 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         }
         //Exit
 
-
+        anim.SetTrigger("Summon");
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
-
             yield return new WaitForEndOfFrame();
         }
+        ChangeState(stateToChange);
     }
 
     IEnumerator Invoking04()
@@ -739,7 +736,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         //Start
         anim.SetTrigger("Summon");
         yield return new WaitForSeconds(4);
-        BossStates stateToChange = BossStates.Invoking04;
+        BossStates stateToChange = BossStates.Idle;
 
         if (!summonSfx.isPlaying)
             summonSfx.Play();
@@ -752,13 +749,12 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         }
         //Exit
 
-
+        anim.SetTrigger("Summon");
         while (!animState.IsName("Fight_Idle"))
         {
-            ChangeState(stateToChange);
-
             yield return new WaitForEndOfFrame();
         }
+        ChangeState(stateToChange);
     }
     #endregion
     IEnumerator WeakState()
@@ -783,6 +779,7 @@ public class BossScript : MonoBehaviour, IDamage, IHealth
         //Start        
         BossStates stateToChange = BossStates.Die;
         victorySound.Play();
+        mesh.enabled = false;
         //Die anim
         yield return new WaitForSeconds(7);
         victorySound.Stop();
