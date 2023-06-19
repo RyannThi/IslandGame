@@ -191,6 +191,7 @@ public class TitleScreen : MonoBehaviour
                 {
                     case 0:
 
+                        Cursor.lockState = CursorLockMode.Locked;
                         StopCoroutine(fadeOutCoroutine);
                         fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
                         StartCoroutine(StartGame());

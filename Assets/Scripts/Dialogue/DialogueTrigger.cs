@@ -21,31 +21,20 @@ public class DialogueTrigger : MonoBehaviour
     }
     void Update()
     {
-        if (playerClose && (ck.Player.Interact.WasPressedThisFrame() || ck.Player.Confirm.WasPressedThisFrame()))
+        if (Vector3.Distance(transform.position, PlayerCharControl.instance.transform.position) < 5 && (ck.Player.Interact.WasPressedThisFrame() || ck.Player.Confirm.WasPressedThisFrame()))
         {
-            TriggerDialogue();
+            if (DialogueManager.instance.Panel.activeSelf == false && DialogueManager.instance.timer <= 0)
+            {
+                TriggerDialogue();
+            }
         }
     }
     
     public void TriggerDialogue()
     {
        
-       manager.StartDialogue(dialogue);
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            playerClose = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            playerClose = false;
-        }
+        manager.StartDialogue(dialogue);
+        Cursor.lockState = CursorLockMode.None;
     }
 
 }

@@ -131,12 +131,14 @@ public class PauseManager : MonoBehaviour
         {
             if (mainGroupInteract == false)
             {
+                Cursor.lockState = CursorLockMode.None;
                 audioSource.PlayOneShot(buttonConfirm);
                 StopCoroutine(fadeOutCoroutine);
                 fadeInCoroutine = StartCoroutine(FadeInGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
                 Time.timeScale = 0f;
             } else if (mainGroupInteract == true && optionsGroupInteract == false)
             {
+                Cursor.lockState = CursorLockMode.Locked;
                 StopCoroutine(fadeOutCoroutine);
                 fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
                 Time.timeScale = 1f;
@@ -164,6 +166,7 @@ public class PauseManager : MonoBehaviour
                 {
                     case 0:
 
+                        Cursor.lockState = CursorLockMode.Locked;
                         StopCoroutine(fadeOutCoroutine);
                         fadeOutCoroutine = StartCoroutine(FadeOutGroup(mainGroup, mainGroupCanvasGroup, mainGroupInteract, (value) => mainGroupInteract = value));
                         Time.timeScale = 1f;

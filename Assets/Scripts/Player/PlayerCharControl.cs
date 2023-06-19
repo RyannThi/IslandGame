@@ -37,7 +37,7 @@ public class PlayerCharControl : MonoBehaviour
     [SerializeField]
     private float characterSpeedModifierTimer = 0f;
 
-    private float jumpForce = 1f; // força do pulo do player,
+    private float jumpForce = 1.4f; // força do pulo do player,
 
     public State currentState;
     public bool combatMode = false;
@@ -329,6 +329,13 @@ public class PlayerCharControl : MonoBehaviour
             }
             else
             {
+                if (isGrounded)
+                {
+                    Vector3 rbtemp = rb.velocity;
+                    rbtemp.x = 0;
+                    rbtemp.z = 0;
+                    rb.velocity = rbtemp;
+                }
                 animator.SetBool("WALK", false);
                 walkSfx.Stop();
                 sfxOnce = false;

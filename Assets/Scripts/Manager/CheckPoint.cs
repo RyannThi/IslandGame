@@ -5,6 +5,7 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
     private ControlKeys ck;
+    public GameObject savePopup;
 
     private void Awake() { ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
@@ -18,11 +19,8 @@ public class CheckPoint : MonoBehaviour
             {
                 Debug.Log("Save");
                 SaveInfo.instance.SetSaveInfo();
+                Instantiate(savePopup);
             }
         }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        
     }
 }
