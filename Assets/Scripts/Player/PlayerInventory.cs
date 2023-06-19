@@ -94,6 +94,8 @@ public class PlayerInventory : MonoBehaviour
     public bool isOpen; // flag para indicar se o inventário está aberto
     public bool hasClicked = false; // flag para indicar se o mouse foi pressionado
 
+    GameObject holderObj;
+
     private void Awake() { DontDestroyOnLoad(gameObject); ck = new ControlKeys(); }
     private void OnEnable() { ck.Enable(); }
     private void OnDisable() { ck.Disable(); }
@@ -190,37 +192,59 @@ public class PlayerInventory : MonoBehaviour
                 audioSource.PlayOneShot(buttonConfirm);
                 if (invSlotsItems[selectedItem].name != "Fire Rune" && invSlotsItems[selectedItem].name != "Ice Rune")
                 {
-                    if (invSlotsChild[selectedItem].TryGetComponent<Iitem>(out Iitem item))
+                    switch (invSlotsItems[selectedItem].name)
                     {
-                        item.UseItem(PlayerCharControl.instance.gameObject);
-                        switch (invSlotsItems[selectedItem].name)
-                        {
-                            case "Speed Potion":
+                        case "Speed Potion":
 
-                                Destroy(invSlotsChild[selectedItem].GetComponent<SpeedPotion>());
-                                break;
+                            PlayerCharControl.instance.GetComponent<PlayerCharControl>().ChangeCharacterSpeed(1.5f, 15);
+                            break;
 
-                            case "Damage Potion":
+                        case "Damage Potion":
 
-                                Destroy(invSlotsChild[selectedItem].GetComponent<DamagePotion>());
-                                break;
+                            PlayerCharControl.instance.GetComponent<AimScript>().SetDamageModifier(2, 10);
+                            break;
 
-                            case "Resistance Potion":
+                        case "Resistance Potion":
 
-                                Destroy(invSlotsChild[selectedItem].GetComponent<ResistancePotion>());
-                                break;
+                            PlayerCharControl.instance.GetComponent<PlayerCharControl>().Resistance(2, 10);
+                            break;
 
-                            case "Health Potion":
+                        case "Health Potion":
 
-                                Destroy(invSlotsChild[selectedItem].GetComponent<HealthPotion>());
-                                break;
+                            float healAmount = 40;
+                            if (PlayerCharControl.instance.GetComponent<PlayerCharControl>().GetHealth() + healAmount > 100)
+                            {
+                                float excedingAmount = (PlayerCharControl.instance.GetComponent<PlayerCharControl>().GetHealth() + 30) - 100;
+                                healAmount -= excedingAmount;
+                            }
 
-                            case "Heavy Snowball":
+                            PlayerCharControl.instance.GetComponent<PlayerCharControl>().HealHealth(healAmount);
+                            break;
 
-                                Destroy(invSlotsChild[selectedItem].GetComponent<HeavySnowball>());
-                                break;
-                        }
+                        case "Heavy Snowball":
 
+                            GameObject[] holderList = FindGameObjectsByName("BallHolder");
+
+                            float distance = 9999;
+                            foreach (GameObject holder in holderList)
+                            {
+                                var holderDist = Vector3.Distance(PlayerCharControl.instance.transform.position, holder.transform.position);
+                                if (holderDist < distance)
+                                {
+                                    distance = holderDist;
+                                    holderObj = holder;
+                                }
+                            }
+                            if (holderObj.transform.GetChild(0).gameObject.activeSelf == false)
+                            {
+                                holderObj.transform.GetChild(0).gameObject.SetActive(true);
+                                holderObj.GetComponent<BallHolderBehavior>().timer = 0.1f;
+                            }
+                            else
+                            {
+                                PlayerInventory.instance.AddItem("Heavy Snowball");
+                            }
+                            break;
                     }
                 }
                 
@@ -534,5 +558,10 @@ public class PlayerInventory : MonoBehaviour
         Transform[] ts = _fromGameObject.transform.GetComponentsInChildren<Transform>(true);
         foreach (Transform t in ts) if (t.gameObject.name == _withName) return t.gameObject;
         return null;
+    }
+
+    private GameObject[] FindGameObjectsByName(string name)
+    {
+        return System.Array.FindAll((FindObjectsOfType(typeof(GameObject)) as GameObject[]), p => p.name == name);
     }
 }
